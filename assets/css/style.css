@@ -285,6 +285,25 @@ section p { margin: 0 0 12px; }
   margin: -6px 0 16px;
 }
 
+/* ---------- Book cover (in Patents & Books) ---------- */
+.flat-list li.with-cover {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.flat-list li.with-cover:last-child { border-bottom: none; }
+.flat-list li.with-cover .book-img { flex-shrink: 0; }
+.flat-list li.with-cover .book-img img {
+  width: 72px;
+  height: auto;
+  display: block;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.flat-list li.with-cover .book-body { flex: 1; }
+
 /* ---------- Awards / Service simple list ---------- */
 .flat-list {
   list-style: none;
