@@ -1,0 +1,351 @@
+/* Jon-Barron-inspired single-page academic homepage
+ * Yixin Chen — https://yixinchen-ai.github.io
+ */
+
+:root {
+  --fg: #222;
+  --fg-muted: #555;
+  --fg-subtle: #888;
+  --bg: #fff;
+  --link: #1772d0;
+  --link-hover: #f09228;
+  --accent: #b21c1c;
+  --rule: #e5e5e5;
+  --hl-bg: #fff8e1;
+  --max-w: 860px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Charter", "Cambria", "Georgia", "Source Serif Pro", "Songti SC", "Noto Serif CJK SC", serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color .12s ease;
+}
+a:hover { color: var(--link-hover); }
+
+main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 36px 28px 80px;
+}
+
+/* ---------- Top bar (lang switch) ---------- */
+.topbar {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 14px 28px 0;
+  text-align: right;
+  font-size: 14px;
+  color: var(--fg-subtle);
+  font-family: "Lato", "Helvetica Neue", Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.topbar a { color: var(--fg-subtle); }
+.topbar a.active { color: var(--fg); font-weight: 600; }
+
+/* ---------- Hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 36px;
+}
+.hero .avatar {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+.hero .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero .info h1 {
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.hero .info .name-zh {
+  font-size: 18px;
+  color: var(--fg-muted);
+  font-weight: 400;
+  margin-left: 8px;
+}
+.hero .info .affiliation {
+  margin: 4px 0 12px;
+  font-size: 16px;
+  color: var(--fg-muted);
+}
+.hero .info .affiliation .field {
+  display: block;
+  font-size: 15px;
+  color: var(--fg-subtle);
+  margin-top: 2px;
+}
+.hero .info .contact {
+  font-size: 14px;
+  color: var(--fg-muted);
+  margin-top: 10px;
+  font-family: "Lato", "Helvetica Neue", Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.hero .info .contact span { white-space: nowrap; }
+.hero .info .contact .sep { color: var(--fg-subtle); margin: 0 6px; }
+
+/* ---------- Sections ---------- */
+section { margin-bottom: 36px; }
+
+h2 {
+  font-family: "Lato", "Helvetica Neue", Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  letter-spacing: 0.02em;
+}
+
+section p { margin: 0 0 12px; }
+
+/* ---------- News list ---------- */
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.news-list li {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.news-list li:last-child { border-bottom: none; }
+.news-list .date {
+  color: var(--fg-subtle);
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13px;
+  padding-top: 2px;
+}
+
+/* ---------- Timeline (Education / Experience) ---------- */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.timeline li {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  padding: 8px 0;
+}
+.timeline .when {
+  color: var(--fg-subtle);
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+}
+.timeline .what .org {
+  font-weight: 600;
+  color: var(--fg);
+}
+.timeline .what .role {
+  color: var(--fg-muted);
+  font-size: 15px;
+}
+
+/* ---------- Project cards (Ongoing Work) ---------- */
+.projects {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.proj {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.proj:last-child { border-bottom: none; }
+.proj .tag {
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-top: 3px;
+}
+.proj .body .title {
+  font-weight: 600;
+  color: var(--fg);
+}
+.proj .body .desc {
+  font-size: 15px;
+  color: var(--fg-muted);
+  margin-top: 2px;
+}
+
+/* ---------- Publications ---------- */
+.pub-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.pub {
+  display: block;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.pub:last-child { border-bottom: none; }
+.pub.highlight { background: var(--hl-bg); padding: 10px; border-radius: 4px; border-bottom: 1px solid var(--rule); }
+
+.pub .thumb { display: none; }
+.pub .meta .ptitle {
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 4px;
+  display: block;
+}
+.pub .meta .authors {
+  font-size: 14.5px;
+  color: var(--fg-muted);
+  margin-bottom: 4px;
+}
+.pub .meta .authors .me { font-weight: 700; color: var(--fg); }
+.pub .meta .venue {
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--fg-muted);
+  margin-bottom: 4px;
+}
+.pub .meta .venue .v-name { font-weight: 600; font-style: normal; color: var(--accent); }
+.pub .meta .links {
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.pub .meta .links a {
+  margin-right: 12px;
+}
+.pub .meta .citations {
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  color: var(--fg-subtle);
+  margin-top: 2px;
+}
+
+/* ---------- Publication 3-point abstract ---------- */
+.pub-abstract {
+  font-size: 14px;
+  color: var(--fg-muted);
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 2px solid var(--rule);
+  line-height: 1.55;
+}
+.pub-abstract .ab-item {
+  display: block;
+  margin: 3px 0;
+}
+.pub-abstract .ab-label {
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 8px;
+}
+.cite-welcome {
+  font-size: 14px;
+  color: var(--fg-subtle);
+  font-style: italic;
+  margin: -6px 0 16px;
+}
+
+/* ---------- Awards / Service simple list ---------- */
+.flat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.flat-list li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--rule);
+  font-size: 15.5px;
+}
+.flat-list li:last-child { border-bottom: none; }
+.flat-list li .when {
+  color: var(--fg-subtle);
+  font-family: "Lato", sans-serif;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--fg-subtle);
+  text-align: center;
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+}
+footer a { color: var(--fg-subtle); }
+footer .icons { margin-bottom: 8px; font-size: 14px; }
+footer .icons a { margin: 0 8px; }
+
+/* ---------- Portrait modal (click avatar / link → full body) ---------- */
+.portrait-link {
+  display: block;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--fg-subtle);
+  font-family: "Lato", sans-serif;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  main { padding: 24px 18px 60px; }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    text-align: center;
+  }
+  .hero .avatar {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+  }
+  .hero .info h1 { font-size: 24px; }
+  .timeline li { grid-template-columns: 1fr; gap: 2px; }
+  .timeline .when { font-size: 13px; }
+  .proj { grid-template-columns: 1fr; gap: 4px; }
+  /* .pub already block, no overrides needed */
+  .news-list li { grid-template-columns: 80px 1fr; gap: 8px; }
+}
