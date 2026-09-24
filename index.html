@@ -3,16 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yixin Chen — Medical Imaging AI · Peking University</title>
-<meta name="description" content="Yixin Chen — PhD candidate at Peking University working on medical imaging foundation models, domain adaptation, and multimodal disease modeling.">
+<title>Yixin Chen | Medical Imaging AI | Peking University</title>
+<meta name="description" content="Yixin Chen is a PhD candidate at Peking University researching medical image segmentation, PET/CT analysis, and cross-modality adaptation.">
 <meta name="author" content="Yixin Chen">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yixin Chen | Medical Imaging AI">
+<meta property="og:description" content="PhD candidate at Peking University working on medical image segmentation, PET/CT analysis, and cross-modality adaptation.">
+<meta property="og:url" content="https://yixinchen-ai.github.io/">
+<meta property="og:image" content="https://yixinchen-ai.github.io/assets/img/avatar.png">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://yixinchen-ai.github.io/">
+<link rel="alternate" hreflang="zh-CN" href="https://yixinchen-ai.github.io/index.zh.html">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
 </head>
 <body>
 
 <div class="topbar">
-  <a href="index.html" class="active">EN</a> · <a href="index.zh.html">中文</a>
+  <a href="index.html" class="active">EN</a> | <a href="index.zh.html">中文</a>
 </div>
 
 <main>
@@ -28,20 +36,18 @@
     <h1>Yixin Chen <span class="name-zh">陈亦新</span></h1>
     <div class="affiliation">
       PhD Candidate, Peking University
-      <span class="field">Medical Imaging AI · Foundation Models · Domain Adaptation</span>
+      <span class="field">Medical imaging AI | PET/CT | Foundation models</span>
     </div>
     <div class="contact">
-      <span>2311110791 [at] stu.pku.edu.cn</span>
-      <span class="sep">·</span>
-      <span>yixinchen0320 [at] gmail.com</span>
+      <a href="mailto:yixinchen0320@gmail.com">yixinchen0320@gmail.com</a>
+      <span class="sep">|</span>
+      <a href="mailto:2311110791@stu.pku.edu.cn">PKU email</a>
       <br>
-      <a href="https://scholar.google.com/citations?hl=en&user=ymfVoFwAAAAJ">Google&nbsp;Scholar</a>
-      <span class="sep">·</span>
+      <a href="https://scholar.google.com/citations?hl=en&amp;user=ymfVoFwAAAAJ">Google&nbsp;Scholar</a>
+      <span class="sep">|</span>
       <a href="https://orcid.org/0000-0002-2727-6387">ORCID</a>
-      <span class="sep">·</span>
+      <span class="sep">|</span>
       <a href="https://github.com/YixinChen-AI">GitHub</a>
-      <span class="sep">·</span>
-      <a href="https://www.semanticscholar.org/author/Yixin-Chen/">Semantic&nbsp;Scholar</a>
     </div>
   </div>
 </section>
@@ -49,34 +55,54 @@
 <!-- ============== ABOUT ============== -->
 <section id="about">
   <p>
-    I am a third-year PhD candidate at <a href="https://www.pku.edu.cn">Peking University</a>,
-    working on <strong>medical imaging foundation models</strong> across modalities
-    (PET, MRI, CT, ultrasound) and diseases (Alzheimer&rsquo;s, cancer, cardiac, MASLD).
-    My research moves from <em>cross-modality domain adaptation</em> (FVP, PCNet) toward
-    <em>universal segmentation</em> and <em>multimodal foundation models</em> at scale.
+    I am a PhD candidate at <a href="https://www.pku.edu.cn">Peking University</a>.
+    I develop medical imaging methods across PET, CT, and MRI, with work on
+    <strong>universal segmentation</strong>, cross-modality adaptation, and
+    interactive PET/CT lesion segmentation. I also study metabolic patterns in
+    total-body PET/CT.
   </p>
   <p>
-    I have published <strong>11 peer-reviewed papers</strong> in venues including
-    <em>Nature Communications</em>, <em>IEEE TMI</em> (&times;2), MICCAI, and <em>IEEE TRPMS</em>.
-    My most recent work, <strong>MPUM</strong>
-    (<a href="https://www.nature.com/articles/s41467-025-64469-w"><em>Nature Communications</em>, 2025</a>),
-    introduces a modality-projection universal model that segments 215+ anatomical
-    structures across full-body CT, MRI and PET from a single network trained on 33K+ scans.
-    My doctoral research is supported by the <strong>NSFC Doctoral Research Project</strong>.
+    My work has appeared in <em>Nature Communications</em>, <em>IEEE Transactions
+    on Medical Imaging</em>, and MICCAI. I lead an NSFC-funded doctoral project
+    on total-body PET/CT metabolic analysis. I welcome conversations about
+    research collaborations and clinical imaging applications.
   </p>
-  <p>
-    Before PKU I worked on clinical AI at <a href="https://www.biomind.ai">BioMind</a>
-    (2020&ndash;2022) and <a href="https://www.airdoc.com">AirDoc</a> (2022).
-    I earned an MSc with <strong>Distinction</strong> in Informatics from
-    <a href="https://www.kcl.ac.uk">King&rsquo;s College London</a> (2019&ndash;2020),
-    and a BSc in Automation from <a href="https://www.xmu.edu.cn">Xiamen University</a> (2015&ndash;2019).
-  </p>
+</section>
+
+<section id="selected-work">
+  <h2>Selected work</h2>
+  <div class="projects">
+    <article class="proj">
+      <span class="tag">autoPET V, 2026</span>
+      <div class="body">
+        <div class="title">Interactive PET/CT lesion segmentation</div>
+        <div class="desc">Our team was invited to present a top submission at the MICCAI 2026 autoPET workshop. The method combines learned local edits with prompt-based threshold updates.</div>
+        <div class="project-links"><a href="https://github.com/YixinChen-AI/autopet-v">Code and method</a></div>
+      </div>
+    </article>
+    <article class="proj">
+      <span class="tag">Nature Communications, 2025</span>
+      <div class="body">
+        <div class="title">MPUM: one segmentation model across CT, MRI, and PET</div>
+        <div class="desc">A modality-projection model for 215 anatomical structures across full-body imaging.</div>
+        <div class="project-links"><a href="https://www.nature.com/articles/s41467-025-64469-w">Paper</a><a href="https://github.com/YixinChen-AI/MPUM">Code</a></div>
+      </div>
+    </article>
+    <article class="proj">
+      <span class="tag">NSFC doctoral project</span>
+      <div class="body">
+        <div class="title">Total-body PET/CT metabolic analysis</div>
+        <div class="desc">Ongoing research on organ-level metabolic features and relationships across organs.</div>
+      </div>
+    </article>
+  </div>
 </section>
 
 <!-- ============== NEWS ============== -->
 <section id="news">
   <h2>News</h2>
   <ul class="news-list">
+    <li><span class="date">2026.09</span><span>Team CYX-AI was selected among the top autoPET V submissions and invited to present at the <a href="https://conferences.miccai.org/2026/files/downloads/MICCAI2026-Satellite-Events-Program.pdf">MICCAI 2026 challenge workshop</a>.</span></li>
     <li><span class="date">2026.01</span><span>Awarded the <strong>NSFC Doctoral Research Project</strong> (2-year doctoral grant, National Natural Science Foundation of China).</span></li>
     <li><span class="date">2025</span><span><strong>MPUM</strong> published in <em>Nature Communications</em> (<a href="https://www.nature.com/articles/s41467-025-64469-w">paper</a>, <a href="https://arxiv.org/abs/2412.19026">arXiv</a>, <a href="https://github.com/YixinChen-AI/MPUM">code</a>).</span></li>
     <li><span class="date">2024</span><span><em>LUCIDA</em> presented at <strong>MICCAI 2024</strong>.</span></li>
@@ -130,11 +156,7 @@
 <!-- ============== PUBLICATIONS ============== -->
 <section id="publications">
   <h2>Publications</h2>
-  <p style="font-size:14px;color:#666">
-    <strong>11 papers</strong> &middot; <strong>Nature Communications &times; 1</strong>, <strong>IEEE TMI &times; 2</strong>, MICCAI &times; 1, IEEE TRPMS &times; 1, Frontiers in Cardiovascular Medicine &times; 2, Cancers &times; 1
-    &middot; <a href="https://scholar.google.com/citations?hl=en&user=ymfVoFwAAAAJ">203 citations, h-index 7</a>
-  </p>
-  <p class="cite-welcome">If my work helps yours, citations are warmly appreciated. &mdash; 如对您的研究有帮助，欢迎引用，万分感谢。</p>
+  <p class="publication-intro">For a current list and citation counts, see <a href="https://scholar.google.com/citations?hl=en&amp;user=ymfVoFwAAAAJ">Google Scholar</a>.</p>
   <div class="pub-list">
 
     <!-- MPUM NC 2025 -->
@@ -149,11 +171,6 @@
           <a href="https://arxiv.org/abs/2412.19026">[arXiv]</a>
           <a href="https://github.com/YixinChen-AI/MPUM">[Code]</a>
         </div>
-        <div class="pub-abstract">
-          <span class="ab-item"><span class="ab-label">Problem</span>Medical image segmentation models are typically modality- or region-specific, unable to generalize across CT, MRI, and PET in one unified framework.</span>
-          <span class="ab-item"><span class="ab-label">Method</span>A modality-projection mechanism aligns heterogeneous inputs to a shared representation; a single network segments 215+ anatomical structures, pre-trained on 33K+ multi-modal scans.</span>
-          <span class="ab-item"><span class="ab-label">Impact</span>An open-source full-body medical imaging foundation model with zero-shot transfer to unseen modalities and tasks, lowering the cost of deploying segmentation AI in hospitals.</span>
-        </div>
       </div>
     </div>
 
@@ -166,12 +183,6 @@
         <div class="venue"><span class="v-name">IEEE Transactions on Medical Imaging</span>, 2023</div>
         <div class="links">
           <a href="https://doi.org/10.1109/TMI.2023.3306105">[DOI]</a>
-        </div>
-        <div class="citations">71 citations</div>
-        <div class="pub-abstract">
-          <span class="ab-item"><span class="ab-label">Problem</span>In source-free unsupervised domain adaptation (SFUDA) for medical segmentation, the model cannot access source data and target data is unlabeled &mdash; the common reality in hospitals.</span>
-          <span class="ab-item"><span class="ab-label">Method</span>Fourier Visual Prompting (FVP): a small learnable prompt added to the Fourier amplitude spectrum of target images, so the frozen source model performs well on the target domain without any retraining.</span>
-          <span class="ab-item"><span class="ab-label">Impact</span>Lightweight, source-data-free adaptation that respects medical data privacy and works as plug-and-play for off-the-shelf segmentation models in cross-center deployment.</span>
         </div>
       </div>
     </div>
@@ -187,12 +198,6 @@
           <a href="https://doi.org/10.1109/TMI.2024.3395349">[DOI]</a>
           <a href="https://github.com/YixinChen-AI/PCNet">[Code]</a>
         </div>
-        <div class="citations">17 citations</div>
-        <div class="pub-abstract">
-          <span class="ab-item"><span class="ab-label">Problem</span>CT segmentation models trained per-task or per-organ struggle to scale to universal multi-organ settings.</span>
-          <span class="ab-item"><span class="ab-label">Method</span>Prior Category Network (PCNet) injects organ-category priors into the decoder, enabling a single network to predict any organ within a universal label space.</span>
-          <span class="ab-item"><span class="ab-label">Impact</span>A practical universal CT segmentation backbone that handles dozens of organ classes from one model, reducing the engineering cost of clinical multi-task segmentation pipelines.</span>
-        </div>
       </div>
     </div>
 
@@ -203,12 +208,7 @@
         <span class="ptitle">LUCIDA: Low-dose universal-tissue CT image domain adaptation for medical segmentation</span>
         <div class="authors"><span class="me">Yixin Chen</span>, et al.</div>
         <div class="venue">MICCAI, 2024</div>
-        <div class="citations">8 citations</div>
-        <div class="pub-abstract">
-          <span class="ab-item"><span class="ab-label">Problem</span>Low-dose CT is essential for reducing radiation exposure but noise degrades segmentation accuracy, and models trained on standard-dose CT transfer poorly.</span>
-          <span class="ab-item"><span class="ab-label">Method</span>LUCIDA: a low-dose universal-tissue CT image domain adaptation framework that aligns low-dose to standard-dose representations across multiple tissues without paired data.</span>
-          <span class="ab-item"><span class="ab-label">Impact</span>Enables accurate multi-tissue segmentation on low-dose CT, supporting safer clinical screening workflows.</span>
-        </div>
+        <div class="links"><a href="https://doi.org/10.1007/978-3-031-72111-3_37">[Paper]</a></div>
       </div>
     </div>
 
@@ -222,12 +222,6 @@
         <div class="links">
           <a href="https://doi.org/10.1109/TRPMS.2024.3391285">[DOI]</a>
         </div>
-        <div class="citations">5 citations</div>
-        <div class="pub-abstract">
-          <span class="ab-item"><span class="ab-label">Problem</span>CT-based whole-brain segmentation suffers from domain shift across scanners and protocols, while MRI-based methods cannot transfer directly to CT.</span>
-          <span class="ab-item"><span class="ab-label">Method</span>Structure-Enhanced UDA explicitly leverages anatomical structural priors during adversarial domain alignment between CT and MRI brain images.</span>
-          <span class="ab-item"><span class="ab-label">Impact</span>More robust CT whole-brain segmentation across acquisition conditions, useful when MRI is unavailable (acute stroke, trauma).</span>
-        </div>
       </div>
     </div>
 
@@ -236,9 +230,9 @@
       <div class="thumb">VP-SFDA<br>Visual Prompt SFDA</div>
       <div class="meta">
         <span class="ptitle">VP-SFDA: Visual prompt source-free domain adaptation for cross-modal medical image</span>
-        <div class="authors">et al., <span class="me">Yixin Chen</span>, et al.</div>
+        <div class="authors"><span class="me">Yixin Chen</span>, Yan Wang, Zhaoheng Xie</div>
         <div class="venue">Health Data Science, 2025</div>
-        <div class="citations">5 citations</div>
+        <div class="links"><a href="https://doi.org/10.34133/hds.0143">[Paper]</a></div>
       </div>
     </div>
 
@@ -249,7 +243,6 @@
         <span class="ptitle">MSGAN: Multi-stage generative adversarial networks for cross-modality domain adaptation</span>
         <div class="authors">Yan Wang, <span class="me">Yixin Chen</span>, Wenjun Wang, Haogang Zhu</div>
         <div class="venue">IEEE EMBC, 2022</div>
-        <div class="citations">11 citations</div>
       </div>
     </div>
 
@@ -260,29 +253,26 @@
         <span class="ptitle">A deep learning model system for diagnosis and management of adnexal masses</span>
         <div class="authors">Jianan Li, <span class="me">Yixin Chen</span>, Minyu Zhang, et al.</div>
         <div class="venue">Cancers, 2022</div>
-        <div class="citations">24 citations</div>
       </div>
     </div>
 
     <!-- Echo ASD Front Cardio 2023 -->
     <div class="pub">
-      <div class="thumb">Echo&middot;ASD<br>Atrial Septal Defect</div>
+      <div class="thumb">Echo|ASD<br>Atrial Septal Defect</div>
       <div class="meta">
         <span class="ptitle">Echocardiography-based AI for detection and quantification of atrial septal defect</span>
         <div class="authors">Xixiang Lin, Feifei Yang, <span class="me">Yixin Chen</span>, et al.</div>
         <div class="venue">Frontiers in Cardiovascular Medicine, 2023</div>
-        <div class="citations">24 citations</div>
       </div>
     </div>
 
     <!-- Echo RWMA Front Cardio 2022 -->
     <div class="pub">
-      <div class="thumb">Echo&middot;RWMA<br>Wall Motion AI</div>
+      <div class="thumb">Echo|RWMA<br>Wall Motion AI</div>
       <div class="meta">
         <span class="ptitle">Echocardiography-based AI detection of regional wall motion abnormalities and quantification of cardiac function in myocardial infarction</span>
         <div class="authors">Xixiang Lin, Feifei Yang, <span class="me">Yixin Chen</span>, et al.</div>
         <div class="venue">Frontiers in Cardiovascular Medicine, 2022</div>
-        <div class="citations">32 citations</div>
       </div>
     </div>
 
@@ -310,8 +300,8 @@
       <a href="assets/img/book.png" class="book-img"><img src="assets/img/book.png" alt="Book cover: Deep Learning Theory and Practice"></a>
       <div class="book-body">
         <span class="when">2021</span>
-        <strong>《深度学习理论与实战 &mdash; PyTorch 10 大案例》</strong>
-        &nbsp;<em>(Deep Learning Theory and Practice &mdash; 10 PyTorch Case Studies)</em>,
+        <strong>《深度学习：理论与实战，PyTorch 案例详解》</strong>
+        &nbsp;<em>(Deep Learning Theory and Practice: PyTorch Case Studies)</em>,
         sole author, Tsinghua University Press
       </div>
     </li>
@@ -331,13 +321,13 @@
 
 <footer>
   <div class="icons">
-    <a href="mailto:2311110791@stu.pku.edu.cn">Email</a> ·
-    <a href="https://scholar.google.com/citations?hl=en&user=ymfVoFwAAAAJ">Scholar</a> ·
-    <a href="https://orcid.org/0000-0002-2727-6387">ORCID</a> ·
+    <a href="mailto:yixinchen0320@gmail.com">Email</a> |
+    <a href="https://scholar.google.com/citations?hl=en&amp;user=ymfVoFwAAAAJ">Scholar</a> |
+    <a href="https://orcid.org/0000-0002-2727-6387">ORCID</a> |
     <a href="https://github.com/YixinChen-AI">GitHub</a>
   </div>
   <div>
-    &copy; Yixin Chen. Hosted on GitHub Pages. Last updated 2026-05.
+    &copy; Yixin Chen. Hosted on GitHub Pages. Last updated 2026-09.
   </div>
 </footer>
 
