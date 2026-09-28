@@ -12,6 +12,7 @@ Live: <https://yixinchen-ai.github.io>
 ├── index.zh.html     # Generated Chinese homepage
 ├── content/
 │   ├── profile.mjs   # Bilingual introduction and timeline
+│   ├── research.mjs  # Research summaries, contributions and figure credits
 │   └── publications.*.html # Publication entries
 ├── scripts/
 │   ├── build.mjs     # Generate both static pages
@@ -19,7 +20,7 @@ Live: <https://yixinchen-ai.github.io>
 ├── assets/
 │   ├── css/style.css # Responsive academic timeline layout
 │   ├── js/main.js    # Year navigation and photo viewer
-│   └── img/          # Portrait, award photo and book cover
+│   └── img/          # Portrait, award photo, book cover and research figures
 ├── .nojekyll         # disable GitHub Pages Jekyll processing
 └── README.md
 ```
@@ -37,7 +38,15 @@ English: <http://127.0.0.1:4173/>
 
 Chinese: <http://127.0.0.1:4173/index.zh.html>
 
-Edit `content/profile.mjs` for the timeline and introduction, or the publication fragments for paper details. Run the build after editing. No package installation is needed.
+Edit `content/profile.mjs` for the timeline and introduction, `content/research.mjs` for the research features, or the publication fragments for paper details. Run the build after editing. No package installation is needed.
+
+## Research images
+
+- MPUM: complete, unmodified Figure 1 from the Nature Communications article, credited under CC BY-NC-ND 4.0.
+- PCNet: original anatomical hierarchy diagram from the author's official repository. The transparent figure is displayed on a dark background so its white labels remain readable.
+- MASLD: Figure 2 from the accepted EJNMMI manuscript, rendered as a PNG without changes to the figure.
+
+The site links images to a full-size viewer. Research contributions follow the author-contribution statements; author order alone is not used to infer individual duties.
 
 ## Deploy
 

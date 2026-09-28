@@ -31,6 +31,7 @@
   if (typeof dialog?.showModal === 'function') {
     const image = dialog.querySelector('img');
     const caption = dialog.querySelector('figcaption');
+    const original = dialog.querySelector('.original-image');
     let trigger;
     for (const anchor of document.querySelectorAll('[data-photo]')) {
       anchor.addEventListener('click', event => {
@@ -38,8 +39,10 @@
         event.preventDefault();
         trigger = anchor;
         image.src = anchor.href;
+        image.classList.toggle('on-dark', anchor.dataset.display === 'dark');
         image.alt = anchor.querySelector('img')?.alt || anchor.dataset.caption;
         caption.textContent = anchor.dataset.caption;
+        original.href = anchor.href;
         dialog.showModal();
       });
     }
@@ -47,6 +50,7 @@
     dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
     dialog.addEventListener('close', () => {
       image.removeAttribute('src');
+      original.removeAttribute('href');
       trigger?.focus({ preventScroll: true });
     });
   }
