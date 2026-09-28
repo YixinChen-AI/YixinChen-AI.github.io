@@ -1,0 +1,57 @@
+(() => {
+  const chapterLinks = [...document.querySelectorAll('.year-index a')];
+  const sectionLinks = [...document.querySelectorAll('.site-header nav a')];
+  const chapters = [...document.querySelectorAll('.chapter')];
+  const sections = [...document.querySelectorAll('main > section[id]')];
+
+  function highlight(items, anchors, offset) {
+    let current;
+    for (const item of items) {
+      if (item.getBoundingClientRect().top <= offset) current = item;
+    }
+    for (const anchor of anchors) {
+      if (current && anchor.hash === `#${current.id}`) anchor.setAttribute('aria-current', 'location');
+      else anchor.removeAttribute('aria-current');
+    }
+  }
+
+  let queued = false;
+  function update() {
+    highlight(chapters, chapterLinks, 190);
+    highlight(sections, sectionLinks, 180);
+    queued = false;
+  }
+  addEventListener('scroll', () => {
+    if (!queued) { queued = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  addEventListener('resize', update, { passive: true });
+  update();
+
+  const dialog = document.querySelector('.photo-viewer');
+  if (typeof dialog?.showModal === 'function') {
+    const image = dialog.querySelector('img');
+    const caption = dialog.querySelector('figcaption');
+    let trigger;
+    for (const anchor of document.querySelectorAll('[data-photo]')) {
+      anchor.addEventListener('click', event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        trigger = anchor;
+        image.src = anchor.href;
+        image.alt = anchor.querySelector('img')?.alt || anchor.dataset.caption;
+        caption.textContent = anchor.dataset.caption;
+        dialog.showModal();
+      });
+    }
+    dialog.querySelector('.close-photo').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => {
+      image.removeAttribute('src');
+      trigger?.focus({ preventScroll: true });
+    });
+  }
+
+  for (const link of document.querySelectorAll('.language a')) {
+    link.addEventListener('click', () => { if (location.hash) link.hash = location.hash; });
+  }
+})();
