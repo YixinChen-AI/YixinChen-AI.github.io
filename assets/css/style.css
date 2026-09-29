@@ -108,20 +108,19 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .undergraduate { font-size: 16px; margin-top: 22px !important; color: var(--muted); }
 .publications { margin-top: 33px; padding-top: 34px; border-top: 1px solid var(--rule); }
 .publications .section-heading { margin-bottom: 10px; }
+.publication-group { margin-top: 30px; }
+.publication-group > h3 { font-size: 21px; font-weight: 600; line-height: 1.5; }
 .pub { padding: 22px 0; border-bottom: 1px solid var(--rule); }
 .pub .meta { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 8px 35px; }
 .ptitle { font-size: 19px; font-weight: 550; line-height: 1.55; }
-.authors { grid-column: 1; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.authors { grid-column: 1; color: var(--muted); font-size: 15px; line-height: 1.7; }
 .me { color: var(--ink); font-weight: 650; }
-.venue { grid-column: 2; grid-row: 1 / span 3; font-size: 14px; line-height: 1.65; color: var(--muted); }
+.author-role { color: var(--ink); }
+.venue { grid-column: 2; grid-row: 1 / span 3; font-size: 15px; line-height: 1.65; color: var(--muted); }
 .v-name { color: var(--ink); }
-.pub .links { grid-column: 1; display: flex; flex-wrap: wrap; gap: 17px; font-size: 14px; }
+.publication-status { display: block; }
+.pub .links { grid-column: 1; display: flex; flex-wrap: wrap; gap: 17px; font-size: 15px; }
 .pub .links a { text-decoration: underline; text-decoration-color: #bccdd8; text-underline-offset: 3px; }
-.more-publications summary { padding: 20px 0; display: flex; align-items: center; gap: 18px; justify-content: space-between; list-style: none; font-size: 16px; color: var(--link); cursor: pointer; }
-.more-publications summary::-webkit-details-marker { display: none; }
-.more-publications summary > span { font-size: 23px; line-height: 1; }
-.more-publications[open] summary > span { transform: rotate(45deg); }
-.more-publications summary:hover { text-decoration: underline; text-underline-offset: 4px; }
 .service { padding-top: 31px; border-top: 1px solid var(--rule); margin-top: 20px; }
 .service dl { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-top: 22px; }
 .service dt { font-size: 18px; font-weight: 600; }
