@@ -6,6 +6,7 @@ import { research } from '../content/research.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const e = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const cvE = s => e(String(s).replaceAll('–', '-').replaceAll('‑', '-'));
 const link = (href, label) => `<a class="text-link" href="${e(href)}">${e(label)}</a>`;
 const chapter = (year, body) => `<li class="chapter" id="year-${year}"><h3 class="year">${year}</h3><div class="chapter-body">${body}</div></li>`;
 const paper = p => `<article class="research-entry"><div class="entry-heading"><h4><a href="${e(p.href)}">${e(p.title)}</a></h4><span class="venue-label">${e(p.venue)}</span></div><p>${e(p.body)}</p>${p.code ? `<div class="links">${link(p.code, p.codeLabel)}</div>` : ''}</article>`;
@@ -75,7 +76,7 @@ function render(t, key) {
 <a class="skip-link" href="#main">${e(t.skip)}</a>
 <header class="site-header"><div class="header-inner"><a class="site-name" href="#top">Yixin Chen</a><nav aria-label="${isEn ? 'Main navigation' : '主导航'}"><a href="#journey">${t.nav[0]}</a><a href="#research">${t.nav[1]}</a><a href="#publications">${t.nav[2]}</a><a href="#contact">${t.nav[3]}</a></nav><div class="language"><a href="index.html" lang="en" ${isEn ? 'aria-current="page"' : ''}>EN</a><a href="index.zh.html" lang="zh-CN" ${!isEn ? 'aria-current="page"' : ''}>中文</a></div></div></header>
 <main id="main" class="page">
-<section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><p class="intro">${e(t.intro)}</p><div class="hero-links">${link(links.email, t.email)}${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}</div></section>
+<section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><p class="intro">${e(t.intro)}</p><div class="hero-links">${link(links.email, t.email)}${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}<a class="text-link" href="${e(links.cv)}" download>${e(t.cv)}</a></div></section>
 <section id="journey" class="journey" aria-labelledby="journey-title"><div class="section-heading"><h2 id="journey-title">${e(t.journey)}</h2></div><div class="journey-layout"><aside class="year-index"><nav aria-label="${e(t.yearNav)}">${shared.years.map(y => `<a href="#year-${y}">${y}</a>`).join('')}</nav></aside><ol class="chapters">${chapters}</ol></div></section>
 <section id="research" class="selected-research" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">${e(r.heading)}</h2></div>${r.works.map(w => researchWork(w, r)).join('')}</section>
 <section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="pub-list">${publications}</div></section>
@@ -87,9 +88,59 @@ function render(t, key) {
 </body></html>`;
 }
 
+function renderCv() {
+  const publications = fs.readFileSync(path.join(root, 'content/publications.en.html'), 'utf8')
+    .replaceAll('–', '-')
+    .replaceAll('‑', '-');
+  const challengeItems = [
+    { title: en.awardTitle, detail: 'MICCAI autoPET V challenge, interactive PET/CT lesion segmentation.' },
+    ...en.awards.map(item => ({ title: item.title, detail: item.detail })),
+  ];
+  const cv = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yixin Chen | Curriculum Vitae</title>
+  <meta name="description" content="Curriculum vitae of Yixin Chen, PhD candidate at Peking University.">
+  <link rel="stylesheet" href="assets/css/cv.css">
+</head>
+<body>
+<header class="cv-header">
+  <div><h1>${cvE(en.name)}</h1><p class="cv-role">${cvE(en.affiliation)}</p></div>
+  <address><a href="${links.email}">yixinchen0320@gmail.com</a><a href="${links.pku}">2311110791@stu.pku.edu.cn</a><a href="https://yixinchen-ai.github.io">yixinchen-ai.github.io</a></address>
+  <nav><a href="${links.scholar}">Google Scholar</a><a href="${links.github}">GitHub</a><a href="${links.orcid}">ORCID</a></nav>
+</header>
+<main>
+  <section><h2>Research profile</h2><p>${cvE(en.intro)}</p></section>
+  <section><h2>Education</h2>
+    <article class="cv-entry"><div><h3>Peking University</h3><p>${cvE(en.phdTitle)}</p></div><p class="cv-date">${cvE(en.phdDate)}</p></article>
+    <article class="cv-entry"><div><h3>${cvE(en.londonTitle)}</h3><p>${cvE(en.londonDegree)}</p></div><p class="cv-date">${cvE(en.londonDate)}</p></article>
+    <article class="cv-entry"><div><h3>Xiamen University</h3><p>BSc in Automation; second bachelor's degree in Mathematical Finance</p></div><p class="cv-date">2015-2019</p></article>
+  </section>
+  <section><h2>Challenge results and research funding</h2>
+    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3><p>${cvE(item.detail)}</p></div><p class="cv-date">2026</p></article>`).join('')}
+    <article class="cv-entry"><div><h3>${cvE(en.fundingTitle)}</h3><p>${cvE(en.fundingBody)}</p></div><p class="cv-date">${cvE(en.fundingDate)}</p></article>
+  </section>
+  <section><h2>Professional experience</h2>
+    ${en.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}</h3><p class="cv-subtitle">${cvE(item.role)}</p>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
+  </section>
+  <section class="cv-publications"><h2>Publications and presentations</h2>${publications}</section>
+  <section><h2>Patents, teaching and academic service</h2>
+    <article class="cv-entry"><div><h3>${cvE(en.patentTitle)}</h3><p>${cvE(en.patentDetail)}</p></div></article>
+    <article class="cv-entry"><div><h3>${cvE(en.reviewTitle)}</h3><p>${cvE(en.reviewDetail)}</p></div></article>
+    <article class="cv-entry"><div><h3>${cvE(en.teachingTitle)}</h3><p>${cvE(en.teachingDetail)}</p></div></article>
+    <article class="cv-entry"><div><h3>${cvE(en.bookName)}</h3><p>${cvE(en.bookDetail)}</p></div><p class="cv-date">2021</p></article>
+  </section>
+</main>
+</body></html>`;
+  if (cv.includes(String.fromCharCode(183))) throw new Error('Forbidden separator character in CV');
+  return cv;
+}
+
 for (const [key, text] of [['en', en], ['zh', zh]]) {
   const html = render(text, key);
   if (html.includes(String.fromCharCode(183))) throw new Error('Forbidden separator character');
   fs.writeFileSync(path.join(root, key === 'en' ? 'index.html' : 'index.zh.html'), html);
 }
-console.log('Built English and Chinese homepages.');
+fs.writeFileSync(path.join(root, 'cv.html'), renderCv());
+console.log('Built English and Chinese homepages and the English CV source.');
