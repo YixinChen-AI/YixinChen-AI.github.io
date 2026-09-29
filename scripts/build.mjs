@@ -46,6 +46,7 @@ function render(t, key) {
           <p class="workshop-note">${e(t.workshopNote)}</p>
         </div>
       </div>
+      ${t.papers2026.map(p => paper(p)).join('')}
       <article class="clinical-entry"><h4><a href="#research-masld">${e(t.clinicalTitle)}</a></h4><p>${e(t.clinicalBody)}</p></article>
       <article class="funding-entry"><h4>${e(t.fundingTitle)}</h4><p>${e(t.fundingBody)}</p><p class="date">${e(t.fundingDate)}</p></article>`),
     chapter('2025', `<article class="research-entry mpum-entry"><h4><a href="#research-mpum">${e(t.mpumTitle)}</a></h4><p>${e(t.mpumBody)}</p></article>${paper(t.paper2025)}`),

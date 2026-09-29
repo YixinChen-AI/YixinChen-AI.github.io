@@ -53,6 +53,10 @@ export const en = {
   fundingDate: '2026–2027, NSFC grant for doctoral students',
   fundingTitle: 'NSFC doctoral research project',
   fundingBody: 'Principal investigator of a project on extracting and analysing multi-organ metabolic information from total-body PET/CT.',
+  papers2026: [
+    {title:'NeuronCtrl', body:'Second author. Studies safe control of changes in neuronal microenvironments.', venue:'ICML 2026 Spotlight', href:'#publication-neuronctrl'},
+    {title:'PHATE-Net', body:'First author. Uses PET images to study disease trajectories.', venue:'CVPR 2026', href:'#publication-phate'},
+  ],
   mpumTitle: 'MPUM: segmentation across CT, MRI and PET',
   mpumBody: 'Co-first-author paper published in Nature Communications on 24 October.',
   paperLink: 'Paper', codeLink: 'Code',
@@ -133,6 +137,10 @@ export const zh = {
   fundingDate: '2026–2027，青年学生基础研究项目（博士研究生）',
   fundingTitle: '国家自然科学基金博士生项目',
   fundingBody: '项目负责人，研究全人体 PET/CT 的多器官代谢信息提取与分析。',
+  papers2026: [
+    {title:'NeuronCtrl', body:'第二作者，研究神经元微环境变化的安全控制。', venue:'ICML 2026 Spotlight', href:'#publication-neuronctrl'},
+    {title:'PHATE-Net', body:'第一作者，利用 PET 影像研究疾病变化轨迹。', venue:'CVPR 2026', href:'#publication-phate'},
+  ],
   mpumTitle: 'MPUM：CT、MRI 与 PET 通用分割',
   mpumBody: '共同第一作者论文，10 月 24 日发表于 Nature Communications。',
   paperLink: '论文', codeLink: '代码',

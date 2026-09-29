@@ -87,6 +87,7 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .challenge-results p { font-size: 16px; line-height: 1.75; }
 .challenge-results .text-link { display: inline-block; font-size: 14px; margin-top: 8px; }
 .chapter-body .workshop-note { font-size: 15px; color: var(--muted); margin-top: 21px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.award-feature + .research-entry { margin-top: 29px; padding-top: 24px; border-top: 1px solid var(--rule); }
 .clinical-entry { margin-top: 29px; padding-top: 24px; border-top: 1px solid var(--rule); }
 .entry-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
 .venue-label { color: var(--muted); font-size: 15px; }
