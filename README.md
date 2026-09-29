@@ -11,7 +11,8 @@ Live: <https://yixinchen-ai.github.io>
 ├── index.html        # Generated English homepage (default)
 ├── index.zh.html     # Generated Chinese homepage
 ├── cv.html           # Generated print-ready English CV source
-├── output/pdf/       # Generated downloadable English CV
+├── cv.zh.html        # Generated print-ready Chinese CV source
+├── output/pdf/       # Generated downloadable English and Chinese CVs
 ├── content/
 │   ├── profile.mjs   # Bilingual introduction and timeline
 │   ├── research.mjs  # Research summaries, contributions and figure credits
@@ -44,7 +45,7 @@ Chinese: <http://127.0.0.1:4173/index.zh.html>
 
 Edit `content/profile.mjs` for the timeline and introduction, `content/research.mjs` for the research features, or the publication fragments for paper details. Run the build after editing. No package installation is needed.
 
-The homepage and English CV use the same content files. The GitHub Pages workflow rebuilds both pages and the downloadable PDF on every deployment, so CV content does not need to be maintained separately.
+The homepages and both CVs use the same bilingual content files. The GitHub Pages workflow rebuilds both pages and both downloadable PDFs on every deployment, so CV content does not need to be maintained separately.
 
 ## Research images
 

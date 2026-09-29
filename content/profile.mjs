@@ -18,7 +18,8 @@ export const links = {
   cmrPaper: 'https://papers.miccai.org/miccai-2026-sat/CMRSeg_018.html',
   mvaaPaper: 'https://papers.miccai.org/miccai-2026-sat/MVAA_023.html',
   course: 'https://www.tech-skills.org.cn/lesson/811',
-  cv: 'output/pdf/Yixin-Chen-CV.pdf',
+  cvEn: 'output/pdf/Yixin-Chen-CV.pdf',
+  cvZh: 'output/pdf/Yixin-Chen-CV-ZH.pdf',
 };
 
 export const shared = {
@@ -37,7 +38,7 @@ export const en = {
   nav: ['Timeline', 'Research', 'Publications', 'Contact'], skip: 'Skip to content',
   affiliation: 'PhD candidate, Peking University',
   intro: 'I work on medical image segmentation and learning across PET, CT and MRI. My clinical research focuses on cancer, fatty liver disease and multi-organ metabolism.',
-  scholar: 'Google Scholar', email: 'Email', cv: 'CV',
+  scholar: 'Google Scholar', email: 'Email', cvEn: 'CV', cvZh: '中文简历',
   portraitAlt: 'Portrait of Yixin Chen', portraitCaption: 'Yixin Chen',
   journey: 'Timeline', yearNav: 'Browse by year',
   latestLabel: 'MICCAI 2026 challenges',
@@ -125,7 +126,7 @@ export const zh = {
   nav: ['时间线', '研究', '论文', '联系'], skip: '跳转到正文',
   affiliation: '北京大学博士研究生',
   intro: '我研究医学影像分割与 PET、CT、MRI 之间的跨模态学习，也开展肿瘤、脂肪肝和多器官代谢的临床影像研究。',
-  scholar: 'Google Scholar', email: '邮箱', cv: '英文 CV',
+  scholar: 'Google Scholar', email: '邮箱', cvEn: '英文 CV', cvZh: '中文简历',
   portraitAlt: '陈亦新的个人照', portraitCaption: '陈亦新',
   journey: '时间线', yearNav: '按年份浏览',
   latestLabel: 'MICCAI 2026 挑战赛',

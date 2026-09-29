@@ -3,7 +3,7 @@
   --muted: #59636c;
   --rule: #cfd6dc;
   --accent: #154f70;
-  --sans: Arial, "Helvetica Neue", sans-serif;
+  --sans: Arial, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 * { box-sizing: border-box; }
 html { background: #eef1f3; }
