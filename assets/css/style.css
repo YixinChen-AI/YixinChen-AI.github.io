@@ -34,9 +34,9 @@ h1 { font-size: 48px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em
 .portrait { grid-column: 2; grid-row: 1 / span 4; }
 .portrait img { width: 172px; aspect-ratio: 1; object-fit: cover; border-radius: 3px; }
 .intro { grid-column: 1; max-width: 745px; font-size: 19px; line-height: 1.8; }
-.hero-highlights { grid-column: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding: 0; list-style: none; }
+.hero-highlights { grid-column: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0; row-gap: 17px; padding: 0; list-style: none; }
 .hero-highlights li { min-width: 0; padding: 0 19px; border-left: 1px solid var(--rule); }
-.hero-highlights li:first-child { padding-left: 0; border-left: 0; }
+.hero-highlights li:nth-child(3n + 1) { padding-left: 0; border-left: 0; }
 .hero-highlights a { display: block; color: var(--ink); font-size: 16px; font-weight: 600; line-height: 1.5; }
 .hero-highlights span { display: block; margin-top: 2px; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .hero-links { grid-column: 1; display: flex; flex-wrap: wrap; gap: 24px; font-size: 16px; }
@@ -220,7 +220,7 @@ footer > span:nth-child(2) { margin-left: auto; }
   .portrait img { width: 86px; }
   .intro { font-size: 17px; }
   .hero-highlights { grid-template-columns: 1fr; gap: 12px; }
-  .hero-highlights li, .hero-highlights li:first-child { padding: 0 0 12px; border-left: 0; border-bottom: 1px solid var(--rule); }
+  .hero-highlights li, .hero-highlights li:nth-child(3n + 1) { padding: 0 0 12px; border-left: 0; border-bottom: 1px solid var(--rule); }
   .hero-highlights li:last-child { padding-bottom: 0; border-bottom: 0; }
   .book-feature { grid-template-columns: 95px minmax(0, 1fr); gap: 19px; }
   .book-image img { width: 95px; }
