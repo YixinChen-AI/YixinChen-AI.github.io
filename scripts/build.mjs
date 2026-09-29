@@ -43,7 +43,7 @@ function render(t, key) {
         <div class="challenge-results">
           <article class="autoPET-result"><h4>${e(t.awardTitle)}</h4><p>${e(t.awardBody)}</p>${link(links.autopet, t.awardLink)}</article>
           ${t.awards.map(a => `<article><h4>${e(a.title)}</h4><p>${e(a.detail)}</p>${link(a.href, a.link)}</article>`).join('')}
-          <p class="workshop-note">${e(t.workshopNote)}</p>
+          <article><h4>${e(t.workshop.title)}</h4><p>${e(t.workshop.detail)}</p>${link(t.workshop.href, t.workshop.link)}</article>
         </div>
       </div>
       ${t.papers2026.map(p => paper(p)).join('')}
