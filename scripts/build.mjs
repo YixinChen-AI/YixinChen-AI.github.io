@@ -31,7 +31,7 @@ function render(t, key) {
   const r = research[key];
   const url = `https://yixinchen-ai.github.io/${isEn ? '' : 'index.zh.html'}`;
   const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
-  const compactHighlights = [[0], [1, 2, 3, 4, 5]].map(group => `<li><span>${e(t.highlights[group[0]].detail)}</span><div>${group.map(i => `<a href="${e(t.highlights[i].href)}">${e(t.highlights[i].mobileTitle || t.highlights[i].title)}</a>`).join(', ')}</div></li>`).join('');
+  const compactHighlights = [[0], t.highlights.slice(1).map((_, i) => i + 1)].map(group => `<li><span>${e(t.highlights[group[0]].detail)}</span><div>${group.map(i => `<a href="${e(t.highlights[i].href)}">${e(t.highlights[i].mobileTitle || t.highlights[i].title)}</a>`).join(', ')}</div></li>`).join('');
   const chapters = [
     chapter('2026', `
       <article class="funding-entry featured-funding"><h4>${e(t.fundingTitle)}</h4><p>${e(t.fundingBody)}</p><p class="date">${e(t.fundingDate)}</p></article>
