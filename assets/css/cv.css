@@ -8,6 +8,7 @@
 * { box-sizing: border-box; }
 html { background: #eef1f3; }
 body { width: 210mm; margin: 18px auto; padding: 15mm 16mm 14mm; background: #fff; color: var(--ink); font: 10pt/1.43 var(--sans); }
+html[lang="zh-CN"] body { font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif; }
 a { color: var(--accent); text-decoration: none; }
 p, h1, h2, h3, article, section { margin: 0; }
 .cv-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 28px; align-items: end; padding-bottom: 12px; border-bottom: 1.5px solid var(--ink); }
