@@ -22,6 +22,8 @@ export const links = {
 
 export const shared = {
   awardImage: 'assets/img/autopet-award-2026.jpeg',
+  regPosterImage: 'assets/img/reg2-poster-2026.jpg',
+  mvaaPosterImage: 'assets/img/mvaa-poster-2026.jpg',
   portraitImage: 'assets/img/avatar.png',
   bookImage: 'assets/img/book.png',
   years: ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019'],
@@ -49,6 +51,10 @@ export const en = {
     {title:'REG²: fourth place', detail:'Method paper selected for a MICCAI 2026 challenge workshop poster.', href:links.regPaper, link:'Method paper'},
   ],
   workshop: {title:'MVAA 2026: poster', detail:'Mitral-valve segmentation across cardiac CT, 3D ultrasound and surgical video.', href:links.mvaaPaper, link:'Method paper'},
+  posterPhotos: [
+    {image:shared.regPosterImage, caption:'REG² poster at MICCAI 2026', alt:'Yixin Chen standing beside his REG² pathology-workflow poster'},
+    {image:shared.mvaaPosterImage, caption:'MVAA poster at MICCAI 2026', alt:'Yixin Chen standing beside his MVAA mitral-valve segmentation poster'},
+  ],
   clinicalTitle: 'Multi-organ metabolism in MASLD',
   clinicalBody: 'Co-first-author study accepted in EJNMMI.',
   fundingDate: '2026–2027, NSFC grant for doctoral students',
@@ -133,6 +139,10 @@ export const zh = {
     {title:'REG²：第四名', detail:'方法论文入选 MICCAI 2026 挑战赛 workshop 海报。', href:links.regPaper, link:'方法论文'},
   ],
   workshop: {title:'MVAA 2026：海报报告', detail:'研究心脏 CT、三维超声和手术视频中的二尖瓣分割。', href:links.mvaaPaper, link:'方法论文'},
+  posterPhotos: [
+    {image:shared.regPosterImage, caption:'MICCAI 2026，REG² 海报现场', alt:'陈亦新在 REG² 病理流程研究海报前的合影'},
+    {image:shared.mvaaPosterImage, caption:'MICCAI 2026，MVAA 海报现场', alt:'陈亦新在 MVAA 二尖瓣分割研究海报前的合影'},
+  ],
   clinicalTitle: 'MASLD 的多器官代谢研究',
   clinicalBody: '共同第一作者研究被 EJNMMI 接收。',
   fundingDate: '2026–2027，青年学生基础研究项目（博士研究生）',

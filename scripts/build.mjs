@@ -46,6 +46,9 @@ function render(t, key) {
           <article><h4>${e(t.workshop.title)}</h4><p>${e(t.workshop.detail)}</p>${link(t.workshop.href, t.workshop.link)}</article>
         </div>
       </div>
+      <div class="poster-gallery">
+        ${t.posterPhotos.map(p => `<figure><a href="${e(p.image)}" class="poster-photo-link" data-photo data-caption="${e(p.caption)}" aria-label="${e(t.fullPhoto)}: ${e(p.caption)}"><img src="${e(p.image)}" alt="${e(p.alt)}" width="3000" height="4000" loading="lazy"></a><figcaption>${e(p.caption)} <a href="${e(p.image)}" data-photo data-caption="${e(p.caption)}">${e(t.fullPhoto)}</a></figcaption></figure>`).join('')}
+      </div>
       ${t.papers2026.map(p => paper(p)).join('')}
       <article class="clinical-entry"><h4><a href="#research-masld">${e(t.clinicalTitle)}</a></h4><p>${e(t.clinicalBody)}</p></article>
       <article class="funding-entry"><h4>${e(t.fundingTitle)}</h4><p>${e(t.fundingBody)}</p><p class="date">${e(t.fundingDate)}</p></article>`),
