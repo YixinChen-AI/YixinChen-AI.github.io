@@ -20,8 +20,8 @@ function researchWork(w, r) {
       <p class="contribution"><span>${e(r.roleLabel)}</span>${e(w.role)}</p>` : ''}
       <div class="research-links">${w.links.map(l => link(l.href, l.label)).join('')}</div>
     </div>
-    <figure class="research-figure"><a class="figure-link${w.dark ? ' dark-figure' : ''}" href="${e(w.image)}" data-photo data-display="${w.dark ? 'dark' : 'light'}" data-caption="${e(w.caption)}" aria-label="${e(r.figureLink)}: ${e(w.name)}"><img src="${e(w.image)}" alt="${e(w.alt)}" width="${w.width}" height="${w.height}" loading="lazy"></a>
-      <figcaption><p>${e(w.caption)}</p><p class="figure-credit">${credit}${w.license ? `, <a href="${e(w.license.href)}">${e(w.license.label)}</a>` : ''}</p><a class="text-link" href="${e(w.image)}" data-photo data-display="${w.dark ? 'dark' : 'light'}" data-caption="${e(w.caption)}">${e(r.figureLink)}</a></figcaption>
+    <figure class="research-figure research-figure-${e(w.id)}"><a class="figure-link${w.dark ? ' dark-figure' : ''}" href="${e(w.image)}" data-photo data-display="${w.dark ? 'dark' : 'light'}" data-caption="${e(w.fullCaption)}" data-alt="${e(w.alt)}" aria-label="${e(r.figureLink)}: ${e(w.name)}"><img src="${e(w.image)}" alt="${e(w.previewAlt || w.alt)}" width="${w.width}" height="${w.height}" loading="lazy"></a>
+      <figcaption><p>${e(w.caption)}</p><p class="figure-credit">${credit}${w.license ? `, <a href="${e(w.license.href)}">${e(w.license.label)}</a>` : ''}</p><a class="text-link" href="${e(w.image)}" data-photo data-display="${w.dark ? 'dark' : 'light'}" data-caption="${e(w.fullCaption)}" data-alt="${e(w.alt)}">${e(r.figureLink)}</a></figcaption>
     </figure>
   </article>`;
 }
@@ -31,6 +31,7 @@ function render(t, key) {
   const r = research[key];
   const url = `https://yixinchen-ai.github.io/${isEn ? '' : 'index.zh.html'}`;
   const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
+  const compactHighlights = [[0], [1, 3], [2, 4, 5]].map(group => `<li><span>${e(t.highlights[group[0]].detail)}</span><div>${group.map(i => `<a href="${e(t.highlights[i].href)}">${e(t.highlights[i].mobileTitle || t.highlights[i].title)}</a>`).join(', ')}</div></li>`).join('');
   const chapters = [
     chapter('2026', `
       <article class="funding-entry featured-funding"><h4>${e(t.fundingTitle)}</h4><p>${e(t.fundingBody)}</p><p class="date">${e(t.fundingDate)}</p></article>
@@ -44,7 +45,7 @@ function render(t, key) {
         </figure>
         <div class="challenge-results">
           <article class="autoPET-result"><h4>${e(t.awardTitle)}</h4><p>${e(t.awardBody)}</p>${link(links.autopet, t.awardLink)}</article>
-          ${t.awards.map(a => `<article><h4>${e(a.title)}</h4><p>${e(a.detail)}</p>${link(a.href, a.link)}</article>`).join('')}
+          ${t.awards.map(a => `<article><h4>${e(a.title)}</h4><p>${e(a.timelineDetail || a.detail)}</p>${link(a.href, a.link)}</article>`).join('')}
           <article><h4>${e(t.workshop.title)}</h4><p>${e(t.workshop.detail)}</p>${link(t.workshop.href, t.workshop.link)}</article>
         </div>
       </div>
@@ -74,11 +75,11 @@ function render(t, key) {
 </head>
 <body id="top">
 <a class="skip-link" href="#main">${e(t.skip)}</a>
-<header class="site-header"><div class="header-inner"><a class="site-name" href="#top">Yixin Chen</a><nav aria-label="${isEn ? 'Main navigation' : '主导航'}"><a href="#journey">${t.nav[0]}</a><a href="#research">${t.nav[1]}</a><a href="#publications">${t.nav[2]}</a><a href="#contact">${t.nav[3]}</a></nav><div class="language"><a href="index.html" lang="en" ${isEn ? 'aria-current="page"' : ''}>EN</a><a href="index.zh.html" lang="zh-CN" ${!isEn ? 'aria-current="page"' : ''}>中文</a></div></div></header>
+<header class="site-header"><div class="header-inner"><a class="site-name" href="#top">Yixin Chen</a><nav aria-label="${isEn ? 'Main navigation' : '主导航'}"><a href="#research">${t.nav[1]}</a><a href="#journey">${t.nav[0]}</a><a href="#publications">${t.nav[2]}</a><a href="#contact">${t.nav[3]}</a></nav><div class="language"><a href="index.html" lang="en" ${isEn ? 'aria-current="page"' : ''}>EN</a><a href="index.zh.html" lang="zh-CN" ${!isEn ? 'aria-current="page"' : ''}>中文</a></div></div></header>
 <main id="main" class="page">
-<section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><p class="intro">${e(t.intro)}</p><ul class="hero-highlights" aria-label="${e(t.highlightsLabel)}">${t.highlights.map(item => `<li><a href="${e(item.href)}">${e(item.title)}</a><span>${e(item.detail)}</span></li>`).join('')}</ul><div class="hero-links">${link(links.email, t.email)}${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}<a class="text-link" href="${e(links.cvEn)}" download>${e(t.cvEn)}</a><a class="text-link" href="${e(links.cvZh)}" download>${e(t.cvZh)}</a></div></section>
-<section id="journey" class="journey" aria-labelledby="journey-title"><div class="section-heading"><h2 id="journey-title">${e(t.journey)}</h2></div><div class="journey-layout"><aside class="year-index"><nav aria-label="${e(t.yearNav)}">${shared.years.map(y => `<a href="#year-${y}">${y}</a>`).join('')}</nav></aside><ol class="chapters">${chapters}</ol></div></section>
+<section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><p class="intro">${e(t.intro)}</p><ul class="hero-highlights" aria-label="${e(t.highlightsLabel)}">${t.highlights.map(item => `<li><a href="${e(item.href)}">${e(item.title)}</a><span>${e(item.detail)}</span></li>`).join('')}</ul><ul class="hero-highlights-compact" aria-label="${e(t.highlightsLabel)}">${compactHighlights}</ul><div class="hero-links">${link(links.email, t.email)}${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}<a class="text-link" href="${e(links.cvEn)}" download>${e(t.cvEn)}</a><a class="text-link" href="${e(links.cvZh)}" download>${e(t.cvZh)}</a></div></section>
 <section id="research" class="selected-research" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">${e(r.heading)}</h2></div>${r.works.map(w => researchWork(w, r)).join('')}</section>
+<section id="journey" class="journey" aria-labelledby="journey-title"><div class="section-heading"><h2 id="journey-title">${e(t.journey)}</h2><a class="text-link" href="#year-2022">${e(t.experienceLink)}</a></div><div class="journey-layout"><aside class="year-index"><nav aria-label="${e(t.yearNav)}">${shared.years.map(y => `<a href="#year-${y}">${y}</a>`).join('')}</nav></aside><ol class="chapters">${chapters}</ol></div></section>
 <section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="pub-list">${publications}</div></section>
 <section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
 <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list"><a href="${links.email}">yixinchen0320@gmail.com</a><a href="${links.pku}">2311110791@stu.pku.edu.cn <span>(${e(t.pkuEmail)})</span></a></div><div class="contact-links">${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>

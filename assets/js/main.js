@@ -40,7 +40,7 @@
         trigger = anchor;
         image.src = anchor.href;
         image.classList.toggle('on-dark', anchor.dataset.display === 'dark');
-        image.alt = anchor.querySelector('img')?.alt || anchor.dataset.caption;
+        image.alt = anchor.dataset.alt || anchor.querySelector('img')?.alt || anchor.dataset.caption;
         caption.textContent = anchor.dataset.caption;
         original.href = anchor.href;
         dialog.showModal();
