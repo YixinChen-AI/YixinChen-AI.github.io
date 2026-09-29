@@ -147,6 +147,7 @@ footer > span:nth-child(2) { margin-left: auto; }
   .journey-layout { grid-template-columns: 52px minmax(0, 1fr); gap: 25px; }
   .chapter { grid-template-columns: 57px minmax(0, 1fr); gap: 18px; }
   .award-feature { grid-template-columns: 1fr; gap: 22px; }
+  .award-feature .challenge-results { grid-row: 1; }
   .award-feature figure { width: min(100%, 440px); }
   .photo-link img { aspect-ratio: 6 / 5; }
   .pub .meta { grid-template-columns: minmax(0, 1fr) 195px; gap: 8px 25px; }
