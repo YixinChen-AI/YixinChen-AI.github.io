@@ -9,7 +9,7 @@ export const research = {
         title: 'One segmentation model for CT, MRI and PET',
         name: 'MPUM',
         venue: 'Nature Communications, 2025',
-        authorship: 'Co-first author',
+        authorship: 'First author',
         paragraphs: [
           'MPUM uses one model to segment anatomy in CT, MRI and PET. It shares what these scans have in common and adapts to each imaging modality.',
           'Trained on scans from 861 subjects, it achieved the highest Dice scores among the compared methods across the evaluated segmentation benchmarks. The study also tested haemorrhage localisation and brain–body metabolic analysis.',
@@ -56,7 +56,7 @@ export const research = {
         title: 'Multi-organ changes in fatty liver disease',
         name: 'Whole-body PET/CT in MASLD',
         venue: 'EJNMMI, accepted 2026',
-        authorship: 'Co-first author',
+        authorship: 'First author',
         paragraphs: [
           'We studied metabolic dysfunction-associated steatotic liver disease (MASLD) using PET/CT from 294 adults at two centres. Automated segmentation supported measurements of PET uptake, CT attenuation and tissue volume across organs.',
           'Sixteen imaging features differed between MASLD and controls and were replicated at the second centre, spanning the heart, upper-abdominal organs, fat, vessels and muscle.',
@@ -85,7 +85,7 @@ export const research = {
         title: '一个模型分割 CT、MRI 与 PET',
         name: 'MPUM',
         venue: 'Nature Communications，2025',
-        authorship: '共同第一作者',
+        authorship: '第一作者',
         paragraphs: [
           'MPUM 用同一个模型分割 CT、MRI 和 PET 影像，在共享解剖知识的同时适应不同影像模态。',
           '模型使用 861 位受试者的数据训练。在论文评估的分割任务中，它的 Dice 评分高于所比较的方法。研究还测试了脑出血定位和脑与身体的代谢分析。',
@@ -132,7 +132,7 @@ export const research = {
         title: '脂肪肝的多器官影像变化',
         name: 'MASLD 全身 PET/CT 研究',
         venue: 'EJNMMI，2026 已接收',
-        authorship: '共同第一作者',
+        authorship: '第一作者',
         paragraphs: [
           '利用两中心 294 位受试者的 PET/CT，研究代谢功能障碍相关脂肪性肝病（MASLD）。通过自动分割，测量多器官的 PET 摄取、CT 衰减和组织体积。',
           '16 项影像特征在 MASLD 与对照组间存在差异，并在第二中心复现，涉及心脏、上腹部器官、脂肪、血管和肌肉。',
