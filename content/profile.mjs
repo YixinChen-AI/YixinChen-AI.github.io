@@ -40,7 +40,7 @@ export const en = {
   intro: 'I work on medical image segmentation and learning across PET, CT and MRI. My clinical research focuses on cancer, fatty liver disease and multi-organ metabolism.',
   highlightsLabel: 'Selected achievements',
   highlights: [
-    {title:'NSFC doctoral research project', detail:'Principal investigator', href:'#year-2026'},
+    {title:'NSFC doctoral research project', detail:'Principal investigator', href:'#research-funding'},
     {title:'Nature Communications', detail:'First author', href:'#research-mpum'},
     {title:'IEEE TMI', detail:'First author', href:'#research-pcnet'},
     {title:'EJNMMI', detail:'First author', href:'#research-masld'},
@@ -138,7 +138,7 @@ export const zh = {
   intro: '我研究医学影像分割与 PET、CT、MRI 之间的跨模态学习，也开展肿瘤、脂肪肝和多器官代谢的临床影像研究。',
   highlightsLabel: '主要成果',
   highlights: [
-    {title:'国家自然科学基金博士生项目', detail:'项目负责人', href:'#year-2026'},
+    {title:'国家自然科学基金博士生项目', detail:'项目负责人', href:'#research-funding'},
     {title:'Nature Communications', detail:'第一作者', href:'#research-mpum'},
     {title:'IEEE TMI', detail:'第一作者', href:'#research-pcnet'},
     {title:'EJNMMI', detail:'第一作者', href:'#research-masld'},

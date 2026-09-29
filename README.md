@@ -15,7 +15,7 @@ Live: <https://yixinchen-ai.github.io>
 ├── output/pdf/       # Generated downloadable English and Chinese CVs
 ├── content/
 │   ├── profile.mjs   # Bilingual introduction and timeline
-│   ├── research.mjs  # Research summaries, contributions and figure credits
+│   ├── research.mjs  # Research summaries and figure credits
 │   └── publications.*.html # Publication entries
 ├── scripts/
 │   ├── build.mjs     # Generate both static pages
@@ -53,7 +53,7 @@ The homepages and both CVs use the same bilingual content files. The GitHub Page
 - PCNet: original anatomical hierarchy diagram from the author's official repository. The transparent figure is displayed on a dark background so its white labels remain readable.
 - MASLD: Figure 2 from the accepted EJNMMI manuscript, rendered as a PNG without changes to the figure.
 
-The site links images to a full-size viewer. Research contributions follow the author-contribution statements; author order alone is not used to infer individual duties.
+The site links images to a full-size viewer.
 
 ## Deploy
 
