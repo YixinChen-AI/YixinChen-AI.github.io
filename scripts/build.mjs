@@ -9,7 +9,7 @@ const e = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').repl
 const link = (href, label) => `<a class="text-link" href="${e(href)}">${e(label)}</a>`;
 const chapter = (year, body) => `<li class="chapter" id="year-${year}"><h3 class="year">${year}</h3><div class="chapter-body">${body}</div></li>`;
 const paper = p => `<article class="research-entry"><div class="entry-heading"><h4><a href="${e(p.href)}">${e(p.title)}</a></h4><span class="venue-label">${e(p.venue)}</span></div><p>${e(p.body)}</p>${p.code ? `<div class="links">${link(p.code, p.codeLabel)}</div>` : ''}</article>`;
-const job = j => `<article class="work-entry"><h4>${e(j.name)}</h4><p>${e(j.role)}</p><p class="date">${e(j.date)}</p></article>`;
+const job = j => `<article class="work-entry"><h4>${e(j.name)}</h4><p class="work-role">${e(j.role)}</p><p class="date">${e(j.date)}</p>${j.paragraphs.map(p => `<p>${e(p)}</p>`).join('')}</article>`;
 
 function researchWork(w, r) {
   const credit = w.credit.href ? `<a href="${e(w.credit.href)}">${e(w.credit.label)}</a>` : e(w.credit.label);
@@ -53,7 +53,7 @@ function render(t, key) {
     chapter('2023', `${paper(t.paper2023)}<article class="education-entry"><h4>${e(t.phdTitle)}</h4><p class="date">${e(t.phdDate)}</p></article>`),
     chapter('2022', job(t.jobs[0])),
     chapter('2021', `<article class="book-feature"><a href="${shared.bookImage}" class="book-image" data-photo data-caption="${e(t.bookName)}"><img src="${shared.bookImage}" alt="${e(t.bookAlt)}" width="435" height="592" loading="lazy"></a><div><h4>${e(t.bookName)}</h4><p>${e(t.bookDetail)}</p></div></article>`),
-    chapter('2020', job(t.jobs[1])),
+    chapter('2020', `${job(t.jobs[1])}<article class="education-entry writing-entry"><h4>${e(t.bookWritingTitle)}</h4><p>${e(t.bookWritingBody)}</p><p class="date">${e(t.bookWritingDate)}</p></article>`),
     chapter('2019', `<article class="education-entry"><h4>${e(t.londonTitle)}</h4><p>${e(t.londonDegree)}</p><p class="date">${e(t.londonDate)}</p><p class="london-note">${e(t.londonBody)}</p></article><p class="undergraduate">${e(t.undergraduate)}</p>`),
   ].join('\n');
 
@@ -75,7 +75,7 @@ function render(t, key) {
 <section id="research" class="selected-research" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">${e(r.heading)}</h2></div>${r.works.map(w => researchWork(w, r)).join('')}</section>
 <section id="journey" class="journey" aria-labelledby="journey-title"><div class="section-heading"><h2 id="journey-title">${e(t.journey)}</h2></div><div class="journey-layout"><aside class="year-index"><nav aria-label="${e(t.yearNav)}">${shared.years.map(y => `<a href="#year-${y}">${y}</a>`).join('')}</nav></aside><ol class="chapters">${chapters}</ol></div></section>
 <section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="pub-list">${publications}</div></section>
-<section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div></dl></section>
+<section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
 <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list"><a href="${links.email}">yixinchen0320@gmail.com</a><a href="${links.pku}">2311110791@stu.pku.edu.cn <span>(${e(t.pkuEmail)})</span></a></div><div class="contact-links">${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>
 <footer><span>${e(t.footer)}</span><span>${e(t.updated)}</span><a href="#top">${isEn ? 'Back to top' : '返回顶部'}</a></footer>
 </main>

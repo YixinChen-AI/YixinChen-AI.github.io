@@ -97,6 +97,9 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .research-entry p, .education-entry p, .work-entry p { font-size: 17px; }
 .research-entry .links { display: flex; gap: 20px; margin-top: 10px; font-size: 15px; }
 .education-entry h4, .work-entry h4 { font-size: 21px; }
+.work-entry .work-role { color: var(--muted); }
+.work-entry > p:not(.work-role):not(.date) { margin-top: 14px; }
+.writing-entry { margin-top: 25px; }
 .book-feature { display: grid; grid-template-columns: 125px minmax(0, 1fr); gap: 28px; align-items: start; }
 .book-image img { width: 125px; }
 .book-feature h4 { font-size: 21px; }
