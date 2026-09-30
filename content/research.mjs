@@ -5,7 +5,7 @@ export const research = {
     works: [
       {
         id: 'mpum',
-        title: 'MPUM: one segmentation model for CT, MRI and PET',
+        title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications, 2025',
         summary: 'It shares anatomical knowledge across modalities while adapting to each one, and achieved the highest Dice scores among the compared methods on the evaluated benchmarks.',
@@ -23,7 +23,7 @@ export const research = {
       },
       {
         id: 'pcnet',
-        title: 'PCNet: anatomical relationships for CT segmentation',
+        title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI, 2024',
         summary: 'It uses relationships between organs, bones and muscles to guide CT segmentation, improving performance in the paper’s experiments.',
@@ -40,7 +40,7 @@ export const research = {
       },
       {
         id: 'masld',
-        title: 'Multi-organ PET/CT findings in fatty liver disease',
+        title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
         name: 'Whole-body PET/CT in MASLD',
         venue: 'EJNMMI, accepted 2026',
         summary: 'In 294 adults at two centres, 16 imaging features differed between MASLD and controls and were replicated at the second centre.',
@@ -62,7 +62,7 @@ export const research = {
     works: [
       {
         id: 'mpum',
-        title: 'MPUM：一个模型分割 CT、MRI 与 PET',
+        title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications，2025',
         summary: '模型共享不同影像模态的解剖知识，同时适应各模态；在论文评估的任务中，Dice 评分高于所比较的方法。',
@@ -80,7 +80,7 @@ export const research = {
       },
       {
         id: 'pcnet',
-        title: 'PCNet：用解剖类别关系指导 CT 分割',
+        title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI，2024',
         summary: '利用器官、骨骼和肌肉之间的关系指导 CT 分割，在论文实验中提升了分割性能。',
@@ -97,7 +97,7 @@ export const research = {
       },
       {
         id: 'masld',
-        title: '脂肪肝的多器官 PET/CT 影像变化',
+        title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
         name: 'MASLD 全身 PET/CT 研究',
         venue: 'EJNMMI，2026 已接收',
         summary: '在两中心 294 位受试者中，16 项影像特征在 MASLD 与对照组间存在差异，并在第二中心复现。',

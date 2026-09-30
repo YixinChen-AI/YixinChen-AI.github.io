@@ -9,7 +9,7 @@ const e = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').repl
 const cvE = s => e(String(s).replaceAll('–', '-').replaceAll('‑', '-'));
 const link = (href, label) => `<a class="text-link" href="${e(href)}">${e(label)}</a>`;
 const chapter = (year, body) => `<li class="chapter" id="year-${year}"><h3 class="year">${year}</h3><div class="chapter-body">${body}</div></li>`;
-const paper = p => `<article class="research-entry"><div class="entry-heading"><h4><a href="${e(p.href)}">${e(p.title)}</a></h4><span class="venue-label">${e(p.venue)}</span></div><p>${e(p.body)}</p>${p.code ? `<div class="links">${link(p.code, p.codeLabel)}</div>` : ''}</article>`;
+const paper = p => `<article class="research-entry"><div class="entry-heading"><h4><a href="${e(p.href)}">${e(p.title)}</a></h4><span class="venue-label">${e(p.venue)}</span></div>${p.body ? `<p>${e(p.body)}</p>` : ''}${p.code ? `<div class="links">${link(p.code, p.codeLabel)}</div>` : ''}</article>`;
 const job = j => `<article class="work-entry"><h4>${e(j.name)}</h4><p class="work-role">${e(j.role)}</p><p class="date">${e(j.date)}</p>${j.paragraphs.map(p => `<p>${e(p)}</p>`).join('')}</article>`;
 
 function researchWork(w, r) {
