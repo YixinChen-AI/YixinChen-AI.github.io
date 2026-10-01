@@ -52,11 +52,14 @@ The homepages and both CVs use the same bilingual content files. The GitHub Page
 
 ## Research images
 
-- MPUM: complete, unmodified Figure 1 from the Nature Communications article, credited under CC BY-NC-ND 4.0.
-- PCNet: original anatomical hierarchy diagram from the author's official repository. The transparent figure is displayed on a dark background so its white labels remain readable.
-- MASLD: Figure 2 from the accepted EJNMMI manuscript, rendered as a PNG without changes to the figure.
+- MPUM: Figure 1 from Nature Communications, credited under CC BY-NC-ND 4.0. The inline viewport shows the complete input-to-segmentation example in panel c; the viewer opens the complete original figure.
+- PCNet: the complete anatomical hierarchy from the author's official repository, displayed on a dark background so its white labels remain readable.
+- MASLD: panel B of Figure 2 from the accepted EJNMMI manuscript, showing the whole-body segmentation and organ groups; the viewer opens the complete original figure.
+- VP-SFDA: method framework, Figure 2. LUCIDA: framework, Figure 1. Both are extracted from the paper without page headers, body text or captions.
+- NeuronCtrl and Rethinking Disentanglement: complete Figure 2 frameworks, including the bottom legends and output paths.
+- Adnexal masses: illustrated classification framework, Figure 2. Myocardial infarction: image-to-prediction workflow, Figure 3. Atrial septal defect: quantification examples, Figure 6.
 
-The site links images to a full-size viewer.
+Each paper uses one selected figure consistently. The three featured papers share the same image renderer with the yearly directory. Inline viewports use source-pixel coordinates, not device-dependent zoom offsets; original figures remain intact. Compressed WebP previews and original PNGs serve different display sizes. Other figures keep their natural aspect ratios. Every paper image opens in the full-size viewer, and image URLs carry content hashes to refresh changed assets.
 
 ## Deploy
 

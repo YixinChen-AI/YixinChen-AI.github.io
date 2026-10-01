@@ -9,11 +9,27 @@ import { publicationDetails } from '../content/publication-details.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const styleVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/css/style.css'))).digest('hex').slice(0, 12);
 const e = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const imageVersions = new Map();
+function imageUrl(src) {
+  if (!imageVersions.has(src)) {
+    imageVersions.set(src, createHash('sha256').update(fs.readFileSync(path.join(root, src))).digest('hex').slice(0, 12));
+  }
+  return `${src}?v=${imageVersions.get(src)}`;
+}
 const cvE = s => e(String(s).replaceAll('–', '-').replaceAll('‑', '-'));
 const link = (href, label) => `<a class="text-link" href="${e(href)}">${e(label)}</a>`;
 const chapter = (year, body) => `<li class="chapter" id="year-${year}"><h3 class="year">${year}</h3><div class="chapter-body">${body}</div></li>`;
 const paper = p => `<article class="research-entry"><div class="entry-heading"><h4><a href="${e(p.href)}">${e(p.title)}</a></h4><span class="venue-label">${e(p.venue)}</span></div>${p.body ? `<p>${e(p.body)}</p>` : ''}${p.code ? `<div class="links">${link(p.code, p.codeLabel)}</div>` : ''}</article>`;
 const job = j => `<article class="work-entry"><h4>${e(j.name)}</h4><p class="work-role">${e(j.role)}</p><p class="date">${e(j.date)}</p>${j.paragraphs.map(p => `<p>${e(p)}</p>`).join('')}</article>`;
+
+function researchFigureLink(w, r) {
+  const src = e(imageUrl(w.preview || w.image));
+  const alt = e(w.previewAlt || w.alt);
+  const picture = w.crop
+    ? `<svg viewBox="${w.crop.join(' ')}" width="${w.crop[2]}" height="${w.crop[3]}" role="img" aria-label="${alt}"><image href="${src}" width="${w.width}" height="${w.height}" /></svg>`
+    : `<img src="${src}" alt="${alt}" width="${w.width}" height="${w.height}" loading="lazy">`;
+  return `<a class="figure-link${w.dark ? ' dark-figure' : ''}" href="${e(w.image)}" data-photo data-display="${w.dark ? 'dark' : 'light'}" data-caption="${e(w.fullCaption)}" data-alt="${e(w.alt)}" aria-label="${e(r.figureLink)}: ${e(w.name)}">${picture}</a>`;
+}
 
 function researchWork(w, r) {
   const credit = w.credit.href ? `<a href="${e(w.credit.href)}">${e(w.credit.label)}</a>` : e(w.credit.label);
@@ -22,7 +38,7 @@ function researchWork(w, r) {
       <p class="research-summary">${e(w.summary)}</p>
       <div class="research-links">${w.links.map(l => link(l.href, l.label)).join('')}</div>
     </div>
-    <figure class="research-figure research-figure-${e(w.id)}"><a class="figure-link${w.dark ? ' dark-figure' : ''}" href="${e(w.image)}" data-photo data-display="${w.dark ? 'dark' : 'light'}" data-caption="${e(w.fullCaption)}" data-alt="${e(w.alt)}" aria-label="${e(r.figureLink)}: ${e(w.name)}"><img src="${e(w.image)}" alt="${e(w.previewAlt || w.alt)}" width="${w.width}" height="${w.height}" loading="lazy"></a>
+    <figure class="research-figure research-figure-${e(w.id)}">${researchFigureLink(w, r)}
       <figcaption>${credit}${w.license ? `, <a href="${e(w.license.href)}">${e(w.license.label)}</a>` : ''}</figcaption>
     </figure>
   </article>`;
@@ -57,7 +73,11 @@ function renderPublicationDirectory(source, key) {
         ? `<a href="${e(detail.source)}">${key === 'en' ? 'Figure source' : '图片来源'}</a>`
         : key === 'en' ? "Authors' manuscript" : '作者手稿';
       const license = detail.license ? `, <a href="${e(detail.license)}">CC BY-NC-ND 4.0</a>` : '';
-      const image = detail.image ? `<figure class="publication-image"><img src="assets/img/publications/${e(detail.image)}" alt="${e(key === 'en' ? `Figure for ${title.replace(/<[^>]*>/g, '')}` : `${title.replace(/<[^>]*>/g, '')} 的论文配图`)}" loading="lazy"><figcaption>${imageCredit}${license}</figcaption></figure>` : '';
+      const featuredWork = research[key].works.find(work => work.id === detail.id);
+      const figureAlt = key === 'en' ? `Figure for ${title.replace(/<[^>]*>/g, '')}` : `${title.replace(/<[^>]*>/g, '')} 的论文配图`;
+      const figureSrc = detail.image ? imageUrl(`assets/img/publications/${detail.image}`) : '';
+      const picture = featuredWork ? researchFigureLink(featuredWork, research[key]) : `<a class="figure-link" href="${e(figureSrc)}" data-photo data-caption="${e(title.replace(/<[^>]*>/g, ''))}" data-alt="${e(figureAlt)}" aria-label="${e(research[key].figureLink)}: ${e(title.replace(/<[^>]*>/g, ''))}"><img src="${e(figureSrc)}" alt="${e(figureAlt)}" loading="lazy"></a>`;
+      const image = detail.image ? `<figure class="publication-image">${picture}<figcaption>${imageCredit}${license}</figcaption></figure>` : '';
       return `<details class="publication-entry" id="${e(existingId || `paper-${detail.id}`)}"><summary><span class="publication-title">${title}</span><span class="publication-venue">${venue}</span></summary><div class="publication-detail${detail.image ? '' : ' publication-detail-text'}">${image}<div class="publication-copy"><p>${e(detail[key])}</p><p class="publication-authors">${fullAuthors}</p>${links ? `<div class="publication-links">${links}</div>` : ''}</div></div></details>`;
     }).join('');
     return `<section class="publication-year" aria-labelledby="paper-year-${year}"><h3 id="paper-year-${year}">${year}</h3>${entries}</section>`;
