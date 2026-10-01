@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { en, zh, shared, links } from '../content/profile.mjs';
+import { en, zh, shared, links, emails } from '../content/profile.mjs';
 import { research } from '../content/research.mjs';
 import { publicationDetails } from '../content/publication-details.mjs';
 
@@ -106,13 +106,14 @@ function render(t, key) {
   const url = `https://yixinchen-ai.github.io/${isEn ? '' : 'index.zh.html'}`;
   const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
   const publicationDirectory = renderPublicationDirectory(publications, key, t);
+  const emailText = Object.values(emails).map(address => `<span>${e(address)}</span>`).join('');
   const introPublications = e(t.introPublications).replace(/Nature Communications|IEEE TMI|IEEE TRPMS|EJNMMI/g, '<strong>$&</strong>');
   const timeline = t.timeline.map(item => `<li class="timeline-${e(item.category)}"><div class="timeline-meta"><span class="timeline-year">${e(item.year)}</span><span class="timeline-category">${e(t.timelineCategories[item.category])}</span></div><p>${e(item.text)}</p></li>`).join('');
 
   return `<!doctype html>
 <html lang="${t.lang}">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="email=no">
   <title>${e(t.title)}</title><meta name="description" content="${e(t.description)}"><meta name="author" content="Yixin Chen">
   <meta property="og:type" content="website"><meta property="og:title" content="${e(t.title)}"><meta property="og:description" content="${e(t.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="https://yixinchen-ai.github.io/assets/img/avatar.png"><meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#ffffff"><link rel="canonical" href="${url}">
@@ -123,11 +124,11 @@ function render(t, key) {
 <a class="skip-link" href="#main">${e(t.skip)}</a>
 <header class="site-header"><div class="header-inner"><a class="site-name" href="#top">Yixin Chen</a><nav aria-label="${isEn ? 'Main navigation' : '主导航'}"><a href="#research">${t.nav[1]}</a><a href="#publications">${t.nav[2]}</a><button type="button" popovertarget="journey" aria-controls="journey" aria-expanded="false">${t.nav[0]}</button><a href="#contact">${t.nav[3]}</a></nav><div class="language" role="group" aria-label="Language / 语言"><a href="index.html" lang="en" hreflang="en" ${isEn ? 'aria-current="page"' : ''}>English</a><a href="index.zh.html" lang="zh-CN" hreflang="zh-CN" ${!isEn ? 'aria-current="page"' : ''}>中文</a></div></div></header>
 <main id="main" class="page">
-<section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><div class="hero-links">${link(links.email, t.email)}${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}<a class="text-link" href="${e(links.cvEn)}" download>${e(t.cvEn)}</a><a class="text-link" href="${e(links.cvZh)}" download>${e(t.cvZh)}</a></div><p class="intro" id="research-funding"><strong>${e(t.introFunding)}</strong> ${e(t.intro)} ${introPublications}</p></section>
+<section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><div class="hero-contact"><div class="hero-emails">${emailText}</div><div class="hero-links">${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}<a class="text-link" href="${e(links.cvEn)}" download>${e(t.cvEn)}</a><a class="text-link" href="${e(links.cvZh)}" download>${e(t.cvZh)}</a></div></div><p class="intro" id="research-funding"><strong>${e(t.introFunding)}</strong> ${e(t.intro)} ${introPublications}</p></section>
 <section id="research" class="selected-research" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">${e(r.heading)}</h2></div>${r.works.map(w => researchWork(w, r)).join('')}</section>
 <section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="publication-directory">${publicationDirectory}</div></section>
 <section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
-<section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list"><a href="${links.email}">yixinchen0320@gmail.com</a><a href="${links.pku}">2311110791@stu.pku.edu.cn <span>(${e(t.pkuEmail)})</span></a></div><div class="contact-links">${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>
+<section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list">${emailText}</div><div class="contact-links">${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>
 <footer><span>${e(t.footer)}</span><span>${e(t.updated)}</span><a href="#top">${isEn ? 'Back to top' : '返回顶部'}</a></footer>
 </main>
 <button class="timeline-trigger" type="button" popovertarget="journey" aria-controls="journey" aria-expanded="false">${e(t.journey)}</button>

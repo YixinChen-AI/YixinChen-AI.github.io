@@ -1,6 +1,12 @@
+export const emails = {
+  gmail: 'yixinchen0320@gmail.com',
+  netease: 'yixinchen970320@126.com',
+  pku: '2311110791@stu.pku.edu.cn',
+};
+
 export const links = {
-  email: 'mailto:yixinchen0320@gmail.com',
-  pku: 'mailto:2311110791@stu.pku.edu.cn',
+  email: `mailto:${emails.gmail}`,
+  pku: `mailto:${emails.pku}`,
   scholar: 'https://scholar.google.com/citations?hl=en&user=ymfVoFwAAAAJ',
   github: 'https://github.com/YixinChen-AI',
   orcid: 'https://orcid.org/0000-0002-2727-6387',

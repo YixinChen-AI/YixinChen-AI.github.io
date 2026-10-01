@@ -38,7 +38,10 @@ h1 { font-size: 48px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em
 .portrait img { width: 172px; aspect-ratio: 1; object-fit: cover; border-radius: 3px; }
 .intro { grid-column: 1 / -1; font-size: 18px; line-height: 1.6; }
 .intro strong { font-weight: 600; }
-.hero-links { grid-column: 1; display: flex; flex-wrap: wrap; gap: 24px; font-size: 16px; }
+.hero-contact { grid-column: 1; min-width: 0; }
+.hero-emails { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-bottom: 10px; font-size: 15px; }
+.hero-emails span, .email-list span { overflow-wrap: anywhere; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 16px; }
 .hero-links a { white-space: nowrap; }
 .text-link { text-decoration: underline; text-decoration-color: #bccdd8; text-underline-offset: 4px; }
 .text-link:hover { text-decoration-color: var(--link); }
@@ -129,8 +132,6 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .service dd { margin-top: 5px; font-size: 15px; color: var(--muted); }
 .contact { margin-top: 37px; padding: 31px 0; border-top: 1px solid var(--rule); }
 .email-list { margin-top: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.email-list a { text-decoration: underline; text-decoration-color: #bccdd8; text-underline-offset: 4px; overflow-wrap: anywhere; }
-.email-list a span { color: var(--muted); font-size: 14px; text-decoration: none; }
 .contact-links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 19px; font-size: 15px; }
 footer { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 24px; padding: 20px 0 88px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
 footer > span:nth-child(2) { margin-left: auto; }
@@ -158,6 +159,8 @@ footer > span:nth-child(2) { margin-left: auto; }
   .other-name { font-size: 18px; }
   .affiliation { font-size: 16px; margin-top: 11px; }
   .portrait { grid-row: 1; }
+  .hero-contact { grid-column: 1 / -1; }
+  .hero-emails { font-size: 14px; }
   .portrait img { width: 112px; }
   .intro { grid-column: 1 / -1; font-size: 18px; }
   .hero-links { grid-column: 1 / -1; font-size: 15px; }
