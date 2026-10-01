@@ -239,22 +239,48 @@ footer > span:nth-child(2) { margin-left: auto; }
   .email-list { font-size: 16px; }
 }
 @media (max-width: 640px) {
-  html { scroll-padding-top: 116px; }
-  .header-inner { flex-wrap: wrap; gap: 5px 20px; padding: 12px 0 7px; }
+  html { scroll-padding-top: 78px; }
+  body { font-size: 15px; line-height: 1.5; }
+  .header-inner { min-height: 0; flex-wrap: wrap; gap: 3px 20px; padding: 8px 0 4px; }
+  .site-name { font-size: 15px; }
   .language { margin-left: auto; border: 0; padding: 0; }
   .site-header nav { order: 3; width: 100%; margin: 0; justify-content: space-between; gap: 5px; }
-  .site-header nav a { padding: 7px 0; }
+  .site-header nav a { padding: 5px 0; font-size: 13px; }
+  .intro { font-size: 15px; line-height: 1.5; }
+  .hero-highlights a, .highlight-publications p { font-size: 14px; line-height: 1.5; }
+  .highlight-funding span, .highlight-publications span { font-size: 13px; }
+  .hero-links { font-size: 13px; gap: 12px 20px; }
+  h2 { font-size: 20px; }
+  h4, .education-entry h4, .work-entry h4, .challenge-results h4 { font-size: 18px; line-height: 1.4; }
+  .research-entry p, .education-entry p, .work-entry p, .challenge-results p, .clinical-entry p, .funding-entry p { font-size: 15px; line-height: 1.5; }
+  .selected-research { padding-top: 16px; }
+  .selected-research > .section-heading { margin-bottom: 0; }
+  .research-funding { padding: 12px 0 14px; }
+  .research-funding h3 { font-size: 17px; line-height: 1.4; }
+  .research-funding p { margin-top: 5px; font-size: 13px; line-height: 1.4; }
+  .selected-work { grid-template-columns: minmax(0, 1fr) 82px; gap: 4px 14px; padding: 9px 0; }
+  .research-copy { display: contents; }
+  .research-venue { grid-column: 1; grid-row: 1; margin: 0; font-size: 12px; line-height: 1.4; }
+  .research-copy h3 { grid-column: 1; grid-row: 2; font-size: 14px; line-height: 1.35; letter-spacing: 0; }
+  .research-summary { grid-column: 1 / -1; grid-row: 3; margin: 3px 0 0; font-size: 13px; line-height: 1.4; }
+  .research-links { grid-column: 1 / -1; grid-row: 4; margin-top: 2px; gap: 20px; font-size: 13px; }
+  .research-figure { grid-column: 2; grid-row: 1 / span 2; }
+  .research-figure figcaption { display: none; }
+  .publication-title { font-size: 15px; line-height: 1.4; }
+  .publication-venue, .publication-copy { font-size: 13px; line-height: 1.5; }
+  .publication-entry summary { padding: 11px 0; }
+  .section-heading > a { font-size: 13px; }
   .poster-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .poster-photo-link img { height: 145px; }
 }
 @media (max-width: 470px) {
   .hero { grid-template-columns: minmax(0, 1fr) 86px; gap: 21px 20px; }
-  h1 { font-size: 36px; }
+  h1 { font-size: 32px; }
   .other-name { font-size: 16px; }
   .name-line { gap: 7px 13px; }
   .affiliation { font-size: 15px; }
   .portrait img { width: 86px; }
-  .intro { font-size: 17px; }
+  .intro { font-size: 15px; }
   .hero-highlights li { display: block; padding: 10px 0; }
   .highlight-funding span { margin-left: 10px; }
   .highlight-publications span { display: block; }

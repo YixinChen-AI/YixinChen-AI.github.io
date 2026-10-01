@@ -1,11 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 import { en, zh, shared, links } from '../content/profile.mjs';
 import { research } from '../content/research.mjs';
 import { publicationDetails } from '../content/publication-details.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const styleVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/css/style.css'))).digest('hex').slice(0, 12);
 const e = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const cvE = s => e(String(s).replaceAll('–', '-').replaceAll('‑', '-'));
 const link = (href, label) => `<a class="text-link" href="${e(href)}">${e(label)}</a>`;
@@ -112,7 +114,7 @@ function render(t, key) {
   <meta property="og:type" content="website"><meta property="og:title" content="${e(t.title)}"><meta property="og:description" content="${e(t.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="https://yixinchen-ai.github.io/assets/img/avatar.png"><meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#ffffff"><link rel="canonical" href="${url}">
   <link rel="alternate" hreflang="en" href="https://yixinchen-ai.github.io/"><link rel="alternate" hreflang="zh-CN" href="https://yixinchen-ai.github.io/index.zh.html"><link rel="alternate" hreflang="x-default" href="https://yixinchen-ai.github.io/">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/style.css"><script src="assets/js/main.js" defer></script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/style.css?v=${styleVersion}"><script src="assets/js/main.js" defer></script>
 </head>
 <body id="top">
 <a class="skip-link" href="#main">${e(t.skip)}</a>
