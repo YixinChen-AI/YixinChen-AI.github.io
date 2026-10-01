@@ -5,10 +5,12 @@ import { createHash } from 'node:crypto';
 import { en, zh, shared, links, emails } from '../content/profile.mjs';
 import { research } from '../content/research.mjs';
 import { publicationDetails } from '../content/publication-details.mjs';
+import { visitors } from '../content/visitors.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const styleVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/css/style.css'))).digest('hex').slice(0, 12);
 const scriptVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/js/main.js'))).digest('hex').slice(0, 12);
+const visitorScriptVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/js/visitors.js'))).digest('hex').slice(0, 12);
 const e = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const imageVersions = new Map();
 function imageUrl(src) {
@@ -103,6 +105,7 @@ function renderPublicationDirectory(source, key, t) {
 function render(t, key) {
   const isEn = key === 'en';
   const r = research[key];
+  const v = visitors[key];
   const url = `https://yixinchen-ai.github.io/${isEn ? '' : 'index.zh.html'}`;
   const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
   const publicationDirectory = renderPublicationDirectory(publications, key, t);
@@ -118,7 +121,7 @@ function render(t, key) {
   <meta property="og:type" content="website"><meta property="og:title" content="${e(t.title)}"><meta property="og:description" content="${e(t.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="https://yixinchen-ai.github.io/assets/img/avatar.png"><meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#ffffff"><link rel="canonical" href="${url}">
   <link rel="alternate" hreflang="en" href="https://yixinchen-ai.github.io/"><link rel="alternate" hreflang="zh-CN" href="https://yixinchen-ai.github.io/index.zh.html"><link rel="alternate" hreflang="x-default" href="https://yixinchen-ai.github.io/">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/style.css?v=${styleVersion}"><script src="assets/js/main.js?v=${scriptVersion}" defer></script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/style.css?v=${styleVersion}"><script src="assets/js/main.js?v=${scriptVersion}" defer></script><script src="assets/js/visitors.js?v=${visitorScriptVersion}" defer></script>
 </head>
 <body id="top">
 <a class="skip-link" href="#main">${e(t.skip)}</a>
@@ -129,6 +132,7 @@ function render(t, key) {
 <section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="publication-directory">${publicationDirectory}</div></section>
 <section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
 <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list">${emailText}</div><div class="contact-links">${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>
+<section id="visitors" class="visitors" aria-labelledby="visitors-title" data-endpoint="${e(visitors.endpoint)}" data-unavailable="${e(v.unavailable)}" data-empty="${e(v.empty)}" data-hint="${e(v.hint)}"><h2 id="visitors-title">${e(v.title)}</h2><p class="visitor-status" role="status">${e(v.loading)}</p><div class="visitor-map" data-src="${e(imageUrl('assets/img/world.svg'))}"></div><div class="visitor-map-caption"><p class="visitor-readout" aria-live="polite"></p><div class="visitor-legend" hidden><span>${e(v.low)}</span><span class="visitor-scale" aria-hidden="true"></span><span>${e(v.high)}</span></div></div><p class="visitor-note">${e(v.privacy)}</p><p class="visitor-credit">${e(v.credit)}: <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/world">MapSVG / SVG Maps</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p></section>
 <footer><span>${e(t.footer)}</span><span>${e(t.updated)}</span><a href="#top">${isEn ? 'Back to top' : '返回顶部'}</a></footer>
 </main>
 <button class="timeline-trigger" type="button" popovertarget="journey" aria-controls="journey" aria-expanded="false">${e(t.journey)}</button>
