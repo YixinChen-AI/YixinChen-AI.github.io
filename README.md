@@ -50,7 +50,7 @@ The current public pages are `index.html` and `index.zh.html`; the current downl
 
 The 2026 group starts with the autoPET V, CMR-MULTI, REG² and MVAA entries. Each event has a compact result row that expands to its photograph alone. CMR-MULTI currently expands to a labeled photo placeholder at the user's request; replace it when a corresponding photograph is supplied. CV challenge records are unchanged.
 
-The timeline is a closed-by-default floating panel, opened from the header or the bottom-right Background / 个人经历 button. It uses the bilingual `timeline` entries in `content/profile.mjs`, covering funding, education, employment and writing in reverse chronological order. On phones it opens as a scrollable bottom sheet. The `#journey` link opens the panel directly. Papers and challenge records remain in the yearly directory; detailed employment and education records remain in both CVs.
+The timeline is a closed-by-default floating panel, opened from the header or the bottom-right Background / 个人经历 button. It uses the bilingual `timeline` entries in `content/profile.mjs`, covering funding, education, employment and book publication in reverse chronological order. The book entry shows only its title and publisher under the publication year. On phones it opens as a scrollable bottom sheet. The `#journey` link opens the panel directly. Papers and challenge records remain in the yearly directory; detailed employment and education records remain in both CVs.
 
 The homepages and both CVs use the same bilingual content files. The GitHub Pages workflow rebuilds both pages and both downloadable PDFs on every deployment, so CV content does not need to be maintained separately.
 
