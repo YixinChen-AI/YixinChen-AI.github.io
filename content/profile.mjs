@@ -48,7 +48,7 @@ export const en = {
   introPublications: 'My first-author papers appear in Nature Communications, IEEE TMI, IEEE TRPMS, CVPR 2026 Findings and MICCAI 2024 (poster), with a further paper accepted in EJNMMI.',
   scholar: 'Google Scholar', email: 'Email', cvEn: 'CV (EN)', cvZh: 'CV (中)',
   portraitAlt: 'Portrait of Yixin Chen', portraitCaption: 'Yixin Chen',
-  journey: 'Background', closeJourney: 'Close timeline',
+  journey: 'Timeline', closeJourney: 'Close timeline',
   timelineCategories: {education: 'Education', work: 'Work', funding: 'Research grant', publication: 'Book'},
   timeline: [
     {year: '2026–2027', category: 'funding', text: 'Principal investigator of an NSFC doctoral research project.'},
@@ -147,7 +147,7 @@ export const zh = {
   introPublications: '以第一作者在 Nature Communications、IEEE TMI 和 IEEE TRPMS 发表论文，EJNMMI 论文已接收；第一作者会议论文包括 CVPR 2026 Findings 和 MICCAI 2024（海报）。',
   scholar: 'Google Scholar', email: '邮箱', cvEn: 'CV (EN)', cvZh: 'CV (中)',
   portraitAlt: '陈亦新的个人照', portraitCaption: '陈亦新',
-  journey: '个人经历', closeJourney: '关闭时间线',
+  journey: '时间线', closeJourney: '关闭时间线',
   timelineCategories: {education: '求学', work: '工作', funding: '科研项目', publication: '出版'},
   timeline: [
     {year: '2026–2027', category: 'funding', text: '国家自然科学基金博士生项目负责人。'},

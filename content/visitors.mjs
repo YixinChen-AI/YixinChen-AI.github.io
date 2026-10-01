@@ -2,6 +2,7 @@ export const visitors = {
   endpoint: 'https://yixin-visitor-stats.yixinchen970320.chatgpt.site',
   en: {
     title: 'Visitors around the world',
+    since: 'Visits since October 2026',
     loading: 'Loading visits…',
     unavailable: 'Visitor statistics are currently unavailable.',
     empty: 'The map will fill as visits are recorded.',
@@ -11,6 +12,7 @@ export const visitors = {
   },
   zh: {
     title: '世界访客分布',
+    since: '自 2026 年 10 月起统计',
     loading: '正在加载访问统计…',
     unavailable: '访问统计暂时无法加载。',
     empty: '地图会随访问记录逐渐着色。',
