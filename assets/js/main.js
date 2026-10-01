@@ -26,17 +26,12 @@
 
   const timeline = document.getElementById('journey');
   const timelineTriggers = document.querySelectorAll('[popovertarget="journey"][aria-expanded]');
+  if (location.hash === '#journey') history.replaceState(null, '', location.pathname + location.search);
   if (typeof timeline?.showPopover === 'function') {
     timeline.addEventListener('toggle', event => {
       const open = event.newState === 'open';
       for (const trigger of timelineTriggers) trigger.setAttribute('aria-expanded', String(open));
-      if (!open && location.hash === '#journey') history.replaceState(null, '', location.pathname + location.search);
     });
-    function openLinkedTimeline() {
-      if (location.hash === '#journey' && !timeline.matches(':popover-open')) timeline.showPopover();
-    }
-    addEventListener('hashchange', openLinkedTimeline);
-    openLinkedTimeline();
   }
 
   const dialog = document.querySelector('.photo-viewer');
