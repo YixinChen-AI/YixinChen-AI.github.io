@@ -48,6 +48,8 @@ Edit `content/profile.mjs` for the timeline and introduction, `content/research.
 
 The current public pages are `index.html` and `index.zh.html`; the current downloadable CVs are `output/pdf/Yixin-Chen-CV.pdf` and `output/pdf/Yixin-Chen-CV-ZH.pdf`. The homepage displays the 18 papers in the five yearly publication groups. Preprints and challenge abstracts remain in the CV. Paper images are stored in `assets/img/publications/`. When an original figure is unavailable, its entry remains text-only rather than displaying an unrelated image.
 
+The 2026 group starts with the autoPET V, CMR-MULTI, REG² and MVAA entries. Each event has a compact result row; rows with a verified event photograph expand to that image alone. CMR-MULTI remains a result-only row until a corresponding photograph is supplied. These event blocks are no longer repeated in the timeline; its research, education and employment entries remain unchanged. CV challenge records are unchanged.
+
 The homepages and both CVs use the same bilingual content files. The GitHub Pages workflow rebuilds both pages and both downloadable PDFs on every deployment, so CV content does not need to be maintained separately.
 
 ## Research images

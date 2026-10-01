@@ -44,7 +44,21 @@ function researchWork(w, r) {
   </article>`;
 }
 
-function renderPublicationDirectory(source, key) {
+function renderChallenges(t) {
+  const entries = [
+    { id: 'challenge-autopet', title: t.awardTitle, image: shared.awardImage, alt: t.awardAlt },
+    { id: 'challenge-cmr-multi', title: t.awards[0].title },
+    { id: 'challenge-reg2', title: t.awards[1].title, ...t.posterPhotos[0] },
+    { id: 'challenge-mvaa', title: t.workshop.title, ...t.posterPhotos[1] },
+  ];
+  return entries.map(entry => {
+    const title = `<span class="publication-title">${e(entry.title)}</span>`;
+    if (!entry.image) return `<div class="publication-entry challenge-entry" id="${entry.id}"><div class="challenge-summary">${title}</div></div>`;
+    return `<details class="publication-entry challenge-entry" id="${entry.id}"><summary>${title}</summary><div class="challenge-photo"><img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="3000" height="4000" loading="lazy"></div></details>`;
+  }).join('');
+}
+
+function renderPublicationDirectory(source, key, t) {
   const groups = [...source.matchAll(/<section class="publication-group"[^>]*>([\s\S]*?)<\/section>/g)]
     .map(match => match[1]).filter(group => /<h3[^>]*>20\d{2}<\/h3>/.test(group));
   let index = 0;
@@ -80,7 +94,7 @@ function renderPublicationDirectory(source, key) {
       const image = detail.image ? `<figure class="publication-image">${picture}<figcaption>${imageCredit}${license}</figcaption></figure>` : '';
       return `<details class="publication-entry" id="${e(existingId || `paper-${detail.id}`)}"><summary><span class="publication-title">${title}</span><span class="publication-venue">${venue}</span></summary><div class="publication-detail${detail.image ? '' : ' publication-detail-text'}">${image}<div class="publication-copy"><p>${e(detail[key])}</p><p class="publication-authors">${fullAuthors}</p>${links ? `<div class="publication-links">${links}</div>` : ''}</div></div></details>`;
     }).join('');
-    return `<section class="publication-year" aria-labelledby="paper-year-${year}"><h3 id="paper-year-${year}">${year}</h3>${entries}</section>`;
+    return `<section class="publication-year" aria-labelledby="paper-year-${year}"><h3 id="paper-year-${year}">${year}</h3>${year === '2026' ? renderChallenges(t) : ''}${entries}</section>`;
   }).join('');
   if (index !== publicationDetails.length) throw new Error(`Expected ${publicationDetails.length} peer-reviewed papers, found ${index}`);
   return html;
@@ -91,30 +105,13 @@ function render(t, key) {
   const r = research[key];
   const url = `https://yixinchen-ai.github.io/${isEn ? '' : 'index.zh.html'}`;
   const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
-  const publicationDirectory = renderPublicationDirectory(publications, key);
+  const publicationDirectory = renderPublicationDirectory(publications, key, t);
   const highlights = t.highlights.map(group => group.href
     ? `<li class="highlight-funding"><a href="${e(group.href)}">${e(group.label)}</a><span>${e(group.detail)}</span></li>`
     : `<li class="highlight-publications"><span>${e(group.label)}</span><p>${group.items.map(item => `<a href="${e(item.href)}">${e(item.title)}</a>`).join(e(t.highlightSeparator))}</p></li>`).join('');
   const chapters = [
     chapter('2026', `
       <article class="funding-entry featured-funding"><p>${e(t.fundingTimeline)}</p></article>
-      <p class="date latest-date">${e(t.latestLabel)}</p>
-      <div class="award-feature">
-        <figure>
-          <a href="${shared.awardImage}" class="photo-link" data-photo data-caption="${e(t.awardCaption)}" aria-label="${e(t.fullPhoto)}">
-            <img src="${shared.awardImage}" alt="${e(t.awardAlt)}" width="3000" height="4000" loading="lazy">
-          </a>
-          <figcaption>${e(t.awardCaption)} <a href="${shared.awardImage}" data-photo data-caption="${e(t.awardCaption)}" aria-label="${e(t.fullPhoto)}"><span>${e(t.fullPhoto)}</span></a></figcaption>
-        </figure>
-        <div class="challenge-results">
-          <article class="autoPET-result"><h4>${e(t.awardTitle)}</h4><p>${e(t.awardBody)}</p>${link(links.autopet, t.awardLink)}</article>
-          ${t.awards.map(a => `<article><h4>${e(a.title)}</h4><p>${e(a.timelineDetail || a.detail)}</p>${link(a.href, a.link)}</article>`).join('')}
-          <article><h4>${e(t.workshop.title)}</h4><p>${e(t.workshop.detail)}</p>${link(t.workshop.href, t.workshop.link)}</article>
-        </div>
-      </div>
-      <div class="poster-gallery">
-        ${t.posterPhotos.map(p => `<figure><a href="${e(p.image)}" class="poster-photo-link" data-photo data-caption="${e(p.caption)}" aria-label="${e(t.fullPhoto)}: ${e(p.caption)}"><img src="${e(p.image)}" alt="${e(p.alt)}" width="3000" height="4000" loading="lazy"></a><figcaption>${e(p.caption)} <a href="${e(p.image)}" data-photo data-caption="${e(p.caption)}">${e(t.fullPhoto)}</a></figcaption></figure>`).join('')}
-      </div>
       ${t.papers2026.map(p => paper(p)).join('')}
       <article class="clinical-entry"><h4><a href="#research-masld">${e(t.clinicalTitle)}</a></h4><p>${e(t.clinicalBody)}</p></article>`),
     chapter('2025', `<article class="research-entry mpum-entry"><h4><a href="#research-mpum">${e(t.mpumTitle)}</a></h4><p>${e(t.mpumBody)}</p></article>${paper(t.paper2025)}`),
