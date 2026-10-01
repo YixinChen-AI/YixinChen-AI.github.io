@@ -8,7 +8,7 @@
 }
 * { box-sizing: border-box; }
 html { scroll-padding-top: 108px; }
-body { margin: 0; color: var(--ink); background: #fff; font: 17px/1.7 var(--sans); }
+body { margin: 0; color: var(--ink); background: #fff; font: 17px/1.6 var(--sans); }
 h1, h2, h3, h4, p, figure, ol, dl, dd { margin: 0; }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -26,14 +26,14 @@ img { display: block; max-width: 100%; height: auto; }
 .language { display: flex; gap: 15px; padding-left: 26px; border-left: 1px solid var(--rule); font-size: 14px; }
 .language a { color: var(--muted); }
 .language a[aria-current="page"] { color: var(--ink); font-weight: 650; }
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) 172px; gap: 17px 65px; align-items: start; padding: 54px 0 50px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 172px; gap: 13px 65px; align-items: start; padding: 44px 0 38px; }
 .name-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
 h1 { font-size: 48px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em; }
 .other-name { font-size: 21px; color: var(--muted); }
 .affiliation { margin-top: 13px; font-size: 18px; color: var(--muted); }
 .portrait { grid-column: 2; grid-row: 1 / span 4; }
 .portrait img { width: 172px; aspect-ratio: 1; object-fit: cover; border-radius: 3px; }
-.intro { grid-column: 1; max-width: 745px; font-size: 19px; line-height: 1.8; }
+.intro { grid-column: 1; max-width: 745px; font-size: 19px; line-height: 1.6; }
 .hero-highlights { grid-column: 1; padding: 0; list-style: none; }
 .hero-highlights li { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 18px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--rule); }
 .hero-highlights li:first-child { padding-top: 0; }
@@ -59,7 +59,7 @@ h2 { font-size: 25px; font-weight: 650; line-height: 1.4; }
 .research-copy { min-width: 0; }
 .research-venue { color: var(--accent); font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
 .research-copy h3 { font-size: 28px; font-weight: 600; line-height: 1.4; letter-spacing: -.015em; }
-.research-summary { margin-top: 18px; font-size: 17px; line-height: 1.8; }
+.research-summary { margin-top: 14px; font-size: 17px; line-height: 1.65; }
 .research-links { display: flex; flex-wrap: wrap; gap: 23px; margin-top: 19px; font-size: 16px; }
 .research-figure { min-width: 0; padding-top: 3px; }
 .figure-link { display: block; position: relative; aspect-ratio: 1.42; overflow: hidden; }
@@ -71,7 +71,7 @@ h2 { font-size: 25px; font-weight: 650; line-height: 1.4; }
 .dark-figure { background: #17212c; }
 .research-figure figcaption { font-size: 14px; line-height: 1.7; color: var(--muted); margin-top: 13px; }
 .research-figure figcaption a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.journey { padding-top: 32px; border-top: 1px solid var(--rule); }
+.journey { margin-top: 38px; padding-top: 32px; border-top: 1px solid var(--rule); }
 .journey-layout { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 32px; align-items: start; }
 .year-index { position: sticky; top: 110px; padding-top: 3px; }
 .year-index nav { display: flex; flex-direction: column; gap: 13px; }
@@ -123,8 +123,30 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .book-feature p { font-size: 16px; }
 .chapter-body .london-note { margin-top: 17px; }
 .undergraduate { font-size: 16px; margin-top: 22px !important; color: var(--muted); }
-.publications { margin-top: 33px; padding-top: 34px; border-top: 1px solid var(--rule); }
-.publications .section-heading { margin-bottom: 10px; }
+.publications { margin-top: 18px; padding-top: 34px; border-top: 1px solid var(--rule); }
+.publications .section-heading { margin-bottom: 20px; }
+.publication-year { border-top: 1px solid var(--rule); padding: 12px 0 4px; }
+.publication-year h3 { font-size: 20px; font-weight: 650; line-height: 1.4; margin-bottom: 3px; }
+.publication-entry { border-bottom: 1px solid var(--rule); }
+.publication-entry:last-child { border-bottom: 0; }
+.publication-entry summary { cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) 170px 18px; gap: 25px; align-items: baseline; padding: 13px 0; list-style: none; }
+.publication-entry summary::-webkit-details-marker { display: none; }
+.publication-entry summary::after { content: '+'; font-size: 19px; color: var(--muted); font-weight: 400; text-align: right; }
+.publication-entry[open] summary::after { content: '−'; }
+.publication-title { color: var(--link); font-size: 17px; font-weight: 550; line-height: 1.45; }
+.publication-venue { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.publication-venue .publication-status { display: inline; margin-left: 6px; }
+.publication-venue .v-name { color: var(--muted); }
+.publication-detail { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1fr); gap: 25px; align-items: start; padding: 3px 32px 23px 0; }
+.publication-detail-text { display: block; max-width: 760px; }
+.publication-image img { width: 100%; max-height: 270px; object-fit: contain; object-position: left top; }
+.publication-image figcaption { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.publication-image figcaption a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.publication-copy { font-size: 15px; line-height: 1.55; }
+.publication-copy p + p { margin-top: 12px; }
+.publication-authors { color: var(--muted); }
+.publication-links { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 12px; }
+.publication-links a { text-decoration: underline; text-decoration-color: #bccdd8; text-underline-offset: 3px; }
 .publication-group { margin-top: 30px; }
 .publication-group > h3 { font-size: 21px; font-weight: 600; line-height: 1.5; }
 .pub { padding: 22px 0; border-bottom: 1px solid var(--rule); }
@@ -193,6 +215,11 @@ footer > span:nth-child(2) { margin-left: auto; }
   .research-summary { margin-top: 13px; }
   .research-figure { padding-top: 0; }
   .journey { padding-top: 26px; }
+  .publication-entry summary { grid-template-columns: minmax(0, 1fr) 18px; gap: 5px 14px; }
+  .publication-venue { grid-column: 1; grid-row: 2; }
+  .publication-entry summary::after { grid-column: 2; grid-row: 1; }
+  .publication-detail { grid-template-columns: 1fr; gap: 17px; padding-right: 0; }
+  .publication-image img { max-height: 320px; }
   .section-heading { margin-bottom: 24px; }
   .journey-layout { display: block; }
   .year-index { display: none; }

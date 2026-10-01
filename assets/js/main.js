@@ -58,4 +58,11 @@
   for (const link of document.querySelectorAll('.language a')) {
     link.addEventListener('click', () => { if (location.hash) link.hash = location.hash; });
   }
+
+  function openLinkedPublication() {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target?.matches('details.publication-entry')) target.open = true;
+  }
+  addEventListener('hashchange', openLinkedPublication);
+  openLinkedPublication();
 })();

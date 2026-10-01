@@ -132,7 +132,7 @@ export const en = {
   writingTitle: '“机器学习炼丹术” on WeChat',
   writingDetail: 'Shared notes on machine-learning practice and medical imaging through my technical WeChat account.',
   contactTitle: 'Contact', pkuEmail: 'Peking University',
-  footer: 'Yixin Chen', updated: 'Updated September 2026',
+  footer: 'Yixin Chen', updated: 'Updated October 2026',
 };
 
 export const zh = {
@@ -236,5 +236,5 @@ export const zh = {
   writingTitle: '机器学习炼丹术',
   writingDetail: '通过公众号分享机器学习实践与医学影像笔记。',
   contactTitle: '联系', pkuEmail: '北京大学',
-  footer: '陈亦新', updated: '更新于 2026 年 9 月',
+  footer: '陈亦新', updated: '更新于 2026 年 10 月',
 };
