@@ -8,7 +8,7 @@ export const research = {
         title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications, 2025',
-        summary: 'It shares anatomical knowledge across modalities while adapting to each one, and achieved the highest Dice scores among the compared methods on the evaluated benchmarks.',
+        summary: 'The model shares anatomical knowledge across PET, CT and MRI while adapting segmentation to each modality.',
         links: [
           { label: 'Paper', href: 'https://www.nature.com/articles/s41467-025-64469-w' },
           { label: 'Code', href: 'https://github.com/YixinChen-AI/MPUM' },
@@ -28,7 +28,7 @@ export const research = {
         title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI, 2024',
-        summary: 'It uses relationships between organs, bones and muscles to guide CT segmentation, improving performance in the paper’s experiments.',
+        summary: 'It uses relationships between organs, bones and muscles to guide CT segmentation.',
         links: [
           { label: 'Paper', href: 'https://doi.org/10.1109/TMI.2024.3395349' },
           { label: 'Code', href: 'https://github.com/YixinChen-AI/PCNet' },
@@ -70,7 +70,7 @@ export const research = {
         title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications，2025',
-        summary: '模型共享不同影像模态的解剖知识，同时适应各模态；在论文评估的任务中，Dice 评分高于所比较的方法。',
+        summary: '在 PET、CT 和 MRI 之间共享解剖知识，并针对各模态进行分割。',
         links: [
           { label: '论文', href: 'https://www.nature.com/articles/s41467-025-64469-w' },
           { label: '代码', href: 'https://github.com/YixinChen-AI/MPUM' },
@@ -90,7 +90,7 @@ export const research = {
         title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI，2024',
-        summary: '利用器官、骨骼和肌肉之间的关系指导 CT 分割，在论文实验中提升了分割性能。',
+        summary: '利用器官、骨骼和肌肉之间的关系指导 CT 分割。',
         links: [
           { label: '论文', href: 'https://doi.org/10.1109/TMI.2024.3395349' },
           { label: '代码', href: 'https://github.com/YixinChen-AI/PCNet' },

@@ -36,7 +36,9 @@ h1 { font-size: 48px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em
 .portrait { grid-column: 2; grid-row: 1 / span 2; }
 .portrait img { width: 172px; aspect-ratio: 1; object-fit: cover; border-radius: 3px; }
 .intro { grid-column: 1 / -1; font-size: 18px; line-height: 1.6; }
+.intro strong { font-weight: 600; }
 .hero-links { grid-column: 1; display: flex; flex-wrap: wrap; gap: 24px; font-size: 16px; }
+.hero-links a { white-space: nowrap; }
 .text-link { text-decoration: underline; text-decoration-color: #bccdd8; text-underline-offset: 4px; }
 .text-link:hover { text-decoration-color: var(--link); }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 25px; margin-bottom: 28px; }
@@ -185,11 +187,11 @@ footer > span:nth-child(2) { margin-left: auto; }
   .language { margin-left: auto; border: 0; padding: 0; }
   .site-header nav { order: 3; width: 100%; margin: 0; justify-content: space-between; gap: 5px; }
   .site-header nav a, .site-header nav button { padding: 5px 0; font-size: 13px; }
-  .timeline-trigger { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); font-size: 14px; }
+  .timeline-trigger { display: none; }
   .timeline-panel { inset: auto 0 0; width: 100%; max-height: 55dvh; border-radius: 12px 12px 0 0; padding-bottom: env(safe-area-inset-bottom); }
   .timeline-heading { padding-left: 20px; }
   .intro { font-size: 15px; line-height: 1.5; }
-  .hero-links { font-size: 13px; gap: 12px 20px; }
+  .hero-links { font-size: 13px; gap: 10px 12px; }
   h2 { font-size: 20px; }
   h4 { font-size: 18px; line-height: 1.4; }
   .selected-research { padding-top: 16px; }
@@ -206,6 +208,7 @@ footer > span:nth-child(2) { margin-left: auto; }
   .publication-venue, .publication-copy { font-size: 13px; line-height: 1.5; }
   .publication-entry summary { padding: 11px 0; }
   .section-heading > a { font-size: 13px; }
+  footer { padding-bottom: 28px; }
 }
 @media (max-width: 470px) {
   .hero { grid-template-columns: minmax(0, 1fr) 86px; gap: 21px 20px; }
