@@ -4,6 +4,8 @@ Personal academic homepage of **Yixin Chen (陈亦新)**, PhD candidate in Medic
 
 Live: <https://yixinchen-ai.github.io>
 
+Use this root URL when sharing the homepage: it opens in English. The fixed header has a prominent English / 中文 selector on desktop and mobile, with the current language highlighted. Language switching preserves the current section.
+
 ## Structure
 
 ```

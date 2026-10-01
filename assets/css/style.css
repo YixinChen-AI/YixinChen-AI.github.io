@@ -25,9 +25,10 @@ img { display: block; max-width: 100%; height: auto; }
 .site-header nav button { border: 0; background: none; cursor: pointer; }
 .site-header nav a[aria-current], .site-header nav button[aria-expanded="true"] { color: var(--link); }
 .site-header nav button:hover { text-decoration: underline; text-underline-offset: 4px; }
-.language { display: flex; gap: 15px; padding-left: 26px; border-left: 1px solid var(--rule); font-size: 14px; }
-.language a { color: var(--muted); }
-.language a[aria-current="page"] { color: var(--ink); font-weight: 650; }
+.language { display: flex; flex-shrink: 0; padding: 3px; border: 1px solid #bccdd8; border-radius: 6px; font-size: 14px; line-height: 1.2; }
+.language a { display: flex; align-items: center; justify-content: center; min-height: 36px; padding: 7px 12px; border-radius: 3px; color: var(--link); font-weight: 600; }
+.language a:hover { background: #edf3f7; text-decoration: none; }
+.language a[aria-current="page"] { background: var(--link); color: #fff; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) 172px; gap: 13px 65px; align-items: start; padding: 44px 0 38px; }
 .name-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
 h1 { font-size: 48px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em; }
@@ -152,7 +153,6 @@ footer > span:nth-child(2) { margin-left: auto; }
   .site-name { font-size: 16px; }
   .site-header nav { gap: 19px; }
   .site-header nav a, .site-header nav button { padding-block: 19px; font-size: 14px; }
-  .language { padding-left: 16px; gap: 13px; font-size: 13px; }
   .hero { padding: 33px 0 34px; grid-template-columns: minmax(0, 1fr) 112px; gap: 20px 27px; align-items: center; }
   h1 { font-size: 41px; }
   .other-name { font-size: 18px; }
@@ -180,11 +180,11 @@ footer > span:nth-child(2) { margin-left: auto; }
   .email-list { font-size: 16px; }
 }
 @media (max-width: 640px) {
-  html { scroll-padding-top: 78px; }
+  html { scroll-padding-top: 100px; }
   body { font-size: 15px; line-height: 1.5; }
   .header-inner { min-height: 0; flex-wrap: wrap; gap: 3px 20px; padding: 8px 0 4px; }
   .site-name { font-size: 15px; }
-  .language { margin-left: auto; border: 0; padding: 0; }
+  .language { margin-left: auto; }
   .site-header nav { order: 3; width: 100%; margin: 0; justify-content: space-between; gap: 5px; }
   .site-header nav a, .site-header nav button { padding: 5px 0; font-size: 13px; }
   .timeline-trigger { display: none; }
