@@ -23,8 +23,8 @@ Live: <https://yixinchen-ai.github.io>
 │   ├── build-cv-pdf.mjs # Render the generated CV source as PDF
 │   └── preview.mjs   # Local preview on port 4173
 ├── assets/
-│   ├── css/style.css # Responsive academic timeline layout
-│   ├── js/main.js    # Year navigation and photo viewer
+│   ├── css/style.css # Responsive homepage and compact timeline panel
+│   ├── js/main.js    # Section navigation, timeline panel and photo viewer
 │   └── img/          # Portrait, award photo, book cover and research figures
 ├── .nojekyll         # disable GitHub Pages Jekyll processing
 └── README.md
@@ -48,7 +48,9 @@ Edit `content/profile.mjs` for the timeline and introduction, `content/research.
 
 The current public pages are `index.html` and `index.zh.html`; the current downloadable CVs are `output/pdf/Yixin-Chen-CV.pdf` and `output/pdf/Yixin-Chen-CV-ZH.pdf`. The homepage displays the 18 papers in the five yearly publication groups. Preprints and challenge abstracts remain in the CV. Paper images are stored in `assets/img/publications/`. When an original figure is unavailable, its entry remains text-only rather than displaying an unrelated image.
 
-The 2026 group starts with the autoPET V, CMR-MULTI, REG² and MVAA entries. Each event has a compact result row that expands to its photograph alone. CMR-MULTI currently expands to a labeled photo placeholder at the user's request; replace it when a corresponding photograph is supplied. These event blocks are no longer repeated in the timeline; its research, education and employment entries remain unchanged. CV challenge records are unchanged.
+The 2026 group starts with the autoPET V, CMR-MULTI, REG² and MVAA entries. Each event has a compact result row that expands to its photograph alone. CMR-MULTI currently expands to a labeled photo placeholder at the user's request; replace it when a corresponding photograph is supplied. CV challenge records are unchanged.
+
+The timeline is a closed-by-default floating panel, opened from the header or the bottom-right Background / 个人经历 button. It uses the bilingual `timeline` entries in `content/profile.mjs`, covering funding, education, employment and writing in reverse chronological order. On phones it opens as a scrollable bottom sheet. The `#journey` link opens the panel directly. Papers and challenge records remain in the yearly directory; detailed employment and education records remain in both CVs.
 
 The homepages and both CVs use the same bilingual content files. The GitHub Pages workflow rebuilds both pages and both downloadable PDFs on every deployment, so CV content does not need to be maintained separately.
 

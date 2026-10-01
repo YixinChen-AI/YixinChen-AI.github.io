@@ -1,7 +1,5 @@
 (() => {
-  const chapterLinks = [...document.querySelectorAll('.year-index a')];
   const sectionLinks = [...document.querySelectorAll('.site-header nav a')];
-  const chapters = [...document.querySelectorAll('.chapter')];
   const sections = [...document.querySelectorAll('main > section[id]')];
 
   function highlight(items, anchors, offset) {
@@ -17,7 +15,6 @@
 
   let queued = false;
   function update() {
-    highlight(chapters, chapterLinks, 190);
     highlight(sections, sectionLinks, 180);
     queued = false;
   }
@@ -26,6 +23,21 @@
   }, { passive: true });
   addEventListener('resize', update, { passive: true });
   update();
+
+  const timeline = document.getElementById('journey');
+  const timelineTriggers = document.querySelectorAll('[popovertarget="journey"][aria-expanded]');
+  if (typeof timeline?.showPopover === 'function') {
+    timeline.addEventListener('toggle', event => {
+      const open = event.newState === 'open';
+      for (const trigger of timelineTriggers) trigger.setAttribute('aria-expanded', String(open));
+      if (!open && location.hash === '#journey') history.replaceState(null, '', location.pathname + location.search);
+    });
+    function openLinkedTimeline() {
+      if (location.hash === '#journey' && !timeline.matches(':popover-open')) timeline.showPopover();
+    }
+    addEventListener('hashchange', openLinkedTimeline);
+    openLinkedTimeline();
+  }
 
   const dialog = document.querySelector('.photo-viewer');
   if (typeof dialog?.showModal === 'function') {
