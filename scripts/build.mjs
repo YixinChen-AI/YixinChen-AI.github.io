@@ -53,8 +53,10 @@ function renderChallenges(t) {
   ];
   return entries.map(entry => {
     const title = `<span class="publication-title">${e(entry.title)}</span>`;
-    if (!entry.image) return `<div class="publication-entry challenge-entry" id="${entry.id}"><div class="challenge-summary">${title}</div></div>`;
-    return `<details class="publication-entry challenge-entry" id="${entry.id}"><summary>${title}</summary><div class="challenge-photo"><img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="3000" height="4000" loading="lazy"></div></details>`;
+    const photo = entry.image
+      ? `<img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="3000" height="4000" loading="lazy">`
+      : `<div class="challenge-placeholder">${e(t.photoPlaceholder)}</div>`;
+    return `<details class="publication-entry challenge-entry" id="${entry.id}"><summary>${title}</summary><div class="challenge-photo">${photo}</div></details>`;
   }).join('');
 }
 

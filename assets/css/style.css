@@ -114,10 +114,9 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .publication-entry summary::after { content: '+'; font-size: 19px; color: var(--muted); font-weight: 400; text-align: right; }
 .publication-entry[open] summary::after { content: '−'; }
 .challenge-entry summary { grid-template-columns: minmax(0, 1fr) 18px; }
-.challenge-summary { padding: 13px 0; }
-.challenge-summary .publication-title { color: var(--ink); }
 .challenge-photo { padding: 0 0 16px; }
 .challenge-photo img { width: auto; max-width: 100%; max-height: 480px; }
+.challenge-placeholder { display: grid; place-items: center; width: min(360px, 100%); aspect-ratio: 3 / 2; border: 1px solid var(--rule); background: #f4f6f7; color: var(--muted); font-size: 16px; }
 .publication-title { color: var(--link); font-size: 17px; font-weight: 550; line-height: 1.45; }
 .publication-venue { color: var(--muted); font-size: 14px; line-height: 1.5; }
 .publication-venue .publication-status { display: inline; margin-left: 6px; }
@@ -243,7 +242,7 @@ footer > span:nth-child(2) { margin-left: auto; }
   .research-figure figcaption { display: none; }
   .publication-title { font-size: 15px; line-height: 1.4; }
   .publication-venue, .publication-copy { font-size: 13px; line-height: 1.5; }
-  .publication-entry summary, .challenge-summary { padding: 11px 0; }
+  .publication-entry summary { padding: 11px 0; }
   .section-heading > a { font-size: 13px; }
 }
 @media (max-width: 470px) {
