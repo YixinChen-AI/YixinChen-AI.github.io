@@ -1,6 +1,6 @@
 export const research = {
   en: {
-    heading: 'Selected research',
+    heading: 'Representative Works',
     figureLink: 'View full figure',
     works: [
       {
@@ -62,7 +62,7 @@ export const research = {
     ],
   },
   zh: {
-    heading: '代表研究',
+    heading: '代表作',
     figureLink: '查看完整原图',
     works: [
       {

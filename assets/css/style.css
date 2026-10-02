@@ -39,8 +39,7 @@ h1 { font-size: 48px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em
 .intro { grid-column: 1 / -1; grid-row: 3; font-size: 18px; line-height: 1.6; }
 .intro strong { font-weight: 600; }
 .hero-contact { grid-column: 1; grid-row: 2; min-width: 0; }
-.hero-emails { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-bottom: 10px; font-size: 15px; }
-.hero-emails span, .email-list span { overflow-wrap: anywhere; }
+.email-list span { overflow-wrap: anywhere; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 16px; }
 .hero-links a { white-space: nowrap; }
 .text-link { text-decoration: underline; text-decoration-color: #bccdd8; text-underline-offset: 4px; }
@@ -186,7 +185,6 @@ footer > span:nth-child(2) { margin-left: auto; }
   .affiliation { font-size: 16px; margin-top: 11px; }
   .portrait { grid-row: 1; }
   .hero-contact { grid-column: 1 / -1; grid-row: 3; }
-  .hero-emails { font-size: 14px; }
   .portrait img { width: 112px; }
   .intro { grid-column: 1 / -1; grid-row: 2; font-size: 18px; }
   .hero-links { grid-column: 1 / -1; font-size: 15px; }
