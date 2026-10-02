@@ -62,6 +62,8 @@ The homepages and both CVs use the same bilingual content files. The GitHub Page
 
 ## Research images
 
+Contact includes a WeChat / 微信 link that opens the existing image viewer. The user-supplied contact QR image is saved unchanged at `assets/img/wechat-qr.jpg`, which is both the canonical local copy and the website asset. It was supplied for the homepage on 2 October 2026. The viewer also provides the original image for saving or scanning. No personal WeChat ID is inferred from the account nickname or email addresses.
+
 - MPUM: Figure 1 from Nature Communications, credited under CC BY-NC-ND 4.0. The inline viewport shows the complete input-to-segmentation example in panel c; the viewer opens the complete original figure.
 - PCNet: the complete anatomical hierarchy from the author's official repository, displayed on a dark background so its white labels remain readable.
 - MASLD: panel B of Figure 2 from the accepted EJNMMI manuscript, showing the whole-body segmentation and organ groups; the viewer opens the complete original figure.
