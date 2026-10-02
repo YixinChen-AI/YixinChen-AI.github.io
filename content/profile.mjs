@@ -30,6 +30,7 @@ export const links = {
 
 export const shared = {
   awardImage: 'assets/img/autopet-award-2026.jpeg',
+  chimeraAwardImage: 'assets/img/chimera-agent-award-2026.jpg',
   regPosterImage: 'assets/img/reg2-poster-2026.jpg',
   mvaaPosterImage: 'assets/img/mvaa-poster-2026.jpg',
   portraitImage: 'assets/img/avatar.png',
@@ -68,6 +69,11 @@ export const en = {
   awardAlt: 'CYX-AI receiving the autoPET V Category 1 second-place award at MICCAI 2026',
   awardCaption: 'autoPET V award presentation, MICCAI 2026',
   fullPhoto: 'View full photo',
+  chimeraAward: {
+    title: 'CHIMERA-agent: Innovative Agent Solution Award',
+    detail: 'Team PKU Intelligence, MICCAI 2026.',
+    alt: 'CHIMERA-agent Innovative Agent Solution Award presentation for team PKU Intelligence',
+  },
   awards: [
     {title:'CMR-MULTI: second place', detail:'Multi-sequence cardiac MRI segmentation. Method paper selected for a CMRSeg challenge oral presentation.', timelineDetail:'Multi-sequence cardiac MRI segmentation; CMRSeg oral presentation.', href:links.cmrPaper, link:'Method paper'},
     {title:'REG²: fourth place', detail:'Method paper selected for a MICCAI 2026 challenge workshop poster.', timelineDetail:'MICCAI challenge workshop poster.', href:links.regPaper, link:'Method paper'},
@@ -169,6 +175,11 @@ export const zh = {
   awardAlt: 'CYX-AI 在 MICCAI 2026 获得 autoPET V Category 1 第二名的颁奖合影',
   awardCaption: 'MICCAI 2026，autoPET V 颁奖现场',
   fullPhoto: '查看完整照片',
+  chimeraAward: {
+    title: 'CHIMERA-agent：创新智能体方案奖',
+    detail: 'PKU Intelligence 团队，MICCAI 2026。奖项原名：Innovative Agent Solution Award。',
+    alt: 'PKU Intelligence 团队获得 CHIMERA-agent 创新智能体方案奖的颁奖合影',
+  },
   awards: [
     {title:'CMR-MULTI：第二名', detail:'多序列心脏 MRI 分割，方法论文入选 CMRSeg 挑战赛口头报告。', timelineDetail:'多序列心脏 MRI 分割，CMRSeg 口头报告。', href:links.cmrPaper, link:'方法论文'},
     {title:'REG²：第四名', detail:'方法论文入选 MICCAI 2026 挑战赛 workshop 海报。', timelineDetail:'MICCAI 挑战赛 workshop 海报。', href:links.regPaper, link:'方法论文'},

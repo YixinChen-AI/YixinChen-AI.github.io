@@ -46,16 +46,18 @@ function researchWork(w, r) {
 
 function renderChallenges(t) {
   const entries = [
-    { id: 'challenge-autopet', title: t.awardTitle, detail: `${t.awardBody} ${t.awardPresentation}`, image: shared.awardImage, alt: t.awardAlt, href: links.autopet, link: t.awardLink },
+    { id: 'challenge-autopet', title: t.awardTitle, detail: `${t.awardBody} ${t.awardPresentation}`, image: shared.awardImage, width: 3000, height: 4000, alt: t.awardAlt, href: links.autopet, link: t.awardLink },
     { id: 'challenge-cmr-multi', ...t.awards[0], placeholder: true },
     { id: 'challenge-reg2', ...t.awards[1], detail: `${t.regChallengeBody} ${t.awards[1].detail}` },
+    { id: 'challenge-chimera-agent', ...t.chimeraAward, image: shared.chimeraAwardImage, width: 1192, height: 1280 },
   ];
   return entries.map(entry => {
     const title = `<span class="publication-title"><span class="challenge-year">2026</span> ${e(entry.title)}</span>`;
     const photo = entry.image
-      ? `<div class="challenge-photo"><a href="${e(entry.image)}" data-photo data-caption="${e(entry.title)}" data-alt="${e(entry.alt)}" aria-label="${e(t.fullPhoto)}"><img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="3000" height="4000" loading="lazy"></a></div>`
+      ? `<div class="challenge-photo"><a href="${e(entry.image)}" data-photo data-caption="${e(entry.title)}" data-alt="${e(entry.alt)}" aria-label="${e(t.fullPhoto)}"><img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="${entry.width}" height="${entry.height}" loading="lazy"></a></div>`
       : entry.placeholder ? `<div class="challenge-placeholder">${e(t.photoPlaceholder)}</div>` : '';
-    return `<details class="publication-entry challenge-entry" id="${entry.id}"><summary>${title}</summary><div class="challenge-detail"><p>${e(entry.detail)}</p><div class="challenge-links">${link(entry.href, entry.link)}</div>${photo}</div></details>`;
+    const methodLink = entry.href ? `<div class="challenge-links">${link(entry.href, entry.link)}</div>` : '';
+    return `<details class="publication-entry challenge-entry" id="${entry.id}"><summary>${title}</summary><div class="challenge-detail"><p>${e(entry.detail)}</p>${methodLink}${photo}</div></details>`;
   }).join('');
 }
 
@@ -176,6 +178,7 @@ function renderCv(t, key) {
   const challengeItems = [
     { title: t.awardTitle, detail: labels.autopet },
     ...t.awards.map(item => ({ title: item.title, detail: item.detail })),
+    t.chimeraAward,
   ];
   const cv = `<!doctype html>
 <html lang="${t.lang}">

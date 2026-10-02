@@ -102,6 +102,7 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .challenge-detail > p { max-width: 760px; font-size: 16px; line-height: 1.55; }
 .challenge-links { margin: 9px 0 16px; font-size: 14px; }
 .challenge-photo a { display: block; width: fit-content; max-width: 100%; cursor: zoom-in; }
+.challenge-detail > p + .challenge-photo { margin-top: 16px; }
 .challenge-photo img { width: auto; max-width: 100%; max-height: 480px; }
 .challenge-placeholder { display: grid; place-items: center; width: min(360px, 100%); aspect-ratio: 3 / 2; border: 1px solid var(--rule); background: #f4f6f7; color: var(--muted); font-size: 16px; }
 .publication-title { color: var(--link); font-size: 17px; font-weight: 550; line-height: 1.45; }
