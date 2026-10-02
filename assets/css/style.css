@@ -94,8 +94,14 @@ h4 { font-size: 22px; line-height: 1.5; font-weight: 600; }
 .publication-entry summary::-webkit-details-marker { display: none; }
 .publication-entry summary::after { content: '+'; font-size: 19px; color: var(--muted); font-weight: 400; text-align: right; }
 .publication-entry[open] summary::after { content: '−'; }
+.challenges { margin-top: 30px; padding-top: 31px; border-top: 1px solid var(--rule); }
+.challenges .section-heading { margin-bottom: 12px; }
 .challenge-entry summary { grid-template-columns: minmax(0, 1fr) 18px; }
-.challenge-photo { padding: 0 0 16px; }
+.challenge-year { margin-right: 14px; font-size: 14px; font-weight: 400; color: var(--muted); }
+.challenge-detail { padding: 0 0 20px; }
+.challenge-detail > p { max-width: 760px; font-size: 16px; line-height: 1.55; }
+.challenge-links { margin: 9px 0 16px; font-size: 14px; }
+.challenge-photo a { display: block; width: fit-content; max-width: 100%; cursor: zoom-in; }
 .challenge-photo img { width: auto; max-width: 100%; max-height: 480px; }
 .challenge-placeholder { display: grid; place-items: center; width: min(360px, 100%); aspect-ratio: 3 / 2; border: 1px solid var(--rule); background: #f4f6f7; color: var(--muted); font-size: 16px; }
 .publication-title { color: var(--link); font-size: 17px; font-weight: 550; line-height: 1.45; }

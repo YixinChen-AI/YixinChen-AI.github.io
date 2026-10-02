@@ -46,27 +46,30 @@ function researchWork(w, r) {
 
 function renderChallenges(t) {
   const entries = [
-    { id: 'challenge-autopet', title: t.awardTitle, image: shared.awardImage, alt: t.awardAlt },
-    { id: 'challenge-cmr-multi', title: t.awards[0].title },
-    { id: 'challenge-reg2', title: t.awards[1].title, ...t.posterPhotos[0] },
-    { id: 'challenge-mvaa', title: t.workshop.title, ...t.posterPhotos[1] },
+    { id: 'challenge-autopet', title: t.awardTitle, detail: `${t.awardBody} ${t.awardPresentation}`, image: shared.awardImage, alt: t.awardAlt, href: links.autopet, link: t.awardLink },
+    { id: 'challenge-cmr-multi', ...t.awards[0], placeholder: true },
+    { id: 'challenge-reg2', ...t.awards[1], detail: `${t.regChallengeBody} ${t.awards[1].detail}` },
   ];
   return entries.map(entry => {
-    const title = `<span class="publication-title">${e(entry.title)}</span>`;
+    const title = `<span class="publication-title"><span class="challenge-year">2026</span> ${e(entry.title)}</span>`;
     const photo = entry.image
-      ? `<img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="3000" height="4000" loading="lazy">`
-      : `<div class="challenge-placeholder">${e(t.photoPlaceholder)}</div>`;
-    return `<details class="publication-entry challenge-entry" id="${entry.id}"><summary>${title}</summary><div class="challenge-photo">${photo}</div></details>`;
+      ? `<div class="challenge-photo"><a href="${e(entry.image)}" data-photo data-caption="${e(entry.title)}" data-alt="${e(entry.alt)}" aria-label="${e(t.fullPhoto)}"><img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="3000" height="4000" loading="lazy"></a></div>`
+      : entry.placeholder ? `<div class="challenge-placeholder">${e(t.photoPlaceholder)}</div>` : '';
+    return `<details class="publication-entry challenge-entry" id="${entry.id}"><summary>${title}</summary><div class="challenge-detail"><p>${e(entry.detail)}</p><div class="challenge-links">${link(entry.href, entry.link)}</div>${photo}</div></details>`;
   }).join('');
 }
 
-function renderPublicationDirectory(source, key, t) {
-  const groups = [...source.matchAll(/<section class="publication-group"[^>]*>([\s\S]*?)<\/section>/g)]
-    .map(match => match[1]).filter(group => /<h3[^>]*>20\d{2}<\/h3>/.test(group));
+function renderPublicationDirectory(source, key) {
+  const sourceGroups = [...source.matchAll(/<section class="publication-group"[^>]*>([\s\S]*?)<\/section>/g)].map(match => match[1]);
+  const presentations = sourceGroups.find(group => group.includes('id="publication-presentations"')) || '';
+  const workshopPapers = [...presentations.matchAll(/<article class="pub"[^>]*>[\s\S]*?<\/article>/g)]
+    .map(match => match[0]).filter(article => /<p class="venue">[\s\S]*?2026/.test(article)).join('');
+  const groups = sourceGroups.filter(group => /<h3[^>]*>20\d{2}<\/h3>/.test(group));
   let index = 0;
   const html = groups.map(group => {
     const year = group.match(/<h3[^>]*>(20\d{2})<\/h3>/)?.[1];
-    const entries = [...group.matchAll(/<article class="pub"[^>]*>([\s\S]*?)<\/article>/g)].map(match => {
+    const articles = year === '2026' ? group + workshopPapers : group;
+    const entries = [...articles.matchAll(/<article class="pub"[^>]*>([\s\S]*?)<\/article>/g)].map(match => {
       const article = match[1];
       const existingId = match[0].match(/<article class="pub" id="([^"]+)"/)?.[1];
       const detail = publicationDetails[index++];
@@ -96,9 +99,9 @@ function renderPublicationDirectory(source, key, t) {
       const image = detail.image ? `<figure class="publication-image">${picture}<figcaption>${imageCredit}${license}</figcaption></figure>` : '';
       return `<details class="publication-entry" id="${e(existingId || `paper-${detail.id}`)}"><summary><span class="publication-title">${title}</span><span class="publication-venue">${venue}</span></summary><div class="publication-detail${detail.image ? '' : ' publication-detail-text'}">${image}<div class="publication-copy"><p>${e(detail[key])}</p><p class="publication-authors">${fullAuthors}</p>${links ? `<div class="publication-links">${links}</div>` : ''}</div></div></details>`;
     }).join('');
-    return `<section class="publication-year" aria-labelledby="paper-year-${year}"><h3 id="paper-year-${year}">${year}</h3>${year === '2026' ? renderChallenges(t) : ''}${entries}</section>`;
+    return `<section class="publication-year" aria-labelledby="paper-year-${year}"><h3 id="paper-year-${year}">${year}</h3>${entries}</section>`;
   }).join('');
-  if (index !== publicationDetails.length) throw new Error(`Expected ${publicationDetails.length} peer-reviewed papers, found ${index}`);
+  if (index !== publicationDetails.length) throw new Error(`Expected ${publicationDetails.length} papers, found ${index}`);
   return html;
 }
 
@@ -108,7 +111,7 @@ function render(t, key) {
   const v = visitors[key];
   const url = `https://yixinchen-ai.github.io/${isEn ? '' : 'index.zh.html'}`;
   const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
-  const publicationDirectory = renderPublicationDirectory(publications, key, t);
+  const publicationDirectory = renderPublicationDirectory(publications, key);
   const emailText = Object.values(emails).map(address => `<span>${e(address)}</span>`).join('');
   const introPublications = e(t.introPublications).replace(/Nature Communications|IEEE TMI|IEEE TRPMS|EJNMMI/g, '<strong>$&</strong>');
   const timeline = t.timeline.map(item => `<li class="timeline-${e(item.category)}"><div class="timeline-meta"><span class="timeline-year">${e(item.year)}</span><span class="timeline-category">${e(t.timelineCategories[item.category])}</span></div><p>${e(item.text)}</p></li>`).join('');
@@ -130,6 +133,7 @@ function render(t, key) {
 <section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><p class="intro" id="research-funding"><strong>${e(t.introFunding)}</strong> ${e(t.intro)} ${introPublications}</p><div class="hero-contact"><div class="hero-emails">${emailText}</div><div class="hero-links">${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}<a class="text-link" href="${e(links.cvEn)}" download>${e(t.cvEn)}</a><a class="text-link" href="${e(links.cvZh)}" download>${e(t.cvZh)}</a></div></div></section>
 <section id="research" class="selected-research" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">${e(r.heading)}</h2></div>${r.works.map(w => researchWork(w, r)).join('')}</section>
 <section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="publication-directory">${publicationDirectory}</div></section>
+<section id="challenges" class="challenges" aria-labelledby="challenges-title"><div class="section-heading"><h2 id="challenges-title">${e(t.challengesTitle)}</h2></div>${renderChallenges(t)}</section>
 <section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
 <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list">${emailText}</div><div class="contact-links">${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>
 <section id="visitors" class="visitors" aria-labelledby="visitors-title" data-endpoint="${e(visitors.endpoint)}" data-unavailable="${e(v.unavailable)}" data-empty="${e(v.empty)}" data-hint="${e(v.hint)}"><div class="visitor-heading"><h2 id="visitors-title">${e(v.title)}</h2><p class="visitor-period">${e(v.since)}</p></div><p class="visitor-status" role="status">${e(v.loading)}</p><div class="visitor-map" data-src="${e(imageUrl('assets/img/world.svg'))}"></div><div class="visitor-map-caption"><p class="visitor-readout" aria-live="polite"></p><div class="visitor-legend" hidden><span>${e(v.low)}</span><span class="visitor-scale" aria-hidden="true"></span><span>${e(v.high)}</span></div></div><p class="visitor-note">${e(v.privacy)}</p><p class="visitor-credit">${e(v.credit)}: <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/world">MapSVG / SVG Maps</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p></section>

@@ -1,4 +1,4 @@
-// The order follows the five peer-reviewed year groups in publications.*.html.
+// The order follows the five year groups, with the 2026 workshop papers appended to 2026.
 // A missing image is intentional: do not substitute an unrelated paper's figure.
 export const publicationDetails = [
   {
@@ -21,6 +21,21 @@ export const publicationDetails = [
     id: 'phate-net', match: 'PHATE-Net:', image: 'phate.webp', source: 'https://openaccess.thecvf.com/content/CVPR2026F/papers/Chen_PHATE-Net_Differentiable_Pseudotime_Learning_for_Trustworthy_Disease_Trajectories_in_PET_CVPRF_2026_paper.pdf',
     en: 'PHATE-Net learns a disease progression timeline from PET images by making pseudotime estimation differentiable.',
     zh: 'PHATE-Net 通过可微的伪时间估计，从 PET 图像学习疾病进展轨迹。',
+  },
+  {
+    id: 'reg2', match: 'Diagnosis-Conditioned Retrieval', image: null,
+    en: 'Predicted organ and diagnosis labels guide retrieval of a structured pathology workflow for each whole-slide image.',
+    zh: '根据全切片图像预测的器官与诊断标签，检索对应的结构化病理诊断流程。',
+  },
+  {
+    id: 'cmr-multi', match: 'Acquisition-Structured nnU-Net', image: null,
+    en: 'Sequence-specific nnU-Net ensembles segment cardiac MRI and derive ejection fraction and scar mass.',
+    zh: '采用针对不同序列的 nnU-Net 集成分割心脏 MRI，并计算射血分数与瘢痕质量。',
+  },
+  {
+    id: 'mvaa', match: 'Failure-Mode-Driven Multimodal', image: null,
+    en: 'Modality-specific ensembles segment the mitral valve in cardiac CT, 3D ultrasound and surgical video.',
+    zh: '针对不同模态构建集成模型，分割心脏 CT、三维超声和手术视频中的二尖瓣。',
   },
   {
     id: 'mpum', match: 'Modality-projection', image: 'mpum.webp', source: 'https://www.nature.com/articles/s41467-025-64469-w', license: 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
