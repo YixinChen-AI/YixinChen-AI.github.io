@@ -32,6 +32,7 @@ export const shared = {
   wechatImage: 'assets/img/wechat-qr.jpg',
   awardImage: 'assets/img/autopet-award-2026.jpeg',
   chimeraAwardImage: 'assets/img/chimera-agent-award-2026.jpg',
+  regAwardImage: 'assets/img/reg2-award-2026.jpg',
   regPosterImage: 'assets/img/reg2-poster-2026.jpg',
   mvaaPosterImage: 'assets/img/mvaa-poster-2026.jpg',
   portraitImage: 'assets/img/avatar.png',
@@ -68,6 +69,7 @@ export const en = {
   regChallengeBody: 'The REG² challenge generates structured pathology workflows from whole-slide images.',
   awardLink: 'Method and code',
   awardAlt: 'CYX-AI receiving the autoPET V Category 1 second-place award at MICCAI 2026',
+  regAwardAlt: 'Yixin Chen holding the REG² challenge fourth-place certificate at MICCAI 2026',
   awardCaption: 'autoPET V award presentation, MICCAI 2026',
   fullPhoto: 'View full photo',
   chimeraAward: {
@@ -175,6 +177,7 @@ export const zh = {
   regChallengeBody: 'REG² 挑战赛从全切片病理图像生成结构化诊断流程。',
   awardLink: '方法与代码',
   awardAlt: 'CYX-AI 在 MICCAI 2026 获得 autoPET V Category 1 第二名的颁奖合影',
+  regAwardAlt: '陈亦新在 MICCAI 2026 手持 REG² 挑战赛第四名证书的获奖照',
   awardCaption: 'MICCAI 2026，autoPET V 颁奖现场',
   fullPhoto: '查看完整照片',
   chimeraAward: {

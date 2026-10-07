@@ -48,7 +48,7 @@ function renderChallenges(t) {
   const entries = [
     { id: 'challenge-autopet', title: t.awardTitle, detail: `${t.awardBody} ${t.awardPresentation}`, image: shared.awardImage, width: 3000, height: 4000, alt: t.awardAlt, href: links.autopet, link: t.awardLink },
     { id: 'challenge-cmr-multi', ...t.awards[0], placeholder: true },
-    { id: 'challenge-reg2', ...t.awards[1], detail: `${t.regChallengeBody} ${t.awards[1].detail}` },
+    { id: 'challenge-reg2', ...t.awards[1], detail: `${t.regChallengeBody} ${t.awards[1].detail}`, image: shared.regAwardImage, width: 960, height: 1280, alt: t.regAwardAlt },
     { id: 'challenge-chimera-agent', ...t.chimeraAward, image: shared.chimeraAwardImage, width: 1192, height: 1280 },
   ];
   return entries.map(entry => {
