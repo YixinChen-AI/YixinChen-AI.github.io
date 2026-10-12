@@ -61,6 +61,10 @@ function renderChallenges(t) {
   }).join('');
 }
 
+function renderNews(t) {
+  return `<div class="news-list">${t.news.map(item => `<article class="news-item"><time class="news-date" datetime="${e(item.date)}">${e(item.date)}</time><div class="news-copy"><h3 class="news-title"><a href="${e(item.href)}">${e(item.title)}</a></h3><p class="news-source">${e(t.newsSource)}</p></div></article>`).join('')}</div>`;
+}
+
 function renderPublicationDirectory(source, key) {
   const sourceGroups = [...source.matchAll(/<section class="publication-group"[^>]*>([\s\S]*?)<\/section>/g)].map(match => match[1]);
   const presentations = sourceGroups.find(group => group.includes('id="publication-presentations"')) || '';
@@ -136,6 +140,7 @@ function render(t, key) {
 <section id="research" class="selected-research" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">${e(r.heading)}</h2></div>${r.works.map(w => researchWork(w, r)).join('')}</section>
 <section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="publication-directory">${publicationDirectory}</div></section>
 <section id="challenges" class="challenges" aria-labelledby="challenges-title"><div class="section-heading"><h2 id="challenges-title">${e(t.challengesTitle)}</h2></div>${renderChallenges(t)}</section>
+<section id="news" class="news" aria-labelledby="news-title"><div class="section-heading"><h2 id="news-title">${e(t.newsTitle)}</h2></div>${renderNews(t)}</section>
 <section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
 <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list">${emailText}</div><div class="contact-links"><a class="text-link" href="${e(imageUrl(shared.wechatImage))}" data-photo data-caption="${e(t.wechatCaption)}" data-alt="${e(t.wechatAlt)}" aria-haspopup="dialog">${e(t.wechatLabel)}</a>${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>
 <section id="visitors" class="visitors" aria-labelledby="visitors-title" data-endpoint="${e(visitors.endpoint)}" data-unavailable="${e(v.unavailable)}" data-empty="${e(v.empty)}" data-hint="${e(v.hint)}"><div class="visitor-heading"><h2 id="visitors-title">${e(v.title)}</h2><p class="visitor-period">${e(v.since)}</p></div><p class="visitor-status" role="status">${e(v.loading)}</p><div class="visitor-map" data-src="${e(imageUrl('assets/img/world.svg'))}"></div><div class="visitor-map-caption"><p class="visitor-readout" aria-live="polite"></p><div class="visitor-legend" hidden><span>${e(v.low)}</span><span class="visitor-scale" aria-hidden="true"></span><span>${e(v.high)}</span></div></div><p class="visitor-note">${e(v.privacy)}</p><p class="visitor-credit">${e(v.credit)}: <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/world">MapSVG / SVG Maps</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p></section>
@@ -204,6 +209,9 @@ function renderCv(t, key) {
   <section><h2>${cvE(labels.results)}</h2>
     ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3><p>${cvE(item.detail)}</p></div><p class="cv-date">2026</p></article>`).join('')}
     <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p>${cvE(t.fundingBody)}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
+  </section>
+  <section class="cv-news"><h2>${cvE(t.newsTitle)}</h2>
+    ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${e(item.href)}">${cvE(item.title)}</a></h3><p>${cvE(t.newsSource)}</p></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
   <section><h2>${cvE(labels.experience)}</h2>
     ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}</h3><p class="cv-subtitle">${cvE(item.role)}</p>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
