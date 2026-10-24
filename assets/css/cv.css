@@ -70,7 +70,6 @@ h2 { margin-bottom: 6px; padding-bottom: 3px; border-bottom: .5px solid #aaa; fo
 .cv-talks { break-inside: avoid; }
 .cv-talks .cv-entry h3 { font-weight: 400; }
 .cv-news { break-inside: avoid; }
-.cv-news-source { margin-bottom: 3px; color: var(--muted); font-size: 9.3pt; }
 .cv-news a { text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: .13em; }
 .patent-summary { color: var(--muted); font-size: 9.1pt; line-height: 1.35; }
 .patent-group { margin-top: 6px; }

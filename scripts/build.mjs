@@ -217,7 +217,7 @@ const cvLabels = {
     description: 'Curriculum vitae of Yixin Chen, PhD candidate at Peking University.',
     research: 'Research profile', education: 'Education', selected: 'Selected research', funding: 'Research funding',
     experience: 'Professional experience', publications: 'Publications',
-    awards: 'MICCAI challenge awards', teaching: 'Teaching', book: 'Book', patents: 'Patents', service: 'Academic service',
+    awards: 'MICCAI challenge awards', teaching: 'Teaching', book: 'Book', patents: 'Patents', service: 'Academic service', news: 'Peking University news coverage',
     firstAuthor: 'First author', coFirstAuthor: 'Co-first author',
     email: 'Email', website: 'Academic website', code: 'Research code', papers: 'Publications', scholar: 'Google Scholar',
     pku: 'Peking University', supervisor: 'Supervisor',
@@ -228,7 +228,7 @@ const cvLabels = {
     description: '陈亦新，北京大学医学技术博士研究生。',
     research: '研究方向', education: '教育经历', selected: '代表性研究成果', funding: '主持科研项目',
     experience: '工作经历', publications: '论文',
-    awards: 'MICCAI 挑战赛奖项', teaching: '教学经历', book: '著作', patents: '专利', service: '学术服务',
+    awards: 'MICCAI 挑战赛奖项', teaching: '教学经历', book: '著作', patents: '专利', service: '学术服务', news: '北大新闻报道',
     firstAuthor: '第一作者', coFirstAuthor: '共同第一作者',
     email: '邮箱', website: '个人主页', code: '研究代码', papers: '学术论文', scholar: '谷歌学术',
     pku: '北京大学', supervisor: '导师',
@@ -321,7 +321,7 @@ function renderCv(t, key) {
   const challengeItems = [
     { title: t.awardTitle },
     ...t.awards.map(item => ({ title: item.title })),
-    t.chimeraAward,
+    { title: en.chimeraAward.title },
   ];
   const cv = `<!doctype html>
 <html lang="${t.lang}">
@@ -369,15 +369,15 @@ function renderCv(t, key) {
   </section>
   <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
   <section class="cv-awards"><h2>${cvE(labels.awards)}</h2>
-    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3>${item.detail ? `<p>${cvE(item.detail)}</p>` : ''}</div><p class="cv-date">2026</p></article>`).join('')}
+    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3></div><p class="cv-date">2026</p></article>`).join('')}
   </section>
   <section class="cv-talks"><h2>${cvE(cvTalksHeading)}</h2>
-    ${shared.presentations.talks.map(talk => `<article class="cv-entry"><div><h3>${talk.publicationId ? publicationRecord(source, talk.publicationId).title : cvE(talk.title)}</h3><p>${cvE(talk.event)}</p></div><p class="cv-date">${cvE(talk.date)}</p></article>`).join('')}
+    ${shared.presentations.talks.map(talk => `<article class="cv-entry"><div><h3>${cvE(talk.event)}</h3></div><p class="cv-date">${cvE(talk.date)}</p></article>`).join('')}
   </section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
     <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
   </section>
-  <section class="cv-news"><h2>${cvE(t.newsTitle)}</h2><p class="cv-news-source">${cvE(t.newsSource)}</p>
+  <section class="cv-news"><h2>${cvE(labels.news)}</h2>
     ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
 </main>
