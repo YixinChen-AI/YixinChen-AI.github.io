@@ -8,16 +8,10 @@ export const patentText = {
   en: {
     heading: 'Patents',
     summary: ({ total, granted, published, pct }) => `${total} public patent records: ${granted} granted Chinese invention patents, ${published} published Chinese invention applications, and ${pct} published PCT international application.`,
-    application: 'Application',
-    publication: 'Publication',
-    grant: 'Grant',
   },
   zh: {
     heading: '专利',
     summary: ({ total, granted, published, pct }) => `共 ${total} 条公开专利记录：${granted} 项中国发明授权、${published} 项中国发明公开申请、${pct} 项 PCT 国际公开。`,
-    application: '申请',
-    publication: '公布',
-    grant: '授权公告',
   },
 };
 

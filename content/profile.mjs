@@ -130,14 +130,13 @@ export const en = {
     {
       name:'AirDoc', role:'Algorithm Engineer', date:'July–September 2022',
       paragraphs: [
-        'Developed a model to predict postoperative ICL vault from ocular measurements and lens size. Worked on ultra-widefield fundus image analysis and algorithm requirements for medical device registration.',
+        'Developed ICL vault prediction models; worked on ultra-widefield fundus image analysis and medical device registration.',
       ],
     },
     {
       name:'BioMind', role:'Medical Imaging Algorithm Engineer', date:'November 2020–June 2022',
       paragraphs: [
-        'Developed cardiac ultrasound models for image quality assessment, Doppler spectrum segmentation and measurement, septal defect detection and valve regurgitation analysis.',
-        'Worked with clinicians on system integration and contributed to an ultrasound system for ovarian mass assessment.',
+        'Developed cardiac ultrasound assessment and quantification models, supported clinical integration, and contributed to an ovarian-mass assessment system.',
       ],
     },
   ],
@@ -154,8 +153,8 @@ export const en = {
   newsTitle: 'News coverage',
   newsSource: 'Institute of Medical Technology, Peking University Health Science Center',
   news: [
-    {date:'2026-10-10', title:'Doctoral student wins two awards in the MICCAI 2026 international challenges', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
-    {date:'2026-01-13', title:'Yixin Chen awarded a 2025 NSFC doctoral research grant', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
+    {topic:'challenges', date:'2026-10-10', title:'Doctoral student wins two awards in the MICCAI 2026 international challenges', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
+    {topic:'funding', date:'2026-01-13', title:'Yixin Chen awarded a 2025 NSFC doctoral research grant', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
   ],
   photoPlaceholder: 'Photo to be added',
   service: 'Teaching, patents and reviewing',
@@ -244,14 +243,13 @@ export const zh = {
     {
       name:'鹰瞳科技 AirDoc', role:'注册算法工程师', date:'2022 年 7 月–9 月',
       paragraphs: [
-        '基于眼部测量与晶体尺寸研发 ICL 术后拱高预测模型，开展超广角眼底图像分析，并参与医疗器械注册相关算法工作。',
+        '研发 ICL 术后拱高预测模型，开展超广角眼底图像分析，参与医疗器械注册算法工作。',
       ],
     },
     {
       name:'安德医智 BioMind', role:'医疗图像深度学习算法工程师', date:'2020 年 11 月–2022 年 6 月',
       paragraphs: [
-        '开发心脏超声图像质控、多普勒频谱分割与测量、间隔缺损检测及瓣膜反流分析模型。',
-        '与医生梳理流程并完成系统接入，参与卵巢肿块智能诊疗系统研发。',
+        '研发心脏超声质控、结构检测与定量分析算法，完成临床系统接入，并参与卵巢肿块智能诊疗系统研发。',
       ],
     },
   ],
@@ -267,8 +265,8 @@ export const zh = {
   newsTitle: '新闻报道',
   newsSource: '北京大学医学部医学技术研究院',
   news: [
-    {date:'2026-10-10', title:'我院博士研究生在MICCAI 2026国际挑战赛荣获两项荣誉', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
-    {date:'2026-01-13', title:'我院博士研究生陈亦新获批2025年度国家自然科学基金青年学生基础研究项目资助', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
+    {topic:'challenges', date:'2026-10-10', title:'我院博士研究生在MICCAI 2026国际挑战赛荣获两项荣誉', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
+    {topic:'funding', date:'2026-01-13', title:'我院博士研究生陈亦新获批2025年度国家自然科学基金青年学生基础研究项目资助', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
   ],
   photoPlaceholder: '照片待补充',
   service: '教学、专利与审稿',
