@@ -354,7 +354,7 @@ function renderCv(t, key) {
     <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p>${cvE(t.fundingBody)}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
   </section>
   <section class="cv-selected"><h2>${cvE(labels.selected)}</h2>
-    ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><h3>${cvE(work.id === 'mpum' ? `${work.name}: ${work.title}` : work.name)}</h3><p>${cvE(work.summary)}</p><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publicationContribution(publication.authors, labels))}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p></article>`).join('')}
+    ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><h3>${work.id === 'mpum' ? `${cvE(work.name)}: ` : ''}${publication.title}</h3><p>${cvE(work.summary)}</p><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publicationContribution(publication.authors, labels))}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p></article>`).join('')}
   </section>
   <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section><h2>${cvE(labels.experience)}</h2>

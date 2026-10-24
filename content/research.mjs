@@ -46,7 +46,7 @@ export const research = {
         title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
         name: 'Whole-body PET/CT in metabolic dysfunction-associated steatotic liver disease (MASLD)',
         venue: 'EJNMMI, accepted 2026',
-        summary: 'In 294 adults at two centres, 16 imaging features differed between MASLD and controls and were replicated at the second centre.',
+        summary: 'In 294 adults at two centres, 16 imaging features differed between metabolic dysfunction-associated steatotic liver disease (MASLD) and controls, with replication at the second centre.',
         links: [
           { label: 'Publication entry', href: '#publication-masld' },
         ],
@@ -108,7 +108,7 @@ export const research = {
         title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
         name: '代谢功能障碍相关脂肪性肝病（MASLD）全身 PET/CT 研究',
         venue: 'EJNMMI，2026 已接收',
-        summary: '在两中心 294 位受试者中，16 项影像特征在 MASLD 与对照组间存在差异，并在第二中心复现。',
+        summary: '在两中心 294 位受试者中，16 项影像特征在代谢功能障碍相关脂肪性肝病（MASLD）与对照组间存在差异，并在第二中心复现。',
         links: [
           { label: '论文条目', href: '#publication-masld' },
         ],
