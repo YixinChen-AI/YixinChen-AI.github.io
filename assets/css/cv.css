@@ -46,6 +46,7 @@ h2 { margin-bottom: 6px; padding-bottom: 3px; border-bottom: .5px solid #aaa; fo
 .cv-education, .cv-funding { margin-top: 18px; }
 .cv-selected { margin-top: 22px; }
 .cv-highlight { break-inside: avoid; padding: 10px 0; font-size: 10.8pt; line-height: 1.48; }
+.cv-highlight h3 { margin-bottom: 3px; font-size: inherit; line-height: 1.35; }
 .cv-highlight-meta { margin-top: 4px; color: var(--muted); font-size: 9.8pt; }
 .cv-publications { break-before: page; }
 .cv-publications ~ section { margin-top: 6px; }
