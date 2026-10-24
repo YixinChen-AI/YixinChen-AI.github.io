@@ -30,6 +30,7 @@ export const links = {
 
 export const shared = {
   expectedGraduationYear: '2027',
+  teachingAssistantCourse: 'Principles of Medical Imaging Equipment',
   presentations: {
     location: { en: 'Strasbourg, France', zh: '法国斯特拉斯堡' },
     talks: [
@@ -159,6 +160,7 @@ export const en = {
   photoPlaceholder: 'Photo to be added',
   service: 'Teaching, patents and reviewing',
   reviewTitle: 'Nature Communications', reviewDetail: 'Early Career Co-Reviewer',
+  teachingAssistantTitle: 'Teaching assistant, Peking University',
   teachingTitle: 'Computer vision course instructor',
   teachingDetail: 'Independently recorded introductory and intermediate courses in computer vision, covering machine learning fundamentals and computer vision algorithms.',
   writingTitle: '“机器学习炼丹术” on WeChat',
@@ -271,6 +273,7 @@ export const zh = {
   photoPlaceholder: '照片待补充',
   service: '教学、专利与审稿',
   reviewTitle: 'Nature Communications', reviewDetail: 'Early Career Co-Reviewer，合作审稿',
+  teachingAssistantTitle: '北京大学课程助教',
   teachingTitle: '计算机视觉课程讲师',
   teachingDetail: '独立完成《计算机视觉应用开发工程师（初级）》及中级课程录制，内容涵盖机器学习基础与计算机视觉算法。',
   writingTitle: '机器学习炼丹术',

@@ -50,6 +50,7 @@ h2 { margin-bottom: 6px; padding-bottom: 3px; border-bottom: .5px solid #aaa; fo
 .cv-highlight-meta { margin-top: 4px; color: var(--muted); font-size: 9.8pt; }
 .cv-publications { break-before: page; }
 .cv-publications ~ section { margin-top: 6px; }
+.cv-en .cv-publications ~ section h2 { margin-bottom: 3px; }
 .cv-publications ~ section .cv-entry { padding: 2px 0; }
 .cv-publications ~ section .cv-entry + .cv-entry { margin-top: 1px; }
 .cv-publications ~ section .cv-entry p:not(.cv-date) { margin-top: 1px; }
