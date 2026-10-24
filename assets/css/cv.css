@@ -65,7 +65,6 @@ h2 { margin-bottom: 6px; padding-bottom: 3px; border-bottom: .5px solid #aaa; fo
 .cv-publications .publication-status { font-style: normal; }
 .cv-code, .cv-highlight-meta a { white-space: nowrap; text-decoration: underline; text-decoration-thickness: .5px; }
 .author-role { vertical-align: super; font-size: .72em; line-height: 0; }
-.cv-teaching a { white-space: nowrap; text-decoration: underline; text-underline-offset: .13em; text-decoration-thickness: .5px; }
 .cv-patents { counter-reset: patent; }
 .cv-talks { break-inside: avoid; }
 .cv-talks .cv-entry h3 { font-weight: 400; }

@@ -24,7 +24,6 @@ export const links = {
   regPaper: 'https://papers.miccai.org/miccai-2026-sat/REG2026_008.html',
   cmrPaper: 'https://papers.miccai.org/miccai-2026-sat/CMRSeg_018.html',
   mvaaPaper: 'https://papers.miccai.org/miccai-2026-sat/MVAA_023.html',
-  course: 'https://www.tech-skills.org.cn/lesson/811',
   cvEn: 'output/pdf/Yixin-Chen-CV.pdf',
   cvZh: 'output/pdf/Yixin-Chen-CV-ZH.pdf',
 };
@@ -162,7 +161,6 @@ export const en = {
   reviewTitle: 'Nature Communications', reviewDetail: 'Early Career Co-Reviewer',
   teachingTitle: 'Computer vision course instructor',
   teachingDetail: 'Independently recorded introductory and intermediate courses in computer vision, covering machine learning fundamentals and computer vision algorithms.',
-  teachingLink: 'View introductory course',
   writingTitle: '“机器学习炼丹术” on WeChat',
   writingDetail: 'Shared notes on machine-learning practice and medical imaging through my technical WeChat account.',
   contactTitle: 'Contact', pkuEmail: 'Peking University',
@@ -275,7 +273,6 @@ export const zh = {
   reviewTitle: 'Nature Communications', reviewDetail: 'Early Career Co-Reviewer，合作审稿',
   teachingTitle: '计算机视觉课程讲师',
   teachingDetail: '独立完成《计算机视觉应用开发工程师（初级）》及中级课程录制，内容涵盖机器学习基础与计算机视觉算法。',
-  teachingLink: '查看初级课程',
   writingTitle: '机器学习炼丹术',
   writingDetail: '通过公众号分享机器学习实践与医学影像笔记。',
   contactTitle: '联系', pkuEmail: '北京大学',
