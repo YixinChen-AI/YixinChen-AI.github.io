@@ -217,7 +217,10 @@ const cvLabels = {
     description: 'Curriculum vitae of Yixin Chen, PhD candidate at Peking University.',
     research: 'Research profile', education: 'Education', selected: 'Selected research', funding: 'Research funding',
     experience: 'Professional experience', publications: 'Publications',
-    awards: 'MICCAI challenge awards', teaching: 'Teaching', book: 'Book', patents: 'Patents', service: 'Academic service', news: 'Peking University news coverage',
+    awards: 'MICCAI challenge awards', activities: 'Awards and presentations', teaching: 'Teaching and authorship', patents: 'Patents', service: 'Academic service', news: 'Peking University news coverage',
+    primaryPapers: 'First- and co-first-author papers', collaborativePapers: 'Other collaborative papers',
+    challengePapers: 'MICCAI challenge workshop papers (first author)',
+    methodsTheme: 'Universal segmentation and cross-modality adaptation', clinicalTheme: 'Whole-body PET/CT and multi-organ metabolism',
     firstAuthor: 'First author', coFirstAuthor: 'Co-first author',
     email: 'Email', website: 'Academic website', code: 'Research code', papers: 'Publications', scholar: 'Google Scholar',
     pku: 'Peking University', supervisor: 'Supervisor',
@@ -228,7 +231,10 @@ const cvLabels = {
     description: '陈亦新，北京大学医学技术博士研究生。',
     research: '研究方向', education: '教育经历', selected: '代表性研究成果', funding: '主持科研项目',
     experience: '工作经历', publications: '论文',
-    awards: 'MICCAI 挑战赛奖项', teaching: '教学经历', book: '著作', patents: '专利', service: '学术服务', news: '北大新闻报道',
+    awards: 'MICCAI 挑战赛奖项', activities: '学术奖励与交流', teaching: '教学与著作', patents: '专利', service: '学术服务', news: '北大新闻报道',
+    primaryPapers: '第一及共同第一作者论文', collaborativePapers: '其他合作论文',
+    challengePapers: 'MICCAI 挑战赛 workshop 论文（第一作者）',
+    methodsTheme: '通用分割与跨模态适应', clinicalTheme: '全身 PET/CT 多器官代谢研究',
     firstAuthor: '第一作者', coFirstAuthor: '共同第一作者',
     email: '邮箱', website: '个人主页', code: '研究代码', papers: '学术论文', scholar: '谷歌学术',
     pku: '北京大学', supervisor: '导师',
@@ -243,19 +249,11 @@ function publicationLinks(article) {
   };
 }
 
-function publicationRecord(source, workId) {
+function publicationRecord(records, workId) {
   const detail = publicationDetails.find(item => item.id === workId);
-  const articles = [...source.matchAll(/<article class="pub"[^>]*>[\s\S]*?<\/article>/g)].map(match => match[0]);
-  const article = articles.find(item => {
-    const title = item.match(/<h4 class="ptitle">([\s\S]*?)<\/h4>/)?.[1] || '';
-    return title.replace(/<[^>]*>/g, '').startsWith(detail.match);
-  });
-  if (!article) throw new Error(`Missing CV publication for representative work: ${workId}`);
-  const title = article.match(/<h4 class="ptitle">([\s\S]*?)<\/h4>/)?.[1];
-  const authors = article.match(/<p class="authors">([\s\S]*?)<\/p>/)?.[1];
-  const venue = article.match(/<p class="venue">([\s\S]*?)<\/p>/)?.[1];
-  if (!title || !authors || !venue) throw new Error(`Incomplete representative publication: ${workId}`);
-  return { title, authors, venue, ...publicationLinks(article) };
+  const record = records.find(item => item.title.replace(/<[^>]*>/g, '').startsWith(detail.match));
+  if (!record) throw new Error(`Missing CV publication for representative work: ${workId}`);
+  return record;
 }
 
 function publicationContribution(authors, labels) {
@@ -292,32 +290,59 @@ function cvPublicationVenue(venue, title) {
   return inlineVenue(`${withDetails}${venue.slice(position)}`);
 }
 
-function renderCvPublications(source) {
-  let number = 0;
-  return source.replace(/<article class="pub"[^>]*>[\s\S]*?<\/article>/g, article => {
+function cvPublicationRecords(source, labels) {
+  return [...source.matchAll(/<article class="pub"[^>]*>[\s\S]*?<\/article>/g)].map(([article], index) => {
     const id = article.match(/<article class="pub" id="([^"]+)"/)?.[1];
     const title = article.match(/<h4 class="ptitle">([\s\S]*?)<\/h4>/)[1];
     const authors = article.match(/<p class="authors">([\s\S]*?)<\/p>/)[1];
     const venue = article.match(/<p class="venue">([\s\S]*?)<\/p>/)[1];
-    const { paper: href, code } = publicationLinks(article);
-    const linkedTitle = href ? `<a href="${href}">${title}</a>` : title;
-    return `<article class="pub"${id ? ` id="${id}"` : ''}><span class="cv-pub-number">${++number}.</span><p class="cv-citation"><span class="authors">${citationSentence(authors)}</span><span class="ptitle">${citationSentence(linkedTitle)}</span><span class="venue">${citationSentence(cvPublicationVenue(venue, title)).trimEnd()}</span>${code ? `&nbsp;<a class="cv-code" href="${code}">[Code]</a>` : ''}</p></article>`;
+    return { id, title, authors, venue, kind: publicationDetails[index].kind, contribution: publicationContribution(authors, labels), ...publicationLinks(article) };
   });
+}
+
+function renderCvPublications(records, labels) {
+  let number = 0;
+  const groups = [
+    { title: labels.primaryPapers, items: records.filter(item => item.contribution && item.kind !== 'challenge-workshop') },
+    { title: labels.collaborativePapers, items: records.filter(item => !item.contribution) },
+    { title: labels.challengePapers, items: records.filter(item => item.kind === 'challenge-workshop') },
+  ];
+  return groups.map(group => `<section class="publication-group"><h3>${cvE(group.title)} (${group.items.length})</h3>${group.items.map(({ id, title, authors, venue, paper, code }) => {
+    const linkedTitle = paper ? `<a href="${paper}">${title}</a>` : title;
+    return `<article class="pub"${id ? ` id="${id}"` : ''}><span class="cv-pub-number">${++number}.</span><p class="cv-citation"><span class="authors">${citationSentence(authors)}</span><span class="ptitle">${citationSentence(linkedTitle)}</span><span class="venue">${citationSentence(cvPublicationVenue(venue, title)).trimEnd()}</span>${code ? `&nbsp;<a class="cv-code" href="${code}">[Code]</a>` : ''}</p></article>`;
+  }).join('')}</section>`).join('');
+}
+
+function cvOutputSummary(records, key) {
+  const primary = records.filter(item => item.contribution);
+  const collaborative = records.length - primary.length;
+  const workshops = primary.filter(item => item.kind === 'challenge-workshop').length;
+  const accepted = primary.filter(item => /Accepted|已接收/.test(item.venue)).length;
+  const patent = patentCounts();
+  return key === 'en'
+    ? `<strong>${primary.length} first/co-first-author papers</strong> in Nature Communications, IEEE TMI, IEEE TRPMS, MICCAI and other venues (${workshops} challenge workshop papers; ${accepted} accepted), plus <strong>${collaborative} other collaborative papers</strong>. <strong>${patent.total} patent records</strong> (${patent.granted} granted) and <strong>1 sole-authored book</strong>.`
+    : `<strong>第一/共同第一作者论文 ${primary.length} 篇</strong>（Nature Communications、IEEE TMI、IEEE TRPMS、MICCAI 等，含 ${workshops} 篇挑战赛 workshop 论文及 ${accepted} 篇已接收论文），<strong>其他合作论文 ${collaborative} 篇</strong>；<strong>专利 ${patent.total} 项</strong>（授权 ${patent.granted} 项），<strong>独著 1 部</strong>。`;
 }
 
 function renderCv(t, key) {
   const labels = cvLabels[key];
   const source = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
-  const publications = renderCvPublications(source);
+  const records = cvPublicationRecords(source, labels);
+  const publications = renderCvPublications(records, labels);
   const selectedWorks = research[key].works.map(work => ({
     work,
-    publication: publicationRecord(source, work.id),
+    publication: publicationRecord(records, work.id),
   }));
   const lucida = publicationDetails.find(item => item.id === 'lucida');
   selectedWorks.splice(2, 0, {
-    work: { name: lucida.name, summary: lucida[key].replace(`${lucida.name} `, key === 'en' ? 'It ' : '') },
-    publication: publicationRecord(source, lucida.id),
+    work: { id: lucida.id, name: lucida.name, summary: lucida[key].replace(`${lucida.name} `, key === 'en' ? 'It ' : '') },
+    publication: publicationRecord(records, lucida.id),
   });
+  const researchGroups = [
+    { title: labels.methodsTheme, items: selectedWorks.filter(item => item.work.id !== 'masld') },
+    { title: labels.clinicalTheme, items: selectedWorks.filter(item => item.work.id === 'masld') },
+  ];
+  const grantLeadEnd = t.fundingBody.indexOf(key === 'en' ? '. ' : '。') + 1;
   const challengeItems = [
     { title: t.awardTitle },
     ...t.awards.map(item => ({ title: item.title })),
@@ -344,42 +369,39 @@ function renderCv(t, key) {
   </dl></address>
 </header>
 <main>
-  <section class="cv-profile"><h2>${cvE(labels.research)}</h2><p>${cvE(t.intro)}</p></section>
+  <section class="cv-profile"><h2>${cvE(labels.research)}</h2><p>${cvE(t.intro)}</p><p class="cv-output-summary">${cvOutputSummary(records, key)}</p></section>
   <section class="cv-education"><h2>${cvE(labels.education)}</h2>
-    <article class="cv-entry"><div><h3>${cvE(labels.pku)}</h3><p>${cvE(t.phdDegree)}${key === 'en' ? `, expected ${cvE(shared.expectedGraduationYear)}` : `，预计 ${cvE(shared.expectedGraduationYear)} 年毕业`}</p><p>${cvE(t.phdInstitute)}${key === 'en' ? '; ' : '，'}${cvE(labels.supervisor)}${key === 'en' ? ': ' : '：'}${cvE(t.phdSupervisor)}</p></div><p class="cv-date">${cvE(t.phdDate)}</p></article>
-    <article class="cv-entry"><div><h3>${cvE(t.londonTitle)}</h3><p>${cvE(t.londonDegree)}</p></div><p class="cv-date">${cvE(t.londonDate)}</p></article>
-    <article class="cv-entry"><div><h3>${cvE(labels.xmu)}</h3><p>${cvE(labels.xmuDegree)}</p></div><p class="cv-date">2015–2019${key === 'zh' ? ' 年' : ''}</p></article>
+    <article class="cv-entry"><div><h3>${cvE(labels.pku)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(t.phdDegree)}${key === 'en' ? `, expected ${cvE(shared.expectedGraduationYear)}` : `，预计 ${cvE(shared.expectedGraduationYear)} 年毕业`}</span></h3><p>${cvE(t.phdInstitute)}${key === 'en' ? '; ' : '，'}${cvE(labels.supervisor)}${key === 'en' ? ': ' : '：'}${cvE(t.phdSupervisor)}</p></div><p class="cv-date">${cvE(t.phdDate)}</p></article>
+    <article class="cv-entry"><div><h3>${cvE(t.londonTitle)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(t.londonDegree)}</span></h3></div><p class="cv-date">${cvE(t.londonDate)}</p></article>
+    <article class="cv-entry"><div><h3>${cvE(labels.xmu)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(labels.xmuDegree)}</span></h3></div><p class="cv-date">2015–2019${key === 'zh' ? ' 年' : ''}</p></article>
   </section>
   <section class="cv-funding"><h2>${cvE(labels.funding)}</h2>
-    <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p>${cvE(t.fundingBody)}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
+    <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p><strong>${cvE(t.fundingBody.slice(0, grantLeadEnd))}</strong>${cvE(t.fundingBody.slice(grantLeadEnd))}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
   </section>
   <section class="cv-selected"><h2>${cvE(labels.selected)}</h2>
-    ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publicationContribution(publication.authors, labels))}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p><h3>${work.id === 'mpum' ? `${cvE(work.name)}: ` : ''}${publication.title}</h3><p>${cvE(work.summary)}</p></article>`).join('')}
+    ${researchGroups.map(group => `<div class="cv-research-group"><h3 class="cv-research-theme">${cvE(group.title)}</h3>${group.items.map(({ work, publication }) => `<article class="cv-highlight"><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publication.contribution)}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p><h3>${work.id === 'mpum' ? `<strong>${cvE(work.name)}:</strong> ` : ''}${publication.title.startsWith(`${work.name}:`) ? publication.title.replace(`${work.name}:`, `<strong>${cvE(work.name)}:</strong>`) : publication.title}</h3><p>${cvE(work.summary).replace(/\b\d+\b/g, '<strong>$&</strong>')}</p></article>`).join('')}</div>`).join('')}
   </section>
   <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
-  <section><h2>${cvE(labels.experience)}</h2>
-    ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}</h3><p class="cv-subtitle">${cvE(item.role)}</p>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
-  </section>
   <section class="cv-teaching"><h2>${cvE(labels.teaching)}</h2>
     <article class="cv-entry"><div><h3>${cvE(t.teachingAssistantTitle)}</h3><p>${cvE(shared.teachingAssistantCourse)}</p></div></article>
     <article class="cv-entry"><div><h3>${cvE(t.teachingTitle)}</h3><p>${cvE(t.teachingDetail)}</p></div></article>
-  </section>
-  <section><h2>${cvE(labels.book)}</h2>
     <article class="cv-entry"><div><h3>${cvE(t.bookName)}</h3>${t.bookOriginalTitle ? `<p>${cvE(t.bookOriginalTitle)}</p>` : ''}<p>${cvE(t.bookDetail)}</p></div><p class="cv-date">${cvE(shared.book.year)}</p></article>
   </section>
-  <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
-  <section class="cv-awards"><h2>${cvE(labels.awards)}</h2>
+  <section class="cv-experience"><h2>${cvE(labels.experience)}</h2>
+    ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}</h3><p class="cv-subtitle">${cvE(item.role)}</p>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
+  </section>
+  <section class="cv-activities"><h2>${cvE(labels.activities)}</h2><div class="cv-awards"><h3 class="cv-subheading">${cvE(labels.awards)}</h3>
     ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3></div><p class="cv-date">2026</p></article>`).join('')}
-  </section>
-  <section class="cv-talks"><h2>${cvE(cvTalksHeading)}</h2>
+  </div><div class="cv-talks"><h3 class="cv-subheading">${cvE(cvTalksHeading)}</h3>
     ${shared.presentations.talks.map(talk => `<article class="cv-entry"><div><h3>${cvE(talk.event)}</h3></div><p class="cv-date">${cvE(talk.date)}</p></article>`).join('')}
-  </section>
+  </div></section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
     <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
   </section>
   <section class="cv-news"><h2>${cvE(labels.news)}</h2>
     ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
+  <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
 </main>
 </body></html>`;
   if (cv.includes(String.fromCharCode(183))) throw new Error('Forbidden separator character in CV');

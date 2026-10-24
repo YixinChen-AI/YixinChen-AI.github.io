@@ -28,19 +28,19 @@ export const publicationDetails = [
     zh: 'PHATE-Net 通过可微的伪时间估计，从 PET 图像学习疾病进展轨迹。',
   },
   {
-    id: 'reg2', match: 'Diagnosis-Conditioned Retrieval', image: null,
+    id: 'reg2', match: 'Diagnosis-Conditioned Retrieval', kind: 'challenge-workshop', image: null,
     citation: { series: 'LNCS', volume: '17252', url: 'https://papers.miccai.org/miccai-2026-sat/REG2026_008.html' },
     en: 'Predicted organ and diagnosis labels guide retrieval of a structured pathology workflow for each whole-slide image.',
     zh: '根据全切片图像预测的器官与诊断标签，检索对应的结构化病理诊断流程。',
   },
   {
-    id: 'cmr-multi', match: 'Acquisition-Structured nnU-Net', image: null,
+    id: 'cmr-multi', match: 'Acquisition-Structured nnU-Net', kind: 'challenge-workshop', image: null,
     citation: { series: 'LNCS', volume: '17268', url: 'https://papers.miccai.org/miccai-2026-sat/CMRSeg_018.html' },
     en: 'Sequence-specific nnU-Net ensembles segment cardiac MRI and derive ejection fraction and scar mass.',
     zh: '采用针对不同序列的 nnU-Net 集成分割心脏 MRI，并计算射血分数与瘢痕质量。',
   },
   {
-    id: 'mvaa', match: 'Failure-Mode-Driven Multimodal', image: null,
+    id: 'mvaa', match: 'Failure-Mode-Driven Multimodal', kind: 'challenge-workshop', image: null,
     citation: { series: 'LNCS', volume: '17268', url: 'https://papers.miccai.org/miccai-2026-sat/MVAA_023.html' },
     en: 'Modality-specific ensembles segment the mitral valve in cardiac CT, 3D ultrasound and surgical video.',
     zh: '针对不同模态构建集成模型，分割心脏 CT、三维超声和手术视频中的二尖瓣。',
