@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { en, zh, shared, links, emails } from '../content/profile.mjs';
 import { research } from '../content/research.mjs';
 import { publicationDetails } from '../content/publication-details.mjs';
+import { patents, patentCategories, patentText } from '../content/patents.mjs';
 import { visitors } from '../content/visitors.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,8 +20,26 @@ function imageUrl(src) {
   }
   return `${src}?v=${imageVersions.get(src)}`;
 }
-const cvE = s => e(String(s).replaceAll('–', '-').replaceAll('‑', '-'));
+const cvE = e;
+const cvCssString = s => String(s).replaceAll('\\', '\\\\').replaceAll('"', '\\"');
 const link = (href, label) => `<a class="text-link" href="${e(href)}">${e(label)}</a>`;
+const equalContributionNotes = {
+  en: '* Equal contribution.',
+  zh: '* 共同第一作者。',
+};
+
+function equalContributionNames(authors) {
+  const marker = '<span class="author-role">*</span>';
+  const names = [];
+  let cursor = 0;
+  while ((cursor = authors.indexOf(marker, cursor)) !== -1) {
+    const before = authors.slice(0, cursor);
+    const segment = before.slice(before.lastIndexOf(',') + 1).replace(/<[^>]*>/g, '').trim();
+    if (segment) names.push(segment);
+    cursor += marker.length;
+  }
+  return names;
+}
 
 function researchFigureLink(w, r) {
   const src = e(imageUrl(w.preview || w.image));
@@ -65,17 +84,50 @@ function renderNews(t) {
   return `<div class="news-list">${t.news.map(item => `<article class="news-item"><time class="news-date" datetime="${e(item.date)}">${e(item.date)}</time><div class="news-copy"><h3 class="news-title"><a href="${e(item.href)}">${e(item.title)}</a></h3><p class="news-source">${e(t.newsSource)}</p></div></article>`).join('')}</div>`;
 }
 
+function patentCounts() {
+  return patents.reduce((counts, patent) => {
+    counts[patent.category] += 1;
+    return counts;
+  }, { total: patents.length, granted: 0, published: 0, pct: 0 });
+}
+
+function patentInventors(inventors, key) {
+  return inventors.map(name => name === zh.name
+    ? `<strong>${e(key === 'en' ? `${en.name} (${zh.name})` : name)}</strong>`
+    : e(name)).join(key === 'en' ? ', ' : '、');
+}
+
+function patentMetadata(patent, key) {
+  const text = patentText[key];
+  const fields = [
+    [text.application, patent.applicationNumber, patent.filingDate],
+    [text.publication, patent.publicationNumber, patent.publicationDate],
+    ...(patent.grantNumber ? [[text.grant, patent.grantNumber, patent.grantDate]] : []),
+  ];
+  const items = fields.map(([label, number, date]) => `<span class="patent-field">${e(label)} ${e(number)} (${e(date)})</span>`);
+  if (key === 'en') return items.slice(0, 2).join('; ') + (items[2] ? `<br>${items[2]}` : '') + '.';
+  return items.join('；') + '。';
+}
+
+function renderPatentGroups(key) {
+  return patentCategories.map(category => {
+    const items = patents.filter(patent => patent.category === category.id)
+      .sort((a, b) => (b.grantDate || b.publicationDate).localeCompare(a.grantDate || a.publicationDate) || b.filingDate.localeCompare(a.filingDate))
+      .map(patent => `<li class="patent-item"><h4><a href="${e(patent.url)}">${e(patent.title[key])}</a></h4><p class="patent-inventors">${patentInventors(patent.inventors, key)}</p><p class="patent-metadata">${patentMetadata(patent, key)}</p></li>`).join('');
+    return `<section class="patent-group" aria-labelledby="patent-${e(category.id)}-${e(key)}"><h3 id="patent-${e(category.id)}-${e(key)}">${e(category.label[key])}</h3><ol class="patent-list">${items}</ol></section>`;
+  }).join('');
+}
+
+function patentSummary(key) {
+  return patentText[key].summary(patentCounts());
+}
+
 function renderPublicationDirectory(source, key) {
-  const sourceGroups = [...source.matchAll(/<section class="publication-group"[^>]*>([\s\S]*?)<\/section>/g)].map(match => match[1]);
-  const presentations = sourceGroups.find(group => group.includes('id="publication-presentations"')) || '';
-  const workshopPapers = [...presentations.matchAll(/<article class="pub"[^>]*>[\s\S]*?<\/article>/g)]
-    .map(match => match[0]).filter(article => /<p class="venue">[\s\S]*?2026/.test(article)).join('');
-  const groups = sourceGroups.filter(group => /<h3[^>]*>20\d{2}<\/h3>/.test(group));
+  const groups = [...source.matchAll(/<section class="publication-group"[^>]*>([\s\S]*?)<\/section>/g)].map(match => match[1]);
   let index = 0;
   const html = groups.map(group => {
     const year = group.match(/<h3[^>]*>(20\d{2})<\/h3>/)?.[1];
-    const articles = year === '2026' ? group + workshopPapers : group;
-    const entries = [...articles.matchAll(/<article class="pub"[^>]*>([\s\S]*?)<\/article>/g)].map(match => {
+    const entries = [...group.matchAll(/<article class="pub"[^>]*>([\s\S]*?)<\/article>/g)].map(match => {
       const article = match[1];
       const existingId = match[0].match(/<article class="pub" id="([^"]+)"/)?.[1];
       const detail = publicationDetails[index++];
@@ -90,10 +142,14 @@ function renderPublicationDirectory(source, key) {
       if (detail.image && !fs.existsSync(path.join(root, 'assets/img/publications', detail.image))) {
         throw new Error(`Missing publication image: ${detail.image}`);
       }
-      const role = authors.match(/<span class="author-role">([\s\S]*?)<\/span>/)?.[0] || '';
-      const fullAuthors = detail.authors
-        ? e(detail.authors).replace('Yixin Chen', `<span class="me">Yixin Chen</span>${role}`)
-        : authors;
+      let fullAuthors = authors;
+      if (detail.authors) {
+        fullAuthors = e(detail.authors);
+        for (const name of equalContributionNames(authors)) {
+          fullAuthors = fullAuthors.replace(e(name), `${e(name)}<span class="author-role">*</span>`);
+        }
+        fullAuthors = fullAuthors.replace('Yixin Chen', '<span class="me">Yixin Chen</span>');
+      }
       const imageCredit = detail.source
         ? `<a href="${e(detail.source)}">${key === 'en' ? 'Figure source' : '图片来源'}</a>`
         : key === 'en' ? "Authors' manuscript" : '作者手稿';
@@ -115,7 +171,7 @@ function render(t, key) {
   const isEn = key === 'en';
   const r = research[key];
   const v = visitors[key];
-  const url = `https://yixinchen-ai.github.io/${isEn ? '' : 'index.zh.html'}`;
+  const url = new URL(isEn ? '' : 'index.zh.html', links.home).href;
   const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
   const publicationDirectory = renderPublicationDirectory(publications, key);
   const emailText = Object.values(emails).map(address => `<span>${e(address)}</span>`).join('');
@@ -127,9 +183,9 @@ function render(t, key) {
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="email=no">
   <title>${e(t.title)}</title><meta name="description" content="${e(t.description)}"><meta name="author" content="Yixin Chen">
-  <meta property="og:type" content="website"><meta property="og:title" content="${e(t.title)}"><meta property="og:description" content="${e(t.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="https://yixinchen-ai.github.io/assets/img/avatar.png"><meta name="twitter:card" content="summary">
+  <meta property="og:type" content="website"><meta property="og:title" content="${e(t.title)}"><meta property="og:description" content="${e(t.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${new URL(shared.portraitImage, links.home).href}"><meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#ffffff"><link rel="canonical" href="${url}">
-  <link rel="alternate" hreflang="en" href="https://yixinchen-ai.github.io/"><link rel="alternate" hreflang="zh-CN" href="https://yixinchen-ai.github.io/index.zh.html"><link rel="alternate" hreflang="x-default" href="https://yixinchen-ai.github.io/">
+  <link rel="alternate" hreflang="en" href="${links.home}"><link rel="alternate" hreflang="zh-CN" href="${new URL('index.zh.html', links.home).href}"><link rel="alternate" hreflang="x-default" href="${links.home}">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/style.css?v=${styleVersion}"><script src="assets/js/main.js?v=${scriptVersion}" defer></script><script src="assets/js/visitors.js?v=${visitorScriptVersion}" defer></script>
 </head>
 <body id="top">
@@ -138,10 +194,10 @@ function render(t, key) {
 <main id="main" class="page">
 <section class="hero" aria-labelledby="name"><div class="identity"><div class="name-line"><h1 id="name">${e(t.name)}</h1><span class="other-name">${e(t.otherName)}</span></div><p class="affiliation">${e(t.affiliation)}</p></div><figure class="portrait"><a href="${shared.portraitImage}" data-photo data-caption="${e(t.portraitCaption)}"><img src="${shared.portraitImage}" alt="${e(t.portraitAlt)}" width="1254" height="1254" fetchpriority="high"></a></figure><p class="intro" id="research-funding"><strong>${e(t.introFunding)}</strong> ${e(t.intro)} ${introPublications}</p><div class="hero-contact"><div class="hero-links">${link(links.scholar, t.scholar)}${link(links.github, 'GitHub')}<a class="text-link" href="${e(links.cvEn)}" download>${e(t.cvEn)}</a><a class="text-link" href="${e(links.cvZh)}" download>${e(t.cvZh)}</a></div></div></section>
 <section id="research" class="selected-research" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">${e(r.heading)}</h2></div>${r.works.map(w => researchWork(w, r)).join('')}</section>
-<section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="publication-directory">${publicationDirectory}</div></section>
+<section id="publications" class="publications" aria-labelledby="pub-title"><div class="section-heading"><h2 id="pub-title">${e(t.publications)}</h2>${link(links.scholar, t.allPapers)}</div><div class="publication-directory">${publicationDirectory}<p class="publication-role-note">${e(equalContributionNotes[key])}</p></div></section>
 <section id="challenges" class="challenges" aria-labelledby="challenges-title"><div class="section-heading"><h2 id="challenges-title">${e(t.challengesTitle)}</h2></div>${renderChallenges(t)}</section>
 <section id="news" class="news" aria-labelledby="news-title"><div class="section-heading"><h2 id="news-title">${e(t.newsTitle)}</h2></div>${renderNews(t)}</section>
-<section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(t.patentTitle)}</dt><dd>${e(t.patentDetail)}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
+<section class="service" aria-labelledby="service-title"><h2 id="service-title">${e(t.service)}</h2><dl><div><dt>${e(patentText[key].heading)}</dt><dd>${e(patentSummary(key))}</dd></div><div><dt>${e(t.reviewTitle)}</dt><dd>${e(t.reviewDetail)}</dd></div><div><dt>${e(t.teachingTitle)}</dt><dd>${e(t.teachingDetail)} <a class="text-link" href="${e(links.course)}">${e(t.teachingLink)}</a></dd></div><div><dt>${e(t.writingTitle)}</dt><dd>${e(t.writingDetail)}</dd></div></dl></section>
 <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title">${e(t.contactTitle)}</h2><div class="email-list">${emailText}</div><div class="contact-links"><a class="text-link" href="${e(imageUrl(shared.wechatImage))}" data-photo data-caption="${e(t.wechatCaption)}" data-alt="${e(t.wechatAlt)}" aria-haspopup="dialog">${e(t.wechatLabel)}</a>${link(links.scholar, 'Google Scholar')}${link(links.github, 'GitHub')}${link(links.orcid, 'ORCID')}</div></section>
 <section id="visitors" class="visitors" aria-labelledby="visitors-title" data-endpoint="${e(visitors.endpoint)}" data-unavailable="${e(v.unavailable)}" data-empty="${e(v.empty)}" data-hint="${e(v.hint)}"><div class="visitor-heading"><h2 id="visitors-title">${e(v.title)}</h2><p class="visitor-period">${e(v.since)}</p></div><p class="visitor-status" role="status">${e(v.loading)}</p><div class="visitor-map" data-src="${e(imageUrl('assets/img/world.svg'))}"></div><div class="visitor-map-caption"><p class="visitor-readout" aria-live="polite"></p><div class="visitor-legend" hidden><span>${e(v.low)}</span><span class="visitor-scale" aria-hidden="true"></span><span>${e(v.high)}</span></div></div><p class="visitor-note">${e(v.privacy)}</p><p class="visitor-credit">${e(v.credit)}: <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/world">MapSVG / SVG Maps</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p></section>
 <footer><span>${e(t.footer)}</span><span>${e(t.updated)}</span><a href="#top">${isEn ? 'Back to top' : '返回顶部'}</a></footer>
@@ -152,37 +208,118 @@ function render(t, key) {
 </body></html>`;
 }
 
+const cvTalksHeading = 'Oral presentations';
+
 const cvLabels = {
   en: {
     title: 'Yixin Chen | Curriculum Vitae',
     description: 'Curriculum vitae of Yixin Chen, PhD candidate at Peking University.',
-    research: 'Research profile', education: 'Education', results: 'Challenge results and research funding',
-    experience: 'Professional experience', publications: 'Publications and presentations',
-    service: 'Patents, teaching and academic service',
-    pku: 'Peking University', pkuDegree: 'PhD in Medical Technology',
+    research: 'Research profile', education: 'Education', selected: 'Selected research', funding: 'Research funding',
+    experience: 'Professional experience', publications: 'Publications',
+    awards: 'MICCAI challenge awards', teaching: 'Teaching', book: 'Book', patents: 'Patents', service: 'Academic service',
+    firstAuthor: 'First author', coFirstAuthor: 'Co-first author',
+    email: 'Email', website: 'Academic website', code: 'Research code', papers: 'Publications', scholar: 'Google Scholar',
+    pku: 'Peking University', supervisor: 'Supervisor',
     xmu: 'Xiamen University', xmuDegree: "BSc in Automation; second bachelor's degree in Mathematical Finance",
-    autopet: 'MICCAI autoPET V challenge, interactive PET/CT lesion segmentation.',
   },
   zh: {
     title: '陈亦新 | 个人简历',
     description: '陈亦新，北京大学医学技术博士研究生。',
-    research: '研究方向', education: '教育经历', results: '挑战赛成绩与科研项目',
-    experience: '工作经历', publications: '论文与会议报告',
-    service: '专利、教学与学术服务',
-    pku: '北京大学', pkuDegree: '医学技术博士研究生',
+    research: '研究方向', education: '教育经历', selected: '代表性研究成果', funding: '主持科研项目',
+    experience: '工作经历', publications: '论文',
+    awards: 'MICCAI 挑战赛奖项', teaching: '教学经历', book: '著作', patents: '专利', service: '学术服务',
+    firstAuthor: '第一作者', coFirstAuthor: '共同第一作者',
+    email: '邮箱', website: '个人主页', code: '研究代码', papers: '学术论文', scholar: '谷歌学术',
+    pku: '北京大学', supervisor: '导师',
     xmu: '厦门大学', xmuDegree: '自动化本科，数理金融第二学位',
-    autopet: 'MICCAI autoPET V 挑战赛，交互式 PET/CT 病灶分割。',
   },
 };
 
+function publicationLinks(article) {
+  return {
+    paper: article.match(/<div class="links">[\s\S]*?<a href="([^"]+)"/)?.[1],
+    code: article.match(/<a href="([^"]+)">(?:Code|代码)<\/a>/)?.[1],
+  };
+}
+
+function publicationRecord(source, workId) {
+  const detail = publicationDetails.find(item => item.id === workId);
+  const articles = [...source.matchAll(/<article class="pub"[^>]*>[\s\S]*?<\/article>/g)].map(match => match[0]);
+  const article = articles.find(item => {
+    const title = item.match(/<h4 class="ptitle">([\s\S]*?)<\/h4>/)?.[1] || '';
+    return title.replace(/<[^>]*>/g, '').startsWith(detail.match);
+  });
+  if (!article) throw new Error(`Missing CV publication for representative work: ${workId}`);
+  const title = article.match(/<h4 class="ptitle">([\s\S]*?)<\/h4>/)?.[1];
+  const authors = article.match(/<p class="authors">([\s\S]*?)<\/p>/)?.[1];
+  const venue = article.match(/<p class="venue">([\s\S]*?)<\/p>/)?.[1];
+  if (!title || !authors || !venue) throw new Error(`Incomplete representative publication: ${workId}`);
+  return { title, authors, venue, ...publicationLinks(article) };
+}
+
+function publicationContribution(authors, labels) {
+  const me = '<span class="me">Yixin Chen</span>';
+  const myPosition = authors.indexOf(me);
+  if (myPosition === -1) return '';
+  const afterMe = authors.slice(myPosition + me.length);
+  if (afterMe.startsWith('<span class="author-role">*</span>')) return labels.coFirstAuthor;
+  return authors.trimStart().startsWith(me) ? labels.firstAuthor : '';
+}
+
+function inlineVenue(venue) {
+  return venue.replace(/<span class="publication-status">/g, '; <span class="publication-status">');
+}
+
+function citationSentence(html) {
+  return html.trim() + (/[.!?]$/.test(html.replace(/<[^>]*>/g, '').trim()) ? ' ' : '. ');
+}
+
+function cvPublicationVenue(venue, title) {
+  const plainTitle = title.replace(/<[^>]*>/g, '');
+  const citation = publicationDetails.find(detail => plainTitle.startsWith(detail.match))?.citation;
+  if (!citation) return inlineVenue(venue);
+  const location = citation.pages || citation.articleNumber;
+  const volume = citation.volume
+    ? `${citation.series ? `${citation.series} ` : ''}${citation.volume}${citation.issue ? `(${citation.issue})` : ''}`
+    : '';
+  const details = volume
+    ? `${volume}${location ? `:${location}` : ''}`
+    : `${citation.pages.includes('-') ? 'pp.' : 'p.'} ${citation.pages}`;
+  const statusPosition = venue.indexOf('<span class="publication-status">');
+  const position = statusPosition === -1 ? venue.length : statusPosition;
+  const withDetails = venue.slice(0, position).replace(/\d{4}$/, year => `<span class="cv-citation-location">${year}, ${cvE(details)}</span>`);
+  return inlineVenue(`${withDetails}${venue.slice(position)}`);
+}
+
+function renderCvPublications(source) {
+  let number = 0;
+  return source.replace(/<article class="pub"[^>]*>[\s\S]*?<\/article>/g, article => {
+    const id = article.match(/<article class="pub" id="([^"]+)"/)?.[1];
+    const title = article.match(/<h4 class="ptitle">([\s\S]*?)<\/h4>/)[1];
+    const authors = article.match(/<p class="authors">([\s\S]*?)<\/p>/)[1];
+    const venue = article.match(/<p class="venue">([\s\S]*?)<\/p>/)[1];
+    const { paper: href, code } = publicationLinks(article);
+    const linkedTitle = href ? `<a href="${href}">${title}</a>` : title;
+    return `<article class="pub"${id ? ` id="${id}"` : ''}><span class="cv-pub-number">${++number}.</span><p class="cv-citation"><span class="authors">${citationSentence(authors)}</span><span class="ptitle">${citationSentence(linkedTitle)}</span><span class="venue">${citationSentence(cvPublicationVenue(venue, title)).trimEnd()}</span>${code ? `&nbsp;<a class="cv-code" href="${code}">[Code]</a>` : ''}</p></article>`;
+  });
+}
+
 function renderCv(t, key) {
   const labels = cvLabels[key];
-  const publications = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8')
-    .replaceAll('–', '-')
-    .replaceAll('‑', '-');
+  const source = fs.readFileSync(path.join(root, `content/publications.${key}.html`), 'utf8');
+  const publications = renderCvPublications(source);
+  const selectedWorks = research[key].works.map(work => ({
+    work,
+    publication: publicationRecord(source, work.id),
+  }));
+  const lucida = publicationDetails.find(item => item.id === 'lucida');
+  selectedWorks.splice(2, 0, {
+    work: { name: lucida.name, summary: lucida[key].replace(`${lucida.name} `, key === 'en' ? 'It ' : '') },
+    publication: publicationRecord(source, lucida.id),
+  });
   const challengeItems = [
-    { title: t.awardTitle, detail: labels.autopet },
-    ...t.awards.map(item => ({ title: item.title, detail: item.detail })),
+    { title: t.awardTitle },
+    ...t.awards.map(item => ({ title: item.title })),
     t.chimeraAward,
   ];
   const cv = `<!doctype html>
@@ -192,36 +329,54 @@ function renderCv(t, key) {
   <title>${cvE(labels.title)}</title>
   <meta name="description" content="${cvE(labels.description)}">
   <link rel="stylesheet" href="assets/css/cv.css">
+  <style>@page { @bottom-right { content: "${cvCssString(t.updated)}"; } }</style>
 </head>
-<body>
+<body class="cv-${key}">
 <header class="cv-header">
-  <div><h1>${cvE(t.name)}</h1><p class="cv-role">${cvE(t.affiliation)}</p></div>
-  <address><a href="${links.email}">yixinchen0320@gmail.com</a><a href="${links.pku}">2311110791@stu.pku.edu.cn</a><a href="https://yixinchen-ai.github.io">yixinchen-ai.github.io</a></address>
-  <nav><a href="${links.scholar}">Google Scholar</a><a href="${links.github}">GitHub</a><a href="${links.orcid}">ORCID</a></nav>
+  <div class="cv-identity"><h1>${cvE(t.name)}<span class="cv-other-name">${cvE(t.otherName)}</span></h1><p class="cv-role">${cvE(t.affiliation)}</p></div>
+  <img class="cv-portrait" src="${cvE(shared.portraitImage)}" alt="${cvE(t.portraitAlt)}" width="1254" height="1254">
+  <address><dl class="cv-contacts">
+    <div class="cv-contact-item"><dt>${cvE(labels.email)}${key === 'en' ? ':' : '：'}</dt><dd><a href="${links.email}">${cvE(emails.gmail)}</a></dd></div>
+    <div class="cv-contact-item"><dt>${cvE(labels.website)}${key === 'en' ? ':' : '：'}</dt><dd><a href="${e(links.home)}">${cvE(new URL(links.home).host)}</a></dd></div>
+    <div class="cv-contact-item cv-contact-secondary"><dt>${cvE(labels.code)}${key === 'en' ? ':' : '：'}</dt><dd><a href="${links.github}">GitHub / ${cvE(new URL(links.github).pathname.slice(1))}</a></dd></div>
+    <div class="cv-contact-item cv-contact-secondary"><dt>${cvE(labels.papers)}${key === 'en' ? ':' : '：'}</dt><dd><a href="${links.scholar}">${cvE(labels.scholar)}</a></dd></div>
+  </dl></address>
 </header>
 <main>
-  <section><h2>${cvE(labels.research)}</h2><p>${cvE(t.intro)}</p></section>
-  <section><h2>${cvE(labels.education)}</h2>
-    <article class="cv-entry"><div><h3>${cvE(labels.pku)}</h3><p>${cvE(labels.pkuDegree)}</p></div><p class="cv-date">${cvE(t.phdDate)}</p></article>
+  <section class="cv-profile"><h2>${cvE(labels.research)}</h2><p>${cvE(t.intro)}</p></section>
+  <section class="cv-education"><h2>${cvE(labels.education)}</h2>
+    <article class="cv-entry"><div><h3>${cvE(labels.pku)}</h3><p>${cvE(t.phdDegree)}${key === 'en' ? `, expected ${cvE(shared.expectedGraduationYear)}` : `，预计 ${cvE(shared.expectedGraduationYear)} 年毕业`}</p><p>${cvE(t.phdInstitute)}${key === 'en' ? '; ' : '，'}${cvE(labels.supervisor)}${key === 'en' ? ': ' : '：'}${cvE(t.phdSupervisor)}</p></div><p class="cv-date">${cvE(t.phdDate)}</p></article>
     <article class="cv-entry"><div><h3>${cvE(t.londonTitle)}</h3><p>${cvE(t.londonDegree)}</p></div><p class="cv-date">${cvE(t.londonDate)}</p></article>
-    <article class="cv-entry"><div><h3>${cvE(labels.xmu)}</h3><p>${cvE(labels.xmuDegree)}</p></div><p class="cv-date">2015-2019</p></article>
+    <article class="cv-entry"><div><h3>${cvE(labels.xmu)}</h3><p>${cvE(labels.xmuDegree)}</p></div><p class="cv-date">2015–2019${key === 'zh' ? ' 年' : ''}</p></article>
   </section>
-  <section><h2>${cvE(labels.results)}</h2>
-    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3><p>${cvE(item.detail)}</p></div><p class="cv-date">2026</p></article>`).join('')}
+  <section class="cv-funding"><h2>${cvE(labels.funding)}</h2>
     <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p>${cvE(t.fundingBody)}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
   </section>
-  <section class="cv-news"><h2>${cvE(t.newsTitle)}</h2>
-    ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${e(item.href)}">${cvE(item.title)}</a></h3><p>${cvE(t.newsSource)}</p></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
+  <section class="cv-selected"><h2>${cvE(labels.selected)}</h2>
+    ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><p><strong>${cvE(work.name)}${key === 'en' ? '.' : '：'}</strong>${key === 'en' ? ' ' : ''}${cvE(work.summary)}</p><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publicationContribution(publication.authors, labels))}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p></article>`).join('')}
   </section>
+  <section class="cv-talks"><h2>${cvE(cvTalksHeading)}</h2>
+    ${shared.presentations.talks.map(talk => `<article class="cv-entry"><div><h3>${talk.publicationId ? publicationRecord(source, talk.publicationId).title : cvE(talk.title)}</h3><p>${cvE(talk.event)}${key === 'en' ? ', ' : '，'}${cvE(shared.presentations.location[key])}</p></div><p class="cv-date">${cvE(talk.date)}</p></article>`).join('')}
+  </section>
+  <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section><h2>${cvE(labels.experience)}</h2>
     ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}</h3><p class="cv-subtitle">${cvE(item.role)}</p>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
-  <section class="cv-publications"><h2>${cvE(labels.publications)}</h2>${publications}</section>
-  <section><h2>${cvE(labels.service)}</h2>
-    <article class="cv-entry"><div><h3>${cvE(t.patentTitle)}</h3><p>${cvE(t.patentDetail)}</p></div></article>
-    <article class="cv-entry"><div><h3>${cvE(t.reviewTitle)}</h3><p>${cvE(t.reviewDetail)}</p></div></article>
-    <article class="cv-entry"><div><h3>${cvE(t.teachingTitle)}</h3><p>${cvE(t.teachingDetail)}</p></div></article>
-    <article class="cv-entry"><div><h3>${cvE(t.bookName)}</h3><p>${cvE(t.bookDetail)}</p></div><p class="cv-date">2021</p></article>
+  <section class="cv-teaching"><h2>${cvE(labels.teaching)}</h2>
+    <article class="cv-entry"><div><h3>${cvE(t.teachingTitle)}</h3><p>${cvE(t.teachingDetail)} <a href="${e(links.course)}">${cvE(t.teachingLink)}</a></p></div></article>
+  </section>
+  <section><h2>${cvE(labels.book)}</h2>
+    <article class="cv-entry"><div><h3>${cvE(t.bookName)}</h3>${t.bookOriginalTitle ? `<p>${cvE(t.bookOriginalTitle)}</p>` : ''}<p>${cvE(t.bookDetail)}</p></div><p class="cv-date">${cvE(shared.book.year)}</p></article>
+  </section>
+  <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
+  <section class="cv-awards"><h2>${cvE(labels.awards)}</h2>
+    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3>${item.detail ? `<p>${cvE(item.detail)}</p>` : ''}</div><p class="cv-date">2026</p></article>`).join('')}
+  </section>
+  <section class="cv-service"><h2>${cvE(labels.service)}</h2>
+    <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
+  </section>
+  <section class="cv-news"><h2>${cvE(t.newsTitle)}</h2><p class="cv-news-source">${cvE(t.newsSource)}</p>
+    ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
 </main>
 </body></html>`;

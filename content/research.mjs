@@ -8,7 +8,7 @@ export const research = {
         title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications, 2025',
-        summary: 'The model shares anatomical knowledge across PET, CT and MRI while adapting segmentation to each modality.',
+        summary: 'Modality projection generates modality-specific kernels to segment PET, CT and MRI.',
         links: [
           { label: 'Paper', href: 'https://www.nature.com/articles/s41467-025-64469-w' },
           { label: 'Code', href: 'https://github.com/YixinChen-AI/MPUM' },
@@ -28,7 +28,7 @@ export const research = {
         title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI, 2024',
-        summary: 'It uses relationships between organs, bones and muscles to guide CT segmentation.',
+        summary: 'Anatomical category prompts and a hierarchical loss guide universal CT segmentation.',
         links: [
           { label: 'Paper', href: 'https://doi.org/10.1109/TMI.2024.3395349' },
           { label: 'Code', href: 'https://github.com/YixinChen-AI/PCNet' },
@@ -44,7 +44,7 @@ export const research = {
       {
         id: 'masld',
         title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
-        name: 'Whole-body PET/CT in MASLD',
+        name: 'Whole-body PET/CT in metabolic dysfunction-associated steatotic liver disease (MASLD)',
         venue: 'EJNMMI, accepted 2026',
         summary: 'In 294 adults at two centres, 16 imaging features differed between MASLD and controls and were replicated at the second centre.',
         links: [
@@ -70,7 +70,7 @@ export const research = {
         title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications，2025',
-        summary: '在 PET、CT 和 MRI 之间共享解剖知识，并针对各模态进行分割。',
+        summary: '通过模态投影将共享解剖表征映射为模态特异卷积核，实现 PET、CT 和 MRI 分割。',
         links: [
           { label: '论文', href: 'https://www.nature.com/articles/s41467-025-64469-w' },
           { label: '代码', href: 'https://github.com/YixinChen-AI/MPUM' },
@@ -90,7 +90,7 @@ export const research = {
         title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI，2024',
-        summary: '利用器官、骨骼和肌肉之间的关系指导 CT 分割。',
+        summary: '结合解剖类别提示、类别层级与层级一致性损失，引导 CT 通用分割。',
         links: [
           { label: '论文', href: 'https://doi.org/10.1109/TMI.2024.3395349' },
           { label: '代码', href: 'https://github.com/YixinChen-AI/PCNet' },
@@ -106,7 +106,7 @@ export const research = {
       {
         id: 'masld',
         title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
-        name: 'MASLD 全身 PET/CT 研究',
+        name: '代谢功能障碍相关脂肪性肝病（MASLD）全身 PET/CT 研究',
         venue: 'EJNMMI，2026 已接收',
         summary: '在两中心 294 位受试者中，16 项影像特征在 MASLD 与对照组间存在差异，并在第二中心复现。',
         links: [

@@ -5,9 +5,10 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outputDir = path.join(root, 'output', 'pdf');
+const tempDir = path.join(root, 'tmp', 'pdfs');
 const documents = [
-  { source: path.join(root, 'cv.html'), output: path.join(outputDir, 'Yixin-Chen-CV.pdf'), profile: path.join(root, 'tmp', 'pdfs', 'chrome-profile-en') },
-  { source: path.join(root, 'cv.zh.html'), output: path.join(outputDir, 'Yixin-Chen-CV-ZH.pdf'), profile: path.join(root, 'tmp', 'pdfs', 'chrome-profile-zh') },
+  { source: path.join(root, 'cv.html'), output: path.join(outputDir, 'Yixin-Chen-CV.pdf'), temporary: path.join(tempDir, 'Yixin-Chen-CV.build.pdf'), profile: path.join(tempDir, 'chrome-profile-en') },
+  { source: path.join(root, 'cv.zh.html'), output: path.join(outputDir, 'Yixin-Chen-CV-ZH.pdf'), temporary: path.join(tempDir, 'Yixin-Chen-CV-ZH.build.pdf'), profile: path.join(tempDir, 'chrome-profile-zh') },
 ];
 
 const candidates = [
@@ -35,12 +36,13 @@ for (const document of documents) {
   if (!fs.existsSync(document.source)) throw new Error('Run node scripts/build.mjs before building the CV PDFs.');
 }
 fs.mkdirSync(outputDir, { recursive: true });
+fs.mkdirSync(tempDir, { recursive: true });
 const chrome = findChrome();
 
 async function buildPdf(document) {
   fs.rmSync(document.profile, { recursive: true, force: true });
   fs.mkdirSync(document.profile, { recursive: true });
-  fs.rmSync(document.output, { force: true });
+  fs.rmSync(document.temporary, { force: true });
   const child = spawn(chrome, [
     '--headless=new',
     '--disable-gpu',
@@ -54,7 +56,7 @@ async function buildPdf(document) {
     '--allow-file-access-from-files',
     '--no-pdf-header-footer',
     `--user-data-dir=${document.profile}`,
-    `--print-to-pdf=${document.output}`,
+    `--print-to-pdf=${document.temporary}`,
     pathToFileURL(document.source).href,
   ], { stdio: ['ignore', 'ignore', 'pipe'] });
 
@@ -73,8 +75,8 @@ async function buildPdf(document) {
       error ? reject(error) : resolve();
     };
     const checker = setInterval(() => {
-      if (!fs.existsSync(document.output)) return;
-      const size = fs.statSync(document.output).size;
+      if (!fs.existsSync(document.temporary)) return;
+      const size = fs.statSync(document.temporary).size;
       stableChecks = size === lastSize && size > 10000 ? stableChecks + 1 : 0;
       lastSize = size;
       if (stableChecks >= 2) finish();
@@ -82,12 +84,22 @@ async function buildPdf(document) {
     const deadline = setTimeout(() => finish(new Error(errorOutput || 'Chrome timed out while creating a CV PDF.')), 15000);
     child.on('error', finish);
     child.on('exit', () => {
-      if (fs.existsSync(document.output) && fs.statSync(document.output).size > 10000) finish();
+      if (fs.existsSync(document.temporary) && fs.statSync(document.temporary).size > 10000) finish();
       else finish(new Error(errorOutput || 'Chrome did not create a CV PDF.'));
     });
   });
   fs.rmSync(document.profile, { recursive: true, force: true });
-  console.log(`Built ${path.relative(root, document.output)}.`);
 }
 
-for (const document of documents) await buildPdf(document);
+try {
+  for (const document of documents) await buildPdf(document);
+  for (const document of documents) {
+    fs.renameSync(document.temporary, document.output);
+    console.log(`Built ${path.relative(root, document.output)}.`);
+  }
+} finally {
+  for (const document of documents) {
+    fs.rmSync(document.temporary, { force: true });
+    fs.rmSync(document.profile, { recursive: true, force: true });
+  }
+}
