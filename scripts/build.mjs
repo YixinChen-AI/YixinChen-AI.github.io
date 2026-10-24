@@ -10,6 +10,7 @@ import { visitors } from '../content/visitors.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const styleVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/css/style.css'))).digest('hex').slice(0, 12);
+const cvStyleVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/css/cv.css'))).digest('hex').slice(0, 12);
 const scriptVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/js/main.js'))).digest('hex').slice(0, 12);
 const visitorScriptVersion = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/js/visitors.js'))).digest('hex').slice(0, 12);
 const e = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
@@ -328,7 +329,7 @@ function renderCv(t, key) {
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${cvE(labels.title)}</title>
   <meta name="description" content="${cvE(labels.description)}">
-  <link rel="stylesheet" href="assets/css/cv.css">
+  <link rel="stylesheet" href="assets/css/cv.css?v=${cvStyleVersion}">
   <style>@page { @bottom-right { content: "${cvCssString(t.updated)}"; } }</style>
 </head>
 <body class="cv-${key}">
@@ -355,9 +356,6 @@ function renderCv(t, key) {
   <section class="cv-selected"><h2>${cvE(labels.selected)}</h2>
     ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><p><strong>${cvE(work.name)}${key === 'en' ? '.' : '：'}</strong>${key === 'en' ? ' ' : ''}${cvE(work.summary)}</p><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publicationContribution(publication.authors, labels))}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p></article>`).join('')}
   </section>
-  <section class="cv-talks"><h2>${cvE(cvTalksHeading)}</h2>
-    ${shared.presentations.talks.map(talk => `<article class="cv-entry"><div><h3>${talk.publicationId ? publicationRecord(source, talk.publicationId).title : cvE(talk.title)}</h3><p>${cvE(talk.event)}${key === 'en' ? ', ' : '，'}${cvE(shared.presentations.location[key])}</p></div><p class="cv-date">${cvE(talk.date)}</p></article>`).join('')}
-  </section>
   <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section><h2>${cvE(labels.experience)}</h2>
     ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}</h3><p class="cv-subtitle">${cvE(item.role)}</p>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
@@ -371,6 +369,9 @@ function renderCv(t, key) {
   <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
   <section class="cv-awards"><h2>${cvE(labels.awards)}</h2>
     ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3>${item.detail ? `<p>${cvE(item.detail)}</p>` : ''}</div><p class="cv-date">2026</p></article>`).join('')}
+  </section>
+  <section class="cv-talks"><h2>${cvE(cvTalksHeading)}</h2>
+    ${shared.presentations.talks.map(talk => `<article class="cv-entry"><div><h3>${talk.publicationId ? publicationRecord(source, talk.publicationId).title : cvE(talk.title)}</h3><p>${cvE(talk.event)}</p></div><p class="cv-date">${cvE(talk.date)}</p></article>`).join('')}
   </section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
     <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
