@@ -34,9 +34,9 @@ export const shared = {
   presentations: {
     location: { en: 'Strasbourg, France', zh: '法国斯特拉斯堡' },
     talks: [
-      { title: 'Task-Specific Models for CHIMERA-Agent', event: 'MICCAI 2026 CHIMERA-Agent Workshop', date: '2026-10-01' },
-      { publicationId: 'cmr-multi', event: 'MICCAI 2026 CMRSeg Workshop', date: '2026-10-01' },
-      { title: 'Correcting a PET/CT Lesion Mask with a Point or Short Line', event: 'MICCAI 2026 autoPET V Workshop', date: '2026-09-27' },
+      { challengeId: 'challenge-chimera-agent', title: 'Task-Specific Models for CHIMERA-Agent', event: 'MICCAI 2026 CHIMERA-Agent Workshop', date: '2026-10-01' },
+      { challengeId: 'challenge-cmr-multi', publicationId: 'cmr-multi', event: 'MICCAI 2026 CMRSeg Workshop', date: '2026-10-01' },
+      { challengeId: 'challenge-autopet', title: 'Correcting a PET/CT Lesion Mask with a Point or Short Line', event: 'MICCAI 2026 autoPET V Workshop', date: '2026-09-27' },
     ],
   },
   wechatImage: 'assets/img/wechat-qr.jpg',
@@ -153,8 +153,8 @@ export const en = {
   newsTitle: 'News coverage',
   newsSource: 'Institute of Medical Technology, Peking University Health Science Center',
   news: [
-    {topic:'challenges', date:'2026-10-10', title:'Doctoral student wins two awards in the MICCAI 2026 international challenges', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
-    {topic:'funding', date:'2026-01-13', title:'Yixin Chen awarded a 2025 NSFC doctoral research grant', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
+    {date:'2026-10-10', title:'Doctoral student wins two awards in the MICCAI 2026 international challenges', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
+    {date:'2026-01-13', title:'Yixin Chen awarded a 2025 NSFC doctoral research grant', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
   ],
   photoPlaceholder: 'Photo to be added',
   service: 'Teaching, patents and reviewing',
@@ -265,8 +265,8 @@ export const zh = {
   newsTitle: '新闻报道',
   newsSource: '北京大学医学部医学技术研究院',
   news: [
-    {topic:'challenges', date:'2026-10-10', title:'我院博士研究生在MICCAI 2026国际挑战赛荣获两项荣誉', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
-    {topic:'funding', date:'2026-01-13', title:'我院博士研究生陈亦新获批2025年度国家自然科学基金青年学生基础研究项目资助', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
+    {date:'2026-10-10', title:'我院博士研究生在MICCAI 2026国际挑战赛荣获两项荣誉', href:'https://imt.bjmu.edu.cn/xsfc/20c60463f0eb459887f461a8deffc6ae.htm'},
+    {date:'2026-01-13', title:'我院博士研究生陈亦新获批2025年度国家自然科学基金青年学生基础研究项目资助', href:'https://imt.bjmu.edu.cn/xsfc/5f411968b96d4de2b79ebea2ff7c4ed9.htm'},
   ],
   photoPlaceholder: '照片待补充',
   service: '教学、专利与审稿',

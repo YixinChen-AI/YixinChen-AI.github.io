@@ -65,7 +65,9 @@ h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: spa
 .author-role { vertical-align: super; font-size: .72em; line-height: 0; }
 .cv-patents { counter-reset: patent; }
 .cv-teaching > p + p { margin-top: 4px; }
-.cv-evidence { color: var(--muted); font-size: 9pt; font-weight: 400; text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: .13em; }
+.cv-news { break-inside: avoid; }
+.cv-news h3 { font-weight: 400; }
+.cv-news a { text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: .13em; }
 .cv-awards .cv-entry { padding: 1px 0; }
 .cv-awards .cv-entry h3 { font-weight: 400; }
 .cv-book, .cv-service { break-inside: avoid; }

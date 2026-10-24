@@ -64,14 +64,17 @@ function researchWork(w, r) {
   </article>`;
 }
 
-function renderChallenges(t) {
-  const entries = [
+function challengeEntries(t) {
+  return [
     { id: 'challenge-autopet', title: t.awardTitle, detail: `${t.awardBody} ${t.awardPresentation}`, image: shared.awardImage, width: 3000, height: 4000, alt: t.awardAlt, href: links.autopet, link: t.awardLink },
     { id: 'challenge-cmr-multi', ...t.awards[0], placeholder: true },
     { id: 'challenge-reg2', ...t.awards[1], detail: `${t.regChallengeBody} ${t.awards[1].detail}`, image: shared.regAwardImage, width: 960, height: 1280, alt: t.regAwardAlt },
     { id: 'challenge-chimera-agent', ...t.chimeraAward, image: shared.chimeraAwardImage, width: 1192, height: 1280 },
   ];
-  return entries.map(entry => {
+}
+
+function renderChallenges(t) {
+  return challengeEntries(t).map(entry => {
     const title = `<span class="publication-title"><span class="challenge-year">2026</span> ${e(entry.title)}</span>`;
     const photo = entry.image
       ? `<div class="challenge-photo"><a href="${e(entry.image)}" data-photo data-caption="${e(entry.title)}" data-alt="${e(entry.alt)}" aria-label="${e(t.fullPhoto)}"><img src="${e(imageUrl(entry.image))}" alt="${e(entry.alt)}" width="${entry.width}" height="${entry.height}" loading="lazy"></a></div>`
@@ -207,7 +210,7 @@ const cvLabels = {
     description: 'Curriculum vitae of Yixin Chen, PhD candidate at Peking University.',
     research: 'Research profile', education: 'Education', selected: 'Selected research', funding: 'Research funding',
     experience: 'Professional experience', publications: 'Publications',
-    awards: 'MICCAI challenge awards', teaching: 'Teaching experience', book: 'Book', patents: 'Patents', service: 'Academic service', news: 'PKU news coverage',
+    awards: 'Awards', teaching: 'Teaching experience', book: 'Book', patents: 'Patents', service: 'Academic service', news: 'Peking University news coverage',
     firstAuthor: 'First author', coFirstAuthor: 'Co-first author',
     email: 'Email', website: 'Academic website', code: 'Research code', papers: 'Publications', scholar: 'Google Scholar',
     pku: 'Peking University', supervisor: 'Supervisor',
@@ -218,7 +221,7 @@ const cvLabels = {
     description: '陈亦新，北京大学医学技术博士研究生。',
     research: '研究方向', education: '教育经历', selected: '代表性研究成果', funding: '主持科研项目',
     experience: '工作经历', publications: '论文',
-    awards: 'MICCAI 挑战赛奖项', teaching: '教学经历', book: '著作', patents: '专利', service: '学术服务', news: '北大新闻报道',
+    awards: '奖项', teaching: '教学经历', book: '著作', patents: '专利', service: '学术服务', news: '北大新闻报道',
     firstAuthor: '第一作者', coFirstAuthor: '共同第一作者',
     email: '邮箱', website: '个人主页', code: '研究代码', papers: '学术论文', scholar: '谷歌学术',
     pku: '北京大学', supervisor: '导师',
@@ -319,14 +322,11 @@ function renderCv(t, key) {
     publication: publicationRecord(records, lucida.id),
   });
   const grantLeadEnd = t.fundingBody.indexOf(key === 'en' ? '. ' : '。') + 1;
-  const fundingNews = t.news.find(item => item.topic === 'funding');
-  const challengeNews = t.news.find(item => item.topic === 'challenges');
   const teachingSummary = t.teachingDetail.split(key === 'en' ? ', ' : '，')[0] + (key === 'en' ? '.' : '。');
-  const challengeItems = [
-    { title: t.awardTitle },
-    ...t.awards.map(item => ({ title: item.title })),
-    { title: en.chimeraAward.title },
-  ];
+  const challengeItems = challengeEntries(t).map(item => ({
+    title: item.id === 'challenge-chimera-agent' ? en.chimeraAward.title : item.title,
+    presentation: shared.presentations.talks.find(talk => talk.challengeId === item.id),
+  }));
   const cv = `<!doctype html>
 <html lang="${t.lang}">
 <head>
@@ -355,13 +355,16 @@ function renderCv(t, key) {
     <article class="cv-entry"><div><h3>${cvE(labels.xmu)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(labels.xmuDegree)}</span></h3></div><p class="cv-date">2015–2019${key === 'zh' ? ' 年' : ''}</p></article>
   </section>
   <section class="cv-funding"><h2>${cvE(labels.funding)}</h2>
-    <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p><strong>${cvE(t.fundingBody.slice(0, grantLeadEnd))}</strong>${cvE(t.fundingBody.slice(grantLeadEnd))} <a class="cv-evidence" href="${cvE(fundingNews.href)}">${cvE(labels.news)}</a></p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
+    <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p><strong>${cvE(t.fundingBody.slice(0, grantLeadEnd))}</strong>${cvE(t.fundingBody.slice(grantLeadEnd))}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
   </section>
   <section class="cv-selected"><h2>${cvE(labels.selected)}</h2>
     ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publication.contribution)}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p><h3>${work.id === 'mpum' ? `<strong>${cvE(work.name)}:</strong> ` : ''}${publication.title.startsWith(`${work.name}:`) ? publication.title.replace(`${work.name}:`, `<strong>${cvE(work.name)}:</strong>`) : publication.title}</h3><p>${cvE(work.summary).replace(/\b\d+\b/g, '<strong>$&</strong>')}</p></article>`).join('')}
   </section>
   <section class="cv-book"><h2>${cvE(labels.book)}</h2>
     <article class="cv-entry"><div><h3>${cvE(t.bookName)}</h3>${t.bookOriginalTitle ? `<p>${cvE(t.bookOriginalTitle)}</p>` : ''}<p>${cvE(t.bookDetail)}</p></div></article>
+  </section>
+  <section class="cv-news"><h2>${cvE(labels.news)}</h2>
+    ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
   <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section class="cv-teaching"><h2>${cvE(labels.teaching)}</h2>
@@ -371,8 +374,8 @@ function renderCv(t, key) {
   <section class="cv-experience"><h2>${cvE(labels.experience)}</h2>
     ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(item.role)}</span></h3>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
-  <section class="cv-awards"><h2><span>${cvE(labels.awards)}</span><a class="cv-evidence" href="${cvE(challengeNews.href)}">${cvE(labels.news)}</a></h2>
-    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3></div><p class="cv-date">2026</p></article>`).join('')}
+  <section class="cv-awards"><h2>${cvE(labels.awards)}</h2>
+    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3></div><p class="cv-date">${item.presentation ? `Oral presentation (${cvE(item.presentation.date)})` : '2026'}</p></article>`).join('')}
   </section>
   <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
