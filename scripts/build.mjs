@@ -323,7 +323,7 @@ function renderCv(t, key) {
   });
   const grantLeadEnd = t.fundingBody.indexOf(key === 'en' ? '. ' : '。') + 1;
   const teachingSummary = t.teachingDetail.split(key === 'en' ? ', ' : '，')[0] + (key === 'en' ? '.' : '。');
-  const challengeItems = challengeEntries(t).map(item => ({
+  const challengeItems = challengeEntries(t).filter(item => item.id !== 'challenge-reg2').map(item => ({
     title: item.id === 'challenge-chimera-agent' ? en.chimeraAward.title : item.title,
     presentation: shared.presentations.talks.find(talk => talk.challengeId === item.id),
   }));
@@ -375,7 +375,7 @@ function renderCv(t, key) {
     ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(item.role)}</span></h3>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
   <section class="cv-awards"><h2>${cvE(labels.awards)}</h2>
-    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}</h3></div><p class="cv-date">${item.presentation ? `Oral presentation (${cvE(item.presentation.date)})` : '2026'}</p></article>`).join('')}
+    ${challengeItems.map(item => `<article class="cv-entry"><div><h3>${cvE(item.title)}${item.presentation ? ` <span class="cv-award-presentation">Oral presentation (${cvE(item.presentation.date)})</span>` : ''}</h3></div></article>`).join('')}
   </section>
   <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>

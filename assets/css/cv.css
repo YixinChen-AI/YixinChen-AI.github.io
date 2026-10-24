@@ -68,8 +68,9 @@ h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: spa
 .cv-news { break-inside: avoid; }
 .cv-news h3 { font-weight: 400; }
 .cv-news a { text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: .13em; }
-.cv-awards .cv-entry { padding: 1px 0; }
-.cv-awards .cv-entry h3 { font-weight: 400; }
+.cv-awards .cv-entry { display: block; padding: 2px 0; }
+.cv-awards .cv-entry h3 { font-weight: 600; }
+.cv-award-presentation { margin-left: 10px; color: var(--muted); font-size: 9.2pt; font-weight: 400; white-space: nowrap; }
 .cv-book, .cv-service { break-inside: avoid; }
 .patent-summary { color: var(--muted); font-size: 9.1pt; line-height: 1.35; }
 .patent-group { margin-top: 5px; }
@@ -102,4 +103,5 @@ h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: spa
   address a { overflow-wrap: anywhere; }
   .cv-entry { display: block; }
   .cv-entry .cv-date { margin-top: 3px; text-align: left; }
+  .cv-award-presentation { display: block; margin: 2px 0 0; }
 }
