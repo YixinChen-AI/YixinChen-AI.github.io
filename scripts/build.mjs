@@ -304,8 +304,8 @@ function cvOutputSummary(records, key) {
   const patent = patentCounts();
   const oralPresentations = shared.presentations.talks.length;
   return key === 'en'
-    ? `<strong>${primary} first/co-first-author papers</strong>, ${collaborative} other collaborative papers; ${patent.total} patent records (${patent.granted} granted); 1 sole-authored book; <span class="cv-oral-count">${oralPresentations} oral presentations at international conferences.</span>`
-    : `<strong>第一/共同第一作者论文 ${primary} 篇</strong>，其他合作论文 ${collaborative} 篇；专利 ${patent.total} 项（授权 ${patent.granted} 项），独著 1 部，<span class="cv-oral-count">国际会议口头报告 ${oralPresentations} 次。</span>`;
+    ? `<strong>${primary} first/co-first-author papers</strong> + ${collaborative} others; ${patent.total} patents (${patent.granted} granted); 1 sole-authored book; <span class="cv-oral-count">${oralPresentations} international conference talks.</span>`
+    : `<strong>第一/共同第一作者论文 ${primary} 篇</strong>，其他合作 ${collaborative} 篇；专利 ${patent.total} 项（授权 ${patent.granted} 项），独著 1 部，<span class="cv-oral-count">国际会议口头报告 ${oralPresentations} 次。</span>`;
 }
 
 function renderCv(t, key) {
