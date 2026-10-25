@@ -302,9 +302,10 @@ function cvOutputSummary(records, key) {
   const primary = records.filter(item => item.contribution).length;
   const collaborative = records.length - primary;
   const patent = patentCounts();
+  const oralPresentations = shared.presentations.talks.length;
   return key === 'en'
-    ? `<strong>${primary} first/co-first-author papers</strong>, ${collaborative} other collaborative papers; ${patent.total} patent records (${patent.granted} granted); 1 sole-authored book.`
-    : `<strong>第一/共同第一作者论文 ${primary} 篇</strong>，其他合作论文 ${collaborative} 篇；专利 ${patent.total} 项（授权 ${patent.granted} 项），独著 1 部。`;
+    ? `<strong>${primary} first/co-first-author papers</strong>, ${collaborative} other collaborative papers; ${patent.total} patent records (${patent.granted} granted); 1 sole-authored book; <span class="cv-oral-count">${oralPresentations} oral presentations at international conferences.</span>`
+    : `<strong>第一/共同第一作者论文 ${primary} 篇</strong>，其他合作论文 ${collaborative} 篇；专利 ${patent.total} 项（授权 ${patent.granted} 项），独著 1 部，<span class="cv-oral-count">国际会议口头报告 ${oralPresentations} 次。</span>`;
 }
 
 function renderCv(t, key) {
@@ -377,10 +378,10 @@ function renderCv(t, key) {
   <section class="cv-presentations"><h2>${cvE(labels.presentations)}</h2>
     ${presentationItems.map(item => `<article class="cv-entry"><div><h3><strong>${cvE(shared.presentations.conference)} Oral presentation</strong>${key === 'en' ? '; ' : '，'}${cvE(item.title).replace(/[:：]\s*/, key === 'en' ? ' challenge: ' : ' 挑战赛：')}</h3></div><p class="cv-date">${cvE(item.presentation.date)}</p></article>`).join('')}
   </section>
-  <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
     <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
   </section>
+  <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
 </main>
 </body></html>`;
   if (cv.includes(String.fromCharCode(183))) throw new Error('Forbidden separator character in CV');
