@@ -28,15 +28,18 @@ export const links = {
   cvZh: 'output/pdf/Yixin-Chen-CV-ZH.pdf',
 };
 
+const miccai2026 = 'MICCAI 2026';
+
 export const shared = {
   expectedGraduationYear: '2027',
   teachingAssistantCourse: 'Principles of Medical Imaging Equipment',
   presentations: {
+    conference: miccai2026,
     location: { en: 'Strasbourg, France', zh: '法国斯特拉斯堡' },
     talks: [
-      { challengeId: 'challenge-chimera-agent', title: 'Task-Specific Models for CHIMERA-Agent', event: 'MICCAI 2026 CHIMERA-Agent Workshop', date: '2026-10-01' },
-      { challengeId: 'challenge-cmr-multi', publicationId: 'cmr-multi', event: 'MICCAI 2026 CMRSeg Workshop', date: '2026-10-01' },
-      { challengeId: 'challenge-autopet', title: 'Correcting a PET/CT Lesion Mask with a Point or Short Line', event: 'MICCAI 2026 autoPET V Workshop', date: '2026-09-27' },
+      { challengeId: 'challenge-chimera-agent', title: 'Task-Specific Models for CHIMERA-Agent', event: `${miccai2026} CHIMERA-Agent Workshop`, date: '2026-10-01' },
+      { challengeId: 'challenge-cmr-multi', publicationId: 'cmr-multi', event: `${miccai2026} CMRSeg Workshop`, date: '2026-10-01' },
+      { challengeId: 'challenge-autopet', title: 'Correcting a PET/CT Lesion Mask with a Point or Short Line', event: `${miccai2026} autoPET V Workshop`, date: '2026-09-27' },
     ],
   },
   wechatImage: 'assets/img/wechat-qr.jpg',

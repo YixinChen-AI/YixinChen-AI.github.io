@@ -68,9 +68,8 @@ h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: spa
 .cv-news { break-inside: avoid; }
 .cv-news h3 { font-weight: 400; }
 .cv-news a { text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: .13em; }
-.cv-awards .cv-entry { display: block; padding: 2px 0; }
-.cv-awards .cv-entry h3 { font-weight: 600; }
-.cv-award-presentation { margin-left: 10px; color: var(--muted); font-size: 9.2pt; font-weight: 400; white-space: nowrap; }
+.cv-presentations .cv-entry { padding: 4px 0; }
+.cv-presentations .cv-entry h3 { font-weight: 400; }
 .cv-book, .cv-service { break-inside: avoid; }
 .patent-summary { color: var(--muted); font-size: 9.1pt; line-height: 1.35; }
 .patent-group { margin-top: 5px; }
@@ -92,7 +91,7 @@ h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: spa
   body { width: auto; margin: 0; padding: 0; }
   h2, .publication-group > h3, .patent-group > h3 { break-after: avoid; }
   p { orphans: 2; widows: 2; }
-  .cv-publications, .cv-teaching { break-before: page; margin-top: 0; }
+  .cv-publications, .cv-teaching, .cv-patents { break-before: page; margin-top: 0; }
 }
 @media screen and (max-width: 850px) {
   body { width: min(100%, 210mm); margin: 0 auto; padding: 28px 24px; }
@@ -103,5 +102,4 @@ h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: spa
   address a { overflow-wrap: anywhere; }
   .cv-entry { display: block; }
   .cv-entry .cv-date { margin-top: 3px; text-align: left; }
-  .cv-award-presentation { display: block; margin: 2px 0 0; }
 }
