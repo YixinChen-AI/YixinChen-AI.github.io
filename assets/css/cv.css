@@ -1,8 +1,8 @@
 :root {
   --ink: #181818;
   --muted: #505050;
-  --accent: #763b3d;
-  --section-fill: #f3eae7;
+  --accent: #24384b;
+  --section-fill: #eef1f4;
   --sans: Arial, "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 * { box-sizing: border-box; }
