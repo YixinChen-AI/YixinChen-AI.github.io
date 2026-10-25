@@ -91,7 +91,7 @@ h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: spa
   body { width: auto; margin: 0; padding: 0; }
   h2, .publication-group > h3, .patent-group > h3 { break-after: avoid; }
   p { orphans: 2; widows: 2; }
-  .cv-publications, .cv-teaching, .cv-patents { break-before: page; margin-top: 0; }
+  .cv-publications, .cv-teaching { break-before: page; margin-top: 0; }
 }
 @media screen and (max-width: 850px) {
   body { width: min(100%, 210mm); margin: 0 auto; padding: 28px 24px; }

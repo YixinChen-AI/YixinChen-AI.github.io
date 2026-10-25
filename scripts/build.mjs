@@ -366,6 +366,7 @@ function renderCv(t, key) {
   <section class="cv-news"><h2>${cvE(labels.news)}</h2>
     ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
+  <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section class="cv-teaching"><h2>${cvE(labels.teaching)}</h2>
     <p><strong>${cvE(t.teachingAssistantTitle)}</strong>${key === 'en' ? ': ' : '：'}${cvE(shared.teachingAssistantCourse)}</p>
     <p><strong>${cvE(t.teachingTitle)}</strong>${key === 'en' ? ': ' : '：'}${cvE(teachingSummary)}</p>
@@ -376,11 +377,10 @@ function renderCv(t, key) {
   <section class="cv-presentations"><h2>${cvE(labels.presentations)}</h2>
     ${presentationItems.map(item => `<article class="cv-entry"><div><h3><strong>${cvE(shared.presentations.conference)} Oral presentation</strong>${key === 'en' ? '; ' : '，'}${cvE(item.title).replace(/[:：]\s*/, key === 'en' ? ' challenge: ' : ' 挑战赛：')}</h3></div><p class="cv-date">${cvE(item.presentation.date)}</p></article>`).join('')}
   </section>
+  <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
     <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
   </section>
-  <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
-  <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
 </main>
 </body></html>`;
   if (cv.includes(String.fromCharCode(183))) throw new Error('Forbidden separator character in CV');
