@@ -361,7 +361,7 @@ function renderCv(t, key) {
     <article class="cv-entry"><div><h3>${cvE(labels.xmu)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(labels.xmuDegree)}</span></h3></div><p class="cv-date">2015–2019${key === 'zh' ? ' 年' : ''}</p></article>
   </section>
   <section class="cv-funding"><h2>${cvE(labels.funding)}</h2>
-    <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p><strong>${cvE(t.fundingBody.slice(0, grantLeadEnd))}</strong>${cvE(t.fundingBody.slice(grantLeadEnd))}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
+    <article class="cv-entry"><div><h3>${cvE(t.fundingTitle)}</h3><p><strong>${cvE(t.fundingBody.slice(0, grantLeadEnd))}</strong>${cvE(t.fundingBody.slice(grantLeadEnd))}</p><p class="cv-funding-summary">${cvE(t.fundingSummary)}</p></div><p class="cv-date">${cvE(t.fundingDate)}</p></article>
   </section>
   <section class="cv-selected"><h2>${cvE(labels.selected)}</h2>
     ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publication.contribution)}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p><h3>${work.id === 'mpum' ? `${cvE(work.name)}: ` : ''}${publication.title}</h3><p>${cvE(work.summary).replace(/\b\d+\b/g, '<strong>$&</strong>')}</p></article>`).join('')}

@@ -110,6 +110,7 @@ export const en = {
   fundingDate: 'January 2026–December 2027',
   fundingTitle: 'NSFC Young Student Basic Research Project (Doctoral Student)',
   fundingBody: 'Principal investigator, grant 625B2004, RMB 300,000. Project: Multi-Organ Metabolic Information Extraction and Analysis Using Total-Body PET/CT.',
+  fundingSummary: 'Builds a total-body 18F-FDG PET/CT framework for sub-organ/tissue delineation, metabolic feature extraction, individualized multi-organ connectomes and interpretation of abnormal metabolic connections.',
   fundingTimeline: '2026–2027: awarded an NSFC doctoral research grant.',
   papers2026: [
     {title:'NeuronCtrl: Geometry-Aware Safe Closed-Loop Generative Control for Neuronal Microenvironment Dynamics', body:'Second author.', venue:'ICML 2026 Spotlight', href:'#publication-neuronctrl'},
@@ -223,6 +224,7 @@ export const zh = {
   fundingDate: '2026.01–2027.12',
   fundingTitle: '国家自然科学基金青年学生基础研究项目（博士研究生）',
   fundingBody: '主持，项目编号 625B2004，资助经费 30 万元。项目名称：基于全人体 PET/CT 的多器官代谢信息提取与分析技术研究。',
+  fundingSummary: '基于全人体 18F-FDG PET/CT，构建图像分割与代谢网络分析框架，实现亚器官/组织自动勾画、代谢特征提取、个体化多器官连接组构建及异常连接解释。',
   fundingTimeline: '2026–2027，获国家自然科学基金博士生项目资助。',
   papers2026: [
     {title:'NeuronCtrl: Geometry-Aware Safe Closed-Loop Generative Control for Neuronal Microenvironment Dynamics', body:'第二作者。', venue:'ICML 2026 Spotlight', href:'#publication-neuronctrl'},
