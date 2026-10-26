@@ -288,7 +288,9 @@ function cvPublicationRecords(source, labels, key) {
       const contribution = publicationContribution(authors, labels);
       const detail = publicationDetails.find(item => title.replace(/<[^>]*>/g, '').startsWith(item.match));
       if (!detail) throw new Error(`Missing publication details for CV entry: ${title.replace(/<[^>]*>/g, '')}`);
-      return { id, title, authors, venue, year, contribution, summary: contribution ? detail[key] : '', ...publicationLinks(article) };
+      const summary = contribution ? detail.cvSummary?.[key] : '';
+      if (contribution && !summary) throw new Error(`Missing concise CV summary for primary-author entry: ${title.replace(/<[^>]*>/g, '')}`);
+      return { id, title, authors, venue, year, contribution, summary, ...publicationLinks(article) };
     });
   });
 }
@@ -297,7 +299,7 @@ function renderCvPublications(records) {
   let number = 0;
   return [...new Set(records.map(item => item.year))].map(year => `<section class="publication-group"><h3>${cvE(year)}</h3>${records.filter(item => item.year === year).map(({ id, title, authors, venue, paper, code, summary }) => {
     const linkedTitle = paper ? `<a href="${paper}">${title}</a>` : title;
-    return `<article class="pub"${id ? ` id="${id}"` : ''}><span class="cv-pub-number">${++number}.</span><p class="cv-citation"><span class="authors">${citationSentence(authors)}</span><span class="ptitle">${citationSentence(linkedTitle)}</span><span class="venue">${citationSentence(cvPublicationVenue(venue, title)).trimEnd()}</span>${code ? `&nbsp;<a class="cv-code" href="${code}">[Code]</a>` : ''}${summary ? ` <span class="cv-publication-summary">${cvE(summary)}</span>` : ''}</p></article>`;
+    return `<article class="pub"${id ? ` id="${id}"` : ''}><span class="cv-pub-number">${++number}.</span><p class="cv-citation"><span class="authors">${citationSentence(authors)}</span><span class="ptitle">${citationSentence(linkedTitle)}</span><span class="venue">${citationSentence(cvPublicationVenue(venue, title)).trimEnd()}</span>${code ? `&nbsp;<a class="cv-code" href="${code}">[Code]</a>` : ''}</p>${summary ? `<p class="cv-publication-summary">${cvE(summary)}</p>` : ''}</article>`;
   }).join('')}</section>`).join('');
 }
 
