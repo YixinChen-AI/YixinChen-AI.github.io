@@ -62,10 +62,10 @@ export const shared = {
 export const en = {
   lang: 'en', name: 'Yixin Chen', otherName: '陈亦新',
   title: 'Yixin Chen | Peking University',
-  description: 'Yixin Chen, PhD candidate at Peking University. Research in medical image segmentation, cross-modality learning, and clinical imaging of cancer and metabolic disease.',
+  description: 'Yixin Chen, PhD candidate in Medical Imaging Technology at Peking University. Research in medical image segmentation, cross-modality learning, and clinical imaging of cancer and metabolic disease.',
   nav: ['Timeline', 'Works', 'Publications', 'Contact'], skip: 'Skip to content',
-  affiliation: 'PhD candidate, Peking University',
-  intro: 'I work on universal medical image segmentation and cross-modality adaptation. I also study multi-organ metabolism using whole-body PET/CT.',
+  affiliation: 'PhD candidate in Medical Imaging Technology, Peking University',
+  intro: 'I develop universal segmentation and cross-modality adaptation methods for PET, CT and MRI, and use whole-body PET/CT to study multi-organ metabolic alterations.',
   introFunding: 'I lead an NSFC doctoral research project.',
   introPublications: 'My first-author papers appear in Nature Communications, IEEE TMI, IEEE TRPMS, CVPR 2026 Findings and MICCAI 2024 (poster), with a further paper accepted in EJNMMI.',
   scholar: 'Google Scholar', email: 'Email', cvEn: 'CV (EN)', cvZh: 'CV (中)',
@@ -139,7 +139,7 @@ export const en = {
     {
       name:'BioMind', role:'Medical Imaging Algorithm Engineer', date:'November 2020–June 2022',
       paragraphs: [
-        'Developed cardiac ultrasound assessment and quantification models, supported clinical integration, and contributed to an ovarian-mass assessment system.',
+        'Developed cardiac ultrasound assessment and quantification models with clinical integration; developed an adnexal-mass diagnostic system with the Chinese PLA General Hospital and partner hospitals.',
       ],
     },
   ],
@@ -175,10 +175,10 @@ export const en = {
 export const zh = {
   lang: 'zh-CN', name: '陈亦新', otherName: 'Yixin Chen',
   title: '陈亦新 | 北京大学',
-  description: '陈亦新，北京大学博士研究生。研究医学影像分割、跨模态学习，以及肿瘤、脂肪肝和多器官代谢的临床影像分析。',
+  description: '陈亦新，北京大学医学影像技术学博士研究生。研究医学影像分割、跨模态学习，以及肿瘤、脂肪肝和多器官代谢的临床影像分析。',
   nav: ['时间线', '代表作', '论文', '联系'], skip: '跳转到正文',
-  affiliation: '北京大学博士研究生',
-  intro: '研究医学影像通用分割与跨模态适应，以及全身 PET/CT 多器官代谢分析。',
+  affiliation: '北京大学医学影像技术学博士研究生',
+  intro: '研究面向 PET、CT 和 MRI 的通用分割与跨模态适应，并利用全身 PET/CT 分析多器官代谢改变。',
   introFunding: '我主持国家自然科学基金博士生项目。',
   introPublications: '以第一作者在 Nature Communications、IEEE TMI 和 IEEE TRPMS 发表论文，EJNMMI 论文已接收；第一作者会议论文包括 CVPR 2026 Findings 和 MICCAI 2024（海报）。',
   scholar: 'Google Scholar', email: '邮箱', cvEn: 'CV (EN)', cvZh: 'CV (中)',
@@ -252,7 +252,7 @@ export const zh = {
     {
       name:'安德医智 BioMind', role:'医疗图像深度学习算法工程师', date:'2020 年 11 月–2022 年 6 月',
       paragraphs: [
-        '研发心脏超声质控、结构检测与定量分析算法，完成临床系统接入，并参与卵巢肿块智能诊疗系统研发。',
+        '研发心脏超声质控、结构检测与定量分析算法，完成临床系统接入；与解放军总医院等合作研发妇科附件肿块智能诊疗系统。',
       ],
     },
   ],

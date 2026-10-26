@@ -78,8 +78,8 @@ export const publicationDetails = [
   {
     id: 'lucida', name: 'LUCIDA', match: 'LUCIDA:', image: 'lucida.webp', source: 'https://papers.miccai.org/miccai-2024/483-Paper0562.html',
     citation: { series: 'LNCS', volume: '15008', pages: '393-402', url: 'https://link.springer.com/chapter/10.1007/978-3-031-72111-3_37' },
-    en: 'LUCIDA uses segmentation reconstruction and Fourier adaptation to segment low-dose CT tissues without target labels.',
-    zh: 'LUCIDA 无需低剂量 CT 标注，利用分割重建约束与频域适应完成多组织分割。',
+    en: 'LUCIDA uses segmentation reconstruction and Fourier adaptation without low-dose CT labels; its ensemble recognizes 112 tissue types.',
+    zh: 'LUCIDA 无需低剂量 CT 标注，利用分割重建约束与频域适应完成多组织分割；集成模型可识别 112 类组织。',
   },
   {
     id: 'braseda', match: 'Structure-Enhanced', image: null,

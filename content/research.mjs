@@ -8,7 +8,7 @@ export const research = {
         title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications, 2025',
-        summary: 'Modality projection generates modality-specific kernels to segment PET, CT and MRI.',
+        summary: 'With Shandong Provincial Qianfoshan Hospital, MPUM maps shared anatomy to modality-specific kernels for whole-body PET, CT and MRI segmentation.',
         links: [
           { label: 'Paper', href: 'https://www.nature.com/articles/s41467-025-64469-w' },
           { label: 'Code', href: 'https://github.com/YixinChen-AI/MPUM' },
@@ -28,7 +28,7 @@ export const research = {
         title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI, 2024',
-        summary: 'Anatomical category prompts and a hierarchical loss guide universal CT segmentation.',
+        summary: 'PCNet encodes clinical relationships among anatomical categories as prompts, a hierarchy and a consistency constraint to guide universal CT segmentation.',
         links: [
           { label: 'Paper', href: 'https://doi.org/10.1109/TMI.2024.3395349' },
           { label: 'Code', href: 'https://github.com/YixinChen-AI/PCNet' },
@@ -46,7 +46,7 @@ export const research = {
         title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
         name: 'Whole-body PET/CT in metabolic dysfunction-associated steatotic liver disease (MASLD)',
         venue: 'EJNMMI, accepted 2026',
-        summary: 'In 294 adults at two centres, 16 imaging features differed between metabolic dysfunction-associated steatotic liver disease (MASLD) and controls, with replication at the second centre.',
+        summary: 'With Henan Medical University First Affiliated Hospital (Xinxiang) and Shandong Provincial Qianfoshan Hospital, a two-centre study of 294 adults identified and replicated 16 MASLD-related imaging features.',
         links: [
           { label: 'Publication entry', href: '#publication-masld' },
         ],
@@ -70,7 +70,7 @@ export const research = {
         title: 'Modality-projection universal model for comprehensive full-body medical imaging segmentation',
         name: 'MPUM',
         venue: 'Nature Communications，2025',
-        summary: '通过模态投影将共享解剖表征映射为模态特异卷积核，实现 PET、CT 和 MRI 分割。',
+        summary: '与山东省千佛山医院合作提出模态投影通用分割模型，将共享解剖表征映射为模态特异卷积核，在同一模型中完成 PET、CT 和 MRI 全身结构分割。',
         links: [
           { label: '论文', href: 'https://www.nature.com/articles/s41467-025-64469-w' },
           { label: '代码', href: 'https://github.com/YixinChen-AI/MPUM' },
@@ -90,7 +90,7 @@ export const research = {
         title: 'PCNet: Prior Category Network for CT Universal Segmentation Model',
         name: 'PCNet',
         venue: 'IEEE TMI，2024',
-        summary: '结合解剖类别提示、类别层级与层级一致性损失，引导 CT 通用分割。',
+        summary: '提出先验类别网络，将临床解剖类别关系编码为类别提示、层级体系和一致性约束，引导 CT 通用分割。',
         links: [
           { label: '论文', href: 'https://doi.org/10.1109/TMI.2024.3395349' },
           { label: '代码', href: 'https://github.com/YixinChen-AI/PCNet' },
@@ -108,7 +108,7 @@ export const research = {
         title: 'Whole-Body [18F]FDG PET/CT Characterizes Multi-Organ Metabolic Alterations in MASLD',
         name: '代谢功能障碍相关脂肪性肝病（MASLD）全身 PET/CT 研究',
         venue: 'EJNMMI，2026 已接收',
-        summary: '在两中心 294 位受试者中，16 项影像特征在代谢功能障碍相关脂肪性肝病（MASLD）与对照组间存在差异，并在第二中心复现。',
+        summary: '与河南医药大学第一附属医院（新乡）、山东省千佛山医院合作，在两中心 294 位受试者中发现 16 项影像特征在 MASLD 与对照组间存在差异，并在第二中心复现。',
         links: [
           { label: '论文条目', href: '#publication-masld' },
         ],
