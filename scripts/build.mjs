@@ -369,9 +369,6 @@ function renderCv(t, key) {
   <section class="cv-book"><h2>${cvE(labels.book)}</h2>
     <article class="cv-entry"><div><h3>${cvE(t.bookName)}</h3>${t.bookOriginalTitle ? `<p>${cvE(t.bookOriginalTitle)}</p>` : ''}<p>${cvE(t.bookDetail)}</p></div></article>
   </section>
-  <section class="cv-news"><h2>${cvE(labels.news)}</h2>
-    ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
-  </section>
   <section class="cv-teaching"><h2>${cvE(labels.teaching)}</h2>
     <p><strong>${cvE(t.teachingAssistantTitle)}</strong>${key === 'en' ? ': ' : '：'}${cvE(shared.teachingAssistantCourse)}</p>
     <p><strong>${cvE(t.teachingTitle)}</strong>${key === 'en' ? ': ' : '：'}${cvE(teachingSummary)}</p>
@@ -384,6 +381,9 @@ function renderCv(t, key) {
   </section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
     <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
+  </section>
+  <section class="cv-news"><h2>${cvE(labels.news)}</h2>
+    ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
   <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
