@@ -133,13 +133,13 @@ export const en = {
     {
       name:'AirDoc', role:'Algorithm Engineer', date:'July–September 2022',
       paragraphs: [
-        'Developed ICL vault prediction models; worked on ultra-widefield fundus image analysis and medical device registration.',
+        'Developed ICL vault prediction and ultra-widefield fundus models for image processing, difference analysis and classification; supported device registration, yielding three Chinese patent applications and one PCT publication.',
       ],
     },
     {
       name:'BioMind', role:'Medical Imaging Algorithm Engineer', date:'November 2020–June 2022',
       paragraphs: [
-        'Developed cardiac ultrasound assessment and quantification models with clinical integration; developed an adnexal-mass diagnostic system with the Chinese PLA General Hospital and partner hospitals.',
+        'Developed cardiac-ultrasound quality control, standard-view generation, atrial-septal-defect detection and quantification, and clinical integration; developed an adnexal-mass diagnostic system with the Chinese PLA General Hospital and partner hospitals. Across these projects, the work produced two co-first-author papers, one collaborative paper and four granted patents.',
       ],
     },
   ],
@@ -246,13 +246,13 @@ export const zh = {
     {
       name:'鹰瞳科技 AirDoc', role:'注册算法工程师', date:'2022 年 7 月–9 月',
       paragraphs: [
-        '研发 ICL 术后拱高预测模型，开展超广角眼底图像分析，参与医疗器械注册算法工作。',
+        '面向眼科医疗器械研发 ICL 术后拱高预测模型，并开展超广角眼底图像处理、差异分析与分类建模；参与算法验证和注册申报，相关工作形成 3 项中国发明公开申请及 1 项 PCT 国际公开。',
       ],
     },
     {
       name:'安德医智 BioMind', role:'医疗图像深度学习算法工程师', date:'2020 年 11 月–2022 年 6 月',
       paragraphs: [
-        '研发心脏超声质控、结构检测与定量分析算法，完成临床系统接入；与解放军总医院等合作研发妇科附件肿块智能诊疗系统。',
+        '研发心脏超声质控、标准切面生成、房间隔缺损检测与定量分析算法，并完成临床系统接入；与解放军总医院等合作研发妇科附件肿块智能诊疗系统。上述工作形成 2 篇共同第一作者论文、1 篇合作论文和 4 项授权发明专利。',
       ],
     },
   ],
