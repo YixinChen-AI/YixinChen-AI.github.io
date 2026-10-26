@@ -354,7 +354,7 @@ function renderCv(t, key) {
   </dl></address>
 </header>
 <main>
-  <section class="cv-profile"><h2>${cvE(labels.research)}</h2><p>${cvE(t.intro)}</p><p class="cv-output-summary">${cvOutputSummary(records, key)}</p></section>
+  <section class="cv-profile"><h2>${cvE(labels.research)}</h2><p>${cvE(t.intro)}</p><p class="cv-profile-funding"><strong>${cvE(t.introFunding)}</strong></p><p class="cv-output-summary">${cvOutputSummary(records, key)}</p></section>
   <section class="cv-education"><h2>${cvE(labels.education)}</h2>
     <article class="cv-entry"><div><h3>${cvE(labels.pku)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(t.phdDegree)}${key === 'en' ? `, expected ${cvE(shared.expectedGraduationYear)}` : `，预计 ${cvE(shared.expectedGraduationYear)} 年毕业`}</span></h3><p>${cvE(t.phdInstitute)}${key === 'en' ? '; ' : '，'}${cvE(labels.supervisor)}${key === 'en' ? ': ' : '：'}${cvE(t.phdSupervisor)}</p></div><p class="cv-date">${cvE(t.phdDate)}</p></article>
     <article class="cv-entry"><div><h3>${cvE(t.londonTitle)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(t.londonDegree)}</span></h3></div><p class="cv-date">${cvE(t.londonDate)}</p></article>
@@ -377,7 +377,7 @@ function renderCv(t, key) {
     ${t.jobs.map(item => `<article class="cv-entry"><div><h3>${cvE(item.name)}<span class="cv-degree">${key === 'en' ? ', ' : '，'}${cvE(item.role)}</span></h3>${item.paragraphs.map(p => `<p>${cvE(p)}</p>`).join('')}</div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
   <section class="cv-presentations"><h2>${cvE(labels.presentations)}</h2>
-    ${presentationItems.map(item => `<article class="cv-entry"><div><h3><strong>${cvE(shared.presentations.conference)} Oral presentation</strong>${key === 'en' ? '; ' : '，'}${cvE(item.title).replace(/[:：]\s*/, key === 'en' ? ' challenge: ' : ' 挑战赛：')}</h3></div><p class="cv-date">${cvE(item.presentation.date)}</p></article>`).join('')}
+    ${presentationItems.map(item => `<article class="cv-entry"><div><h3><strong>${cvE(shared.presentations.conference)} Oral presentation</strong>${key === 'en' ? '; ' : '，'}${cvE(item.title).replace(/[:：]\s*/, key === 'en' ? ' challenge: ' : ' 挑战赛：')}</h3><p class="cv-presentation-summary">${cvE(item.presentation.summary[key])}</p></div><p class="cv-date">${cvE(item.presentation.date)}</p></article>`).join('')}
   </section>
   <section class="cv-service"><h2>${cvE(labels.service)}</h2>
     <p><strong>${cvE(t.reviewTitle)}</strong>${key === 'en' ? ', ' : '：'}${cvE(t.reviewDetail)}</p>
