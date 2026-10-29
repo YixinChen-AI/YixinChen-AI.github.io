@@ -385,6 +385,7 @@ function renderCv(t, key) {
   <section class="cv-news"><h2>${cvE(labels.news)}</h2>
     ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
+  <p class="cv-capability-summary"><strong>${cvE(t.researchCapability)}</strong></p>
   <section class="cv-outlook"><h2>${cvE(labels.outlook)}</h2><p>${cvE(t.workOutlook)}</p></section>
   <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
