@@ -82,6 +82,10 @@ export const shared = {
     translation: 'Deep Learning Theory and Practice Using PyTorch',
     year: '2021',
     isbn: '978-7-302-56850-6',
+    summary: {
+      en: 'Explains deep-learning principles through PyTorch examples that connect theory with model implementation.',
+      zh: '系统讲解人工智能与深度学习的基本原理，通过 PyTorch 代码和案例衔接理论理解与模型实现。',
+    },
   },
   years: ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019'],
 };
@@ -175,6 +179,7 @@ export const en = {
   bookName: shared.book.translation,
   bookOriginalTitle: shared.book.title,
   bookDetail: `Sole author. Tsinghua University Press, ${shared.book.year}. In Chinese. ISBN ${shared.book.isbn}.`,
+  bookSummary: shared.book.summary.en,
   bookAlt: `Cover of ${shared.book.title}`,
   londonTitle: 'King’s College London',
   londonDegree: 'MSc in Artificial Intelligence, with Distinction',
@@ -289,6 +294,7 @@ export const zh = {
   ],
   bookName: `《${shared.book.title}》`,
   bookDetail: `独著，清华大学出版社，${shared.book.year} 年。ISBN ${shared.book.isbn}。`,
+  bookSummary: shared.book.summary.zh,
   bookAlt: `《${shared.book.title}》书封`,
   londonTitle: '伦敦国王学院',
   londonDegree: '人工智能硕士，Distinction',

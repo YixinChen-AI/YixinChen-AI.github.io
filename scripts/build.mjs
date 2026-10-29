@@ -367,7 +367,7 @@ function renderCv(t, key) {
     ${selectedWorks.map(({ work, publication }) => `<article class="cv-highlight"><p class="cv-highlight-meta">${inlineVenue(publication.venue)}${key === 'en' ? '; ' : '；'}${cvE(publication.contribution)}${publication.paper ? ` &nbsp;<a href="${cvE(publication.paper)}">[${cvE(t.paperLink)}]</a>` : ''}${publication.code ? ` &nbsp;<a href="${cvE(publication.code)}">[${cvE(t.codeLink)}]</a>` : ''}</p><h3>${work.id === 'mpum' ? `${cvE(work.name)}: ` : ''}${publication.title}</h3><p>${cvE(work.summary).replace(/\b\d+\b/g, '<strong>$&</strong>')}</p></article>`).join('')}
   </section>
   <section class="cv-book"><h2>${cvE(labels.book)}</h2>
-    <article class="cv-entry"><div><h3>${cvE(t.bookName)}</h3>${t.bookOriginalTitle ? `<p>${cvE(t.bookOriginalTitle)}</p>` : ''}<p>${cvE(t.bookDetail)}</p></div></article>
+    <article class="cv-entry"><div><h3>${cvE(t.bookName)}</h3>${t.bookOriginalTitle ? `<p>${cvE(t.bookOriginalTitle)}</p>` : ''}<p>${cvE(t.bookDetail)}</p><p class="cv-book-summary">${cvE(t.bookSummary)}</p></div></article>
   </section>
   <section class="cv-teaching"><h2>${cvE(labels.teaching)}</h2>
     <p><strong>${cvE(t.teachingAssistantTitle)}</strong>${key === 'en' ? ': ' : '：'}${cvE(shared.teachingAssistantCourse)}</p>
