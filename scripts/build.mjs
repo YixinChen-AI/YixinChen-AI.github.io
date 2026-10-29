@@ -209,7 +209,7 @@ const cvLabels = {
     title: 'Yixin Chen | Curriculum Vitae',
     description: 'Curriculum vitae of Yixin Chen, PhD candidate at Peking University.',
     research: 'Research profile', education: 'Education', selected: 'Selected research', funding: 'Research funding',
-    experience: 'Professional experience', publications: 'Publications',
+    experience: 'Professional experience', publications: 'Publications', outlook: 'Future work plans',
     presentations: 'International conference presentations', teaching: 'Teaching experience', book: 'Book', patents: 'Patents', service: 'Academic service', news: 'Peking University news coverage',
     firstAuthor: 'First author', coFirstAuthor: 'Co-first author',
     email: 'Email', website: 'Academic website', code: 'Research code', papers: 'Publications', scholar: 'Google Scholar',
@@ -220,7 +220,7 @@ const cvLabels = {
     title: '陈亦新 | 个人简历',
     description: '陈亦新，北京大学医学技术博士研究生。',
     research: '研究方向', education: '教育经历', selected: '代表性研究成果', funding: '主持科研项目',
-    experience: '工作经历', publications: '论文',
+    experience: '工作经历', publications: '论文', outlook: '工作展望',
     presentations: '国际学术会议报告经历', teaching: '教学经历', book: '著作', patents: '专利', service: '学术服务', news: '北大新闻报道',
     firstAuthor: '第一作者', coFirstAuthor: '共同第一作者',
     email: '邮箱', website: '个人主页', code: '研究代码', papers: '学术论文', scholar: '谷歌学术',
@@ -385,6 +385,7 @@ function renderCv(t, key) {
   <section class="cv-news"><h2>${cvE(labels.news)}</h2>
     ${t.news.map(item => `<article class="cv-entry"><div><h3><a href="${cvE(item.href)}">${cvE(item.title)}</a></h3></div><p class="cv-date">${cvE(item.date)}</p></article>`).join('')}
   </section>
+  <section class="cv-outlook"><h2>${cvE(labels.outlook)}</h2><p>${cvE(t.workOutlook)}</p></section>
   <section class="cv-publications"><h2>${cvE(labels.publications)}</h2><p class="cv-publication-note">${cvE(equalContributionNotes[key])}</p>${publications}</section>
   <section class="cv-patents"><h2>${cvE(labels.patents)}</h2><p class="patent-summary">${cvE(patentSummary(key))}</p>${renderPatentGroups(key)}</section>
 </main>
